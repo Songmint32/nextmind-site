@@ -14,7 +14,7 @@ The page itself. The sentences a visitor reads are in this file. To change the w
 
 Search this file for `TODO`. Those notes mark links that are not ready yet: the real X (Twitter) address, and a contact link. They use `#` on purpose, so they do not send anyone to the wrong place.
 
-The three Daily news cards and the two video slots are examples. The page says so. Do not type a real news story into them unless you mean to publish that story.
+The Daily Boards cards, the video slots, and the Tools cards are examples. The page says so. Do not type a real news story, a real count, or a working tool into them unless you mean to publish that.
 
 ### `styles.css`
 
@@ -22,7 +22,13 @@ How the page looks: colors, type, spacing, and the layout on a phone versus a wi
 
 ### `site.js`
 
-A few lines that write the real current month next to the big title, such as “November 2026”. If the file does not run, the month written in `index.html` stays on the page.
+A short script that does three things:
+
+- Writes the real current month next to the title, such as “November 2026”.
+- Shows one section at a time when you use Overview, Daily Boards, Videos, Tools, or About.
+- Opens the search box when someone clicks Search or presses ⌘K (Ctrl+K on Windows).
+
+The search box only jumps between those sections. It does not look up news. If this file does not run, every section stays on the page and the month written in `index.html` stays as it is.
 
 ### `assets/logo.png` and `assets/logo.svg`
 
