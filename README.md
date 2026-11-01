@@ -24,9 +24,9 @@ How the page looks: colors, type, spacing, and the layout on a phone versus a wi
 
 A few lines that write the real current month next to the big title, such as “November 2026”. If the file does not run, the month written in `index.html` stays on the page.
 
-### `favicon.svg`
+### `assets/logo.png` and `assets/logo.svg`
 
-The small icon on the browser tab.
+The NextMind mark: a white angular monogram on a black square. The page uses the SVG next to the name and as the browser icon. The PNG is the same logo, kept for phones that want a PNG icon (`apple-touch-icon`). You do not need to edit these to change the words.
 
 ### `fonts/`
 

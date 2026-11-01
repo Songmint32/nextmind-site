@@ -40,8 +40,9 @@ jobs:
 
       - name: Gather the files the site needs
         run: |
-          mkdir -p _site/fonts
-          cp index.html styles.css site.js favicon.svg _site/
+          mkdir -p _site/fonts _site/assets
+          cp index.html styles.css site.js _site/
+          cp assets/logo.svg assets/logo.png _site/assets/
           cp fonts/*.woff2 _site/fonts/
 
       - name: Upload the site
