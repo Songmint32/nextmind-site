@@ -50,6 +50,14 @@
           <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 8 12 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="8" r="1.2" fill="currentColor"/></svg>
           Trend Radar
         </a>
+        <a href="#studio" data-view="studio">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2.5h7.5L13 5v8.5H3Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M10.5 2.5V5H13M5 8h6M5 10.5h4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          Script Studio
+        </a>
+        <a href="#saved" data-view="saved">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5h8v11l-4-2.4-4 2.4Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          Saved
+        </a>
         <a href="#voiceover" data-view="voiceover">
           <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5h2.2a1.6 1.6 0 0 1 1.6 1.6v3.2a1.6 1.6 0 0 1-1.6 1.6H6L3.5 12V3.5H6Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M11 6.2a2.4 2.4 0 0 1 0 3.6M12.6 4.6a4.4 4.4 0 0 1 0 6.8" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
           Voiceover
@@ -99,6 +107,7 @@
               <div class="skeleton"></div>
             </div>
           </div>
+          <div class="stack">
           <form class="card quick-voice" id="quick-voice">
             <p class="meta">Voiceover</p>
             <h2>Try a line</h2>
@@ -110,6 +119,12 @@
             </div>
             <p class="hint" id="quick-status" aria-live="polite"></p>
           </form>
+          <article class="card">
+            <p class="pill"><span class="dot dot-blue" aria-hidden="true"></span>Coming soon</p>
+            <h2>Video</h2>
+            <p>A later version could build a video from a script plus a voiceover. This site cannot render or export video. There is no upload.</p>
+          </article>
+          </div>
         </div>
       </section>
 
@@ -137,6 +152,12 @@
               <input id="radar-search" type="search" placeholder="Title or source" autocomplete="off">
             </label>
             <label>
+              <span class="field-label">Source</span>
+              <select id="radar-source">
+                <option value="">All sources</option>
+              </select>
+            </label>
+            <label>
               <span class="field-label">Sort</span>
               <select id="radar-sort">
                 <option value="heat">Heat</option>
@@ -145,6 +166,11 @@
             </label>
           </div>
         </div>
+        <div class="roundup-bar" id="roundup-bar" hidden>
+          <p id="roundup-count">0 of 5 selected</p>
+          <button class="btn primary" type="button" id="roundup-go">Make daily roundup</button>
+          <button class="btn" type="button" id="roundup-clear">Clear</button>
+        </div>
         <p class="hint" id="radar-feeds"></p>
         <div id="radar-list" class="radar-grid" aria-live="polite" aria-busy="true">
           <div class="skeleton tall"></div>
@@ -152,6 +178,45 @@
         </div>
         <div id="radar-sentinel"></div>
         <button class="btn load-more" type="button" id="load-more" hidden>Load more</button>
+      </section>
+
+      <section class="view" id="panel-studio" data-view-panel="studio" aria-label="Script Studio">
+        <p class="pill" id="studio-label">Template draft · AI scripts coming soon</p>
+        <p class="section-note">The draft uses the headline, the source, and the link. It does not invent the rest of the article. Press Generate again after you change the format or the tone.</p>
+        <div id="studio-sources" class="stack"></div>
+        <div class="studio-controls">
+          <div class="chips" role="group" aria-label="Format">
+            <button type="button" class="chip is-on" data-format="30s">30s Short/Reel</button>
+            <button type="button" class="chip" data-format="60s">60s</button>
+            <button type="button" class="chip" data-format="3min">3-min explainer</button>
+          </div>
+          <div class="chips" role="group" aria-label="Tone">
+            <button type="button" class="chip is-on" data-tone="neutral">Neutral</button>
+            <button type="button" class="chip" data-tone="hype">Hype</button>
+            <button type="button" class="chip" data-tone="explainer">Explainer</button>
+          </div>
+          <div class="button-row">
+            <button class="btn primary" type="button" id="studio-generate">Generate</button>
+          </div>
+        </div>
+        <label class="field-label" for="studio-output">Script</label>
+        <textarea id="studio-output" rows="14" placeholder="Choose Make script on a headline. The draft shows up here, and you can edit it."></textarea>
+        <p class="counts" id="studio-counts" aria-live="polite">0 words · about 0:00</p>
+        <p class="hint" id="studio-status" aria-live="polite"></p>
+        <div class="button-row">
+          <button class="btn" type="button" id="studio-copy">Copy</button>
+          <button class="btn" type="button" id="studio-download">Download .txt</button>
+          <button class="btn" type="button" id="studio-send">Send to Voiceover</button>
+          <button class="btn" type="button" id="studio-save">Save draft</button>
+        </div>
+        <h2 class="subhead">Drafts</h2>
+        <p class="hint">Saved in this browser only. Rename a draft in the box, or delete it.</p>
+        <div id="draft-list" class="stack"></div>
+      </section>
+
+      <section class="view" id="panel-saved" data-view-panel="saved" aria-label="Saved">
+        <p class="section-note">Stories you save stay in this browser. They are not uploaded.</p>
+        <div id="saved-list" class="stack"></div>
       </section>
 
       <section class="view" id="panel-voiceover" data-view-panel="voiceover" aria-label="Voiceover">
@@ -266,6 +331,18 @@
       <p class="palette-hint">Searches headlines already on this page. It does not contact another server.</p>
     </form>
   </dialog>
+  <dialog class="palette" id="help" aria-labelledby="help-title">
+    <form method="dialog">
+      <h2 id="help-title">Keyboard shortcuts</h2>
+      <ul class="help-list">
+        <li><kbd>?</kbd> Open this list</li>
+        <li><kbd>⌘K</kbd> or <kbd>Ctrl+K</kbd> Search headlines</li>
+        <li><kbd>Esc</kbd> Close the menu or this list</li>
+      </ul>
+      <button class="btn" type="submit">Close</button>
+    </form>
+  </dialog>
+  <script src="script-studio.js"></script>
   <script src="site.js"></script>
 </body>
 </html>

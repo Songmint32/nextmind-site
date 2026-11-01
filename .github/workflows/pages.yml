@@ -49,7 +49,7 @@ jobs:
       - name: Gather the files the site needs
         run: |
           mkdir -p _site/fonts _site/assets _site/data
-          cp index.html styles.css site.js _site/
+          cp index.html styles.css site.js script-studio.js _site/
           cp assets/logo.svg assets/logo.png _site/assets/
           cp fonts/*.woff2 _site/fonts/
           cp data/trends.json _site/data/

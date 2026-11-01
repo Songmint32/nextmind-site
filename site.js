@@ -6,6 +6,8 @@
   var views = {
     overview: { crumb: "Overview", lede: "Find what's moving in tech, then voice the post." },
     radar: { crumb: "Trend Radar", lede: "Public headlines from tech sites and Hacker News. Open the original to read it." },
+    studio: { crumb: "Script Studio", lede: "Turn a headline into a spoken draft, then send it to Voiceover." },
+    saved: { crumb: "Saved", lede: "Stories you kept in this browser." },
     voiceover: { crumb: "Voiceover", lede: "Preview a script with an English voice on this device. Nothing is uploaded." },
     pricing: { crumb: "Pricing", lede: "Placeholder tiers. Nothing here is for sale." },
     about: { crumb: "About", lede: "What this app does, and what it does not do." }
@@ -14,18 +16,24 @@
   var HEAT_HN = "Heat starts at 100 when a story is new and falls to 0 after 48 hours. This one also adds Hacker News points and comments.";
   var HEAT_TIME = "Heat starts at 100 when a story is new and falls to 0 after 48 hours. This source has no points, so the score is recency only.";
 
-  var state = { topic: "", range: "24h", sort: "heat", query: "" };
+  var state = { topic: "", source: "", range: "24h", sort: "heat", query: "" };
   var BATCH = 20;
   var shown = BATCH;
   var sections = [
     ["overview", "Overview"],
     ["radar", "Trend Radar"],
+    ["studio", "Script Studio"],
+    ["saved", "Saved"],
     ["voiceover", "Voiceover"],
     ["pricing", "Pricing"],
     ["about", "About"]
   ];
   var trends = null;
   var speaking = false;
+  var picked = [];
+  var studioStories = [];
+  var studioRoundup = false;
+  var studioNeedsDraft = false;
 
   var month = document.getElementById("month-label");
   var crumb = document.getElementById("crumb");
@@ -88,14 +96,16 @@
     if (name === "radar") renderRadar();
     if (name === "overview") renderOverview();
     if (name === "voiceover") {
-      var saved = sessionStorage.getItem("nextmind-script");
+      var savedScript = sessionStorage.getItem("nextmind-script");
       var script = document.getElementById("script");
-      if (saved && script && !script.value) {
-        script.value = saved;
+      if (savedScript != null && script) {
+        script.value = savedScript;
         sessionStorage.removeItem("nextmind-script");
         updateScript();
       }
     }
+    if (name === "studio") renderStudio();
+    if (name === "saved") renderSaved();
   }
 
   function showAndStay(name) {
@@ -242,6 +252,8 @@
       })
       .then(function (data) {
         trends = data && Array.isArray(data.items) ? data : { updatedAt: "", feeds: [], items: [] };
+        fillSources();
+        updateRoundupBar();
         renderOverview();
         renderRadar();
       })
@@ -283,6 +295,7 @@
       var age = ageMs(item, now);
       if (age < -5 * 60 * 1000 || age > maxAge) return false;
       if (state.topic && (item.topics || []).indexOf(state.topic) === -1) return false;
+      if (state.source && item.source !== state.source) return false;
       if (query) {
         var hay = (item.title + " " + item.source).toLowerCase();
         if (hay.indexOf(query) === -1) return false;
@@ -348,6 +361,315 @@
     document.body.removeChild(area);
     if (ok) done();
     else button.textContent = "Copy failed";
+  }
+
+  function storyKey(item) {
+    return item && (item.id || item.url || item.title) || "";
+  }
+
+  function storySnapshot(item) {
+    var source = item.source || "Unknown source";
+    var title = item.title || "Untitled";
+    return {
+      id: storyKey(item),
+      title: title,
+      source: source,
+      url: item.url || "",
+      topics: item.topics || [],
+      summary: item.summary || ("Headline from " + source + ": " + title),
+      publishedAt: item.publishedAt || ""
+    };
+  }
+
+  function readStore(key) {
+    try {
+      var parsed = JSON.parse(localStorage.getItem(key) || "[]");
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function writeStore(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  function isSaved(item) {
+    var key = storyKey(item);
+    return readStore("nextmind-saved").some(function (row) { return row.id === key; });
+  }
+
+  function toggleSaved(item) {
+    var key = storyKey(item);
+    var rows = readStore("nextmind-saved").filter(function (row) { return row.id !== key; });
+    if (!isSaved(item)) rows.unshift(storySnapshot(item));
+    writeStore("nextmind-saved", rows);
+    renderRadar();
+    renderOverview();
+    renderSaved();
+  }
+
+  function togglePick(item, box) {
+    var key = storyKey(item);
+    var has = picked.indexOf(key) !== -1;
+    if (box.checked && !has) {
+      if (picked.length >= 5) {
+        box.checked = false;
+        var note = document.getElementById("roundup-count");
+        if (note) note.textContent = "You can select up to 5 stories.";
+        return;
+      }
+      picked.push(key);
+    } else if (!box.checked && has) {
+      picked = picked.filter(function (id) { return id !== key; });
+    }
+    updateRoundupBar();
+  }
+
+  function pickedStories() {
+    var items = trends && trends.items ? trends.items : [];
+    return picked.map(function (id) {
+      for (var i = 0; i < items.length; i++) {
+        if (storyKey(items[i]) === id) return storySnapshot(items[i]);
+      }
+      return null;
+    }).filter(Boolean);
+  }
+
+  function updateRoundupBar() {
+    var bar = document.getElementById("roundup-bar");
+    var count = document.getElementById("roundup-count");
+    var goBtn = document.getElementById("roundup-go");
+    if (count) count.textContent = picked.length + " of 5 selected";
+    if (bar) bar.hidden = picked.length === 0;
+    if (goBtn) goBtn.disabled = picked.length === 0;
+  }
+
+  function queueStudio(stories, roundup) {
+    studioStories = (stories || []).slice(0, 5);
+    studioRoundup = !!roundup || studioStories.length > 1;
+    studioNeedsDraft = true;
+    go("studio");
+  }
+
+  function studioOptions() {
+    var formatBtn = document.querySelector(".chip[data-format].is-on");
+    var toneBtn = document.querySelector(".chip[data-tone].is-on");
+    return {
+      format: formatBtn ? formatBtn.getAttribute("data-format") : "30s",
+      tone: toneBtn ? toneBtn.getAttribute("data-tone") : "neutral",
+      roundup: studioRoundup || studioStories.length > 1
+    };
+  }
+
+  function clock(seconds) {
+    var safe = Math.max(0, seconds || 0);
+    var mins = Math.floor(safe / 60);
+    var rest = safe % 60;
+    return mins + ":" + (rest < 10 ? "0" : "") + rest;
+  }
+
+  function renderStudio() {
+    var box = document.getElementById("studio-sources");
+    var output = document.getElementById("studio-output");
+    var status = document.getElementById("studio-status");
+    if (box) {
+      box.textContent = "";
+      if (!studioStories.length) {
+        var empty = document.createElement("p");
+        empty.className = "empty";
+        empty.textContent = "Choose Make script on a headline, or select up to 5 stories for a daily roundup.";
+        box.appendChild(empty);
+      } else {
+        studioStories.forEach(function (story) {
+          var card = document.createElement("article");
+          card.className = "card";
+          var title = document.createElement("h2");
+          title.textContent = story.title;
+          var meta = document.createElement("p");
+          meta.textContent = story.source + (story.url ? " · " + story.url : "");
+          var summary = document.createElement("p");
+          summary.textContent = story.summary;
+          card.appendChild(title);
+          card.appendChild(meta);
+          card.appendChild(summary);
+          box.appendChild(card);
+        });
+      }
+    }
+    if (studioNeedsDraft) {
+      studioNeedsDraft = false;
+      buildStudioDraft();
+    } else {
+      updateStudioCounts();
+    }
+    renderDrafts();
+  }
+
+  function buildStudioDraft() {
+    var output = document.getElementById("studio-output");
+    var status = document.getElementById("studio-status");
+    if (!output || !window.generateScript) return;
+    var result = window.generateScript(studioStories, studioOptions());
+    Promise.resolve(result).then(function (draft) {
+      output.value = draft && draft.text ? draft.text : "";
+      updateStudioCounts();
+      var label = document.getElementById("studio-label");
+      if (label) label.textContent = (draft && draft.label) || "Template draft · AI scripts coming soon";
+      if (status) status.textContent = draft && draft.error ? draft.error : "";
+    }).catch(function (error) {
+      if (status) status.textContent = error && error.message ? error.message : "The draft could not be built.";
+    });
+  }
+
+  function updateStudioCounts() {
+    var output = document.getElementById("studio-output");
+    var counts = document.getElementById("studio-counts");
+    if (!output || !counts) return;
+    var text = output.value.trim();
+    var words = text ? text.split(/\s+/).length : 0;
+    counts.textContent = words + " words · about " + clock(Math.round(words / 150 * 60)) + " at 150 words per minute";
+  }
+
+  function renderDrafts() {
+    var list = document.getElementById("draft-list");
+    if (!list) return;
+    var drafts = readStore("nextmind-drafts");
+    list.textContent = "";
+    if (!drafts.length) {
+      var empty = document.createElement("p");
+      empty.className = "empty";
+      empty.textContent = "No drafts yet. Save the script above and it stays in this browser.";
+      list.appendChild(empty);
+      return;
+    }
+    drafts.forEach(function (draft) {
+      var row = document.createElement("article");
+      row.className = "card draft-row";
+      var name = document.createElement("input");
+      name.type = "text";
+      name.value = draft.name || "Draft";
+      name.setAttribute("aria-label", "Draft name");
+      name.addEventListener("change", function () {
+        var next = readStore("nextmind-drafts").map(function (item) {
+          if (item.id === draft.id) item.name = name.value.trim() || "Draft";
+          return item;
+        });
+        writeStore("nextmind-drafts", next);
+      });
+      var open = document.createElement("button");
+      open.type = "button";
+      open.className = "btn";
+      open.textContent = "Open";
+      open.addEventListener("click", function () {
+        var output = document.getElementById("studio-output");
+        if (output) output.value = draft.text || "";
+        updateStudioCounts();
+        go("studio");
+      });
+      var remove = document.createElement("button");
+      remove.type = "button";
+      remove.className = "btn";
+      remove.textContent = "Delete";
+      remove.addEventListener("click", function () {
+        writeStore("nextmind-drafts", readStore("nextmind-drafts").filter(function (item) { return item.id !== draft.id; }));
+        renderDrafts();
+      });
+      row.appendChild(name);
+      row.appendChild(open);
+      row.appendChild(remove);
+      list.appendChild(row);
+    });
+  }
+
+  function renderSaved() {
+    var list = document.getElementById("saved-list");
+    if (!list) return;
+    var rows = readStore("nextmind-saved");
+    list.textContent = "";
+    if (!rows.length) {
+      var empty = document.createElement("p");
+      empty.className = "empty";
+      empty.textContent = "No saved stories yet. Use Save on a headline.";
+      list.appendChild(empty);
+      return;
+    }
+    rows.forEach(function (story) {
+      var card = document.createElement("article");
+      card.className = "card";
+      var title = document.createElement("h2");
+      title.textContent = story.title;
+      var meta = document.createElement("p");
+      meta.textContent = story.source || "";
+      var actions = document.createElement("div");
+      actions.className = "button-row";
+      var make = document.createElement("button");
+      make.type = "button";
+      make.className = "btn";
+      make.textContent = "Make script";
+      make.addEventListener("click", function () { queueStudio([story], false); });
+      var remove = document.createElement("button");
+      remove.type = "button";
+      remove.className = "btn";
+      remove.textContent = "Remove";
+      remove.addEventListener("click", function () {
+        writeStore("nextmind-saved", readStore("nextmind-saved").filter(function (item) { return item.id !== story.id; }));
+        renderSaved();
+        renderRadar();
+        renderOverview();
+      });
+      actions.appendChild(make);
+      actions.appendChild(remove);
+      card.appendChild(title);
+      card.appendChild(meta);
+      card.appendChild(actions);
+      list.appendChild(card);
+    });
+  }
+
+  function copyText(text, button, doneLabel) {
+    var previous = button.textContent;
+    var done = function () {
+      button.textContent = doneLabel || "Copied";
+      setTimeout(function () { button.textContent = previous; }, 1600);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text, done, button); });
+    } else {
+      fallbackCopy(text, done, button);
+    }
+  }
+
+  function postText(item) {
+    var tags = (item.topics || []).map(function (topic) {
+      return "#" + String(topic).replace(/[^A-Za-z0-9]+/g, "");
+    }).filter(Boolean).join(" ");
+    return item.title + "\n\nvia " + item.source + "\n" + item.url + (tags ? "\n\n" + tags : "");
+  }
+
+  function copyPost(item, button) {
+    copyText(postText(item), button, "Copied");
+  }
+
+  function fillSources() {
+    var select = document.getElementById("radar-source");
+    if (!select || !trends) return;
+    var current = state.source;
+    var names = {};
+    (trends.items || []).forEach(function (item) { if (item.source) names[item.source] = true; });
+    select.textContent = "";
+    var all = document.createElement("option");
+    all.value = "";
+    all.textContent = "All sources";
+    select.appendChild(all);
+    Object.keys(names).sort().forEach(function (name) {
+      var option = document.createElement("option");
+      option.value = name;
+      option.textContent = name;
+      select.appendChild(option);
+    });
+    select.value = names[current] ? current : "";
+    state.source = select.value;
   }
 
   function thumbFor(item) {
@@ -435,10 +757,33 @@
     var copy = document.createElement("button");
     copy.type = "button";
     copy.className = "mini";
-    copy.textContent = "Copy as post idea";
-    copy.addEventListener("click", function () { copyIdea(item, copy); });
+    copy.textContent = "Copy as post";
+    copy.addEventListener("click", function () { copyPost(item, copy); });
+    var make = document.createElement("button");
+    make.type = "button";
+    make.className = "mini";
+    make.textContent = "Make script";
+    make.addEventListener("click", function () { queueStudio([storySnapshot(item)], false); });
+    var save = document.createElement("button");
+    save.type = "button";
+    save.className = "mini";
+    var savedNow = isSaved(item);
+    save.textContent = savedNow ? "Saved" : "Save";
+    save.setAttribute("aria-pressed", savedNow ? "true" : "false");
+    save.addEventListener("click", function () { toggleSaved(item); });
+    var selectLabel = document.createElement("label");
+    selectLabel.className = "select-story";
+    var select = document.createElement("input");
+    select.type = "checkbox";
+    select.checked = picked.indexOf(storyKey(item)) !== -1;
+    select.addEventListener("change", function () { togglePick(item, select); });
+    selectLabel.appendChild(select);
+    selectLabel.appendChild(document.createTextNode(" Select for roundup"));
     actions.appendChild(link);
     actions.appendChild(copy);
+    actions.appendChild(make);
+    actions.appendChild(save);
+    actions.appendChild(selectLabel);
     body.appendChild(actions);
     card.appendChild(body);
     return card;
@@ -447,13 +792,15 @@
   function renderOverview() {
     var box = document.getElementById("overview-trends");
     if (!box || !trends) return;
-    var saved = { topic: state.topic, range: state.range, sort: state.sort, query: state.query };
+    var saved = { topic: state.topic, source: state.source, range: state.range, sort: state.sort, query: state.query };
     state.topic = "";
+    state.source = "";
     state.range = "24h";
     state.sort = "heat";
     state.query = "";
     var top = filtered().slice(0, 4);
     state.topic = saved.topic;
+    state.source = saved.source;
     state.range = saved.range;
     state.sort = saved.sort;
     state.query = saved.query;
@@ -539,6 +886,78 @@
   var sort = document.getElementById("radar-sort");
   if (search) search.addEventListener("input", function () { state.query = search.value; shown = BATCH; renderRadar(); });
   if (sort) sort.addEventListener("change", function () { state.sort = sort.value; shown = BATCH; renderRadar(); });
+  var sourceSelect = document.getElementById("radar-source");
+  if (sourceSelect) sourceSelect.addEventListener("change", function () {
+    state.source = sourceSelect.value;
+    shown = BATCH;
+    renderRadar();
+  });
+  var roundupGo = document.getElementById("roundup-go");
+  var roundupClear = document.getElementById("roundup-clear");
+  if (roundupGo) roundupGo.addEventListener("click", function () { queueStudio(pickedStories(), true); });
+  if (roundupClear) roundupClear.addEventListener("click", function () {
+    picked = [];
+    updateRoundupBar();
+    renderRadar();
+  });
+  document.querySelectorAll(".chip[data-format], .chip[data-tone]").forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      var group = chip.hasAttribute("data-format") ? "data-format" : "data-tone";
+      document.querySelectorAll(".chip[" + group + "]").forEach(function (other) {
+        other.classList.toggle("is-on", other === chip);
+      });
+    });
+  });
+  var studioOutput = document.getElementById("studio-output");
+  if (studioOutput) studioOutput.addEventListener("input", updateStudioCounts);
+  var studioGenerate = document.getElementById("studio-generate");
+  if (studioGenerate) studioGenerate.addEventListener("click", buildStudioDraft);
+  var studioCopy = document.getElementById("studio-copy");
+  if (studioCopy) studioCopy.addEventListener("click", function () {
+    var output = document.getElementById("studio-output");
+    if (!output || !output.value.trim()) return;
+    copyText(output.value, studioCopy, "Copied");
+  });
+  var studioDownload = document.getElementById("studio-download");
+  if (studioDownload) studioDownload.addEventListener("click", function () {
+    var output = document.getElementById("studio-output");
+    var text = output ? output.value : "";
+    if (!text.trim()) return;
+    var blob = new Blob([text], { type: "text/plain" });
+    var link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "nextmind-script.txt";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(function () { URL.revokeObjectURL(link.href); }, 1000);
+  });
+  var studioSend = document.getElementById("studio-send");
+  if (studioSend) studioSend.addEventListener("click", function () {
+    var output = document.getElementById("studio-output");
+    sessionStorage.setItem("nextmind-script", output ? output.value : "");
+    go("voiceover");
+  });
+  var studioSave = document.getElementById("studio-save");
+  if (studioSave) studioSave.addEventListener("click", function () {
+    var output = document.getElementById("studio-output");
+    var text = output ? output.value.trim() : "";
+    if (!text) return;
+    var first = text.split("\n").filter(Boolean)[0] || "Draft";
+    var drafts = readStore("nextmind-drafts");
+    drafts.unshift({ id: String(Date.now()), name: first.slice(0, 48), text: output.value, updatedAt: new Date().toISOString() });
+    writeStore("nextmind-drafts", drafts);
+    renderDrafts();
+  });
+  var help = document.getElementById("help");
+  document.addEventListener("keydown", function (event) {
+    if (event.key !== "?" || event.metaKey || event.ctrlKey || event.altKey) return;
+    var tag = event.target && event.target.tagName ? event.target.tagName.toLowerCase() : "";
+    if (tag === "input" || tag === "textarea" || tag === "select" || (event.target && event.target.isContentEditable)) return;
+    if (!help || !help.showModal) return;
+    event.preventDefault();
+    help.showModal();
+  });
   var moreBtn = document.getElementById("load-more");
   if (moreBtn) moreBtn.addEventListener("click", revealMore);
   var sentinel = document.getElementById("radar-sentinel");
