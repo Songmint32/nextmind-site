@@ -1,0 +1,44 @@
+# Fetches public headlines and commits data/trends.json.
+# A push to main does not start this file, so the commit cannot loop.
+# The Pages workflow listens for this job and publishes the new file.
+#
+# This commit only works if Actions is allowed to write to the repository:
+# Settings → Actions → General → Workflow permissions → Read and write permissions.
+
+name: Update trends
+
+on:
+  schedule:
+    # Every two hours, at minute 15. GitHub may start it a little late.
+    - cron: "15 */2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch public headlines
+        run: python3 scripts/fetch_trends.py
+
+      - name: Commit the data file
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/trends.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update trend radar data"
+            git push
+          fi

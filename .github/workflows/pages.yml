@@ -9,6 +9,11 @@ on:
     branches:
       - main
   workflow_dispatch:
+  # A commit made by the trends job uses the Actions token, and that
+  # kind of push does not start this workflow by itself. This link does.
+  workflow_run:
+    workflows: ["Update trends"]
+    types: [completed]
 
 permissions:
   contents: read
@@ -21,6 +26,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -28,6 +34,8 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
@@ -40,10 +48,11 @@ jobs:
 
       - name: Gather the files the site needs
         run: |
-          mkdir -p _site/fonts _site/assets
+          mkdir -p _site/fonts _site/assets _site/data
           cp index.html styles.css site.js _site/
           cp assets/logo.svg assets/logo.png _site/assets/
           cp fonts/*.woff2 _site/fonts/
+          cp data/trends.json _site/data/
 
       - name: Upload the site
         uses: actions/upload-pages-artifact@v3
