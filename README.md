@@ -3,6 +3,7 @@
 NextMind is a small website for people who make short posts about tech. It has two tools:
 
 - **Trend Radar** shows real headlines from public tech sites.
+- **Script Studio** turns a headline into a spoken draft you can edit. The draft is a template. It does not call an AI service.
 - **Voiceover** reads a script out loud with the voice already on your computer or phone.
 
 There is nothing to install and nothing to build. The pages are plain files. GitHub hosts them for free.
@@ -23,9 +24,13 @@ Search for `TODO`. Those notes are links that are not ready yet (the real X addr
 
 Colors, type, and layout. The space at the edge of the screen is `--gutter`. The page background is `--bg`. You do not need to open this file to change the words.
 
+### `script-studio.js`
+
+Builds the spoken draft. The page calls `generateScript(stories, opts)`. Today that function fills in a template from the headline, the source, and the link. A later server could replace the inside of that function. It must not add facts that are not in the story you pass in.
+
 ### `site.js`
 
-Makes the sections switch, fills Trend Radar from `data/trends.json`, and runs the voice preview. The preview uses the browser's own speech. It cannot be saved as an MP3.
+Switches sections, fills Trend Radar, saves stories and drafts in this browser, and runs the voice preview. The preview uses the browser's own speech. It cannot be saved as an MP3. Saved stories and drafts stay in `localStorage` on your machine. They are not uploaded.
 
 ### `data/trends.json`
 
@@ -73,6 +78,10 @@ The script also saves a picture address when the feed includes one. If a story h
 ## Heat
 
 A brand-new story scores 100. The score falls to 0 after 48 hours. Hacker News points and comments add more. Other sites are scored only by how new they are. The Trend Radar page says this next to the list.
+
+## Script Studio
+
+On a headline, press **Make script**. Script Studio fills in a hook, three beats, a takeaway, and a call to action from that headline, its source, and its link. It is marked "Template draft · AI scripts coming soon" because it does not call an AI service. You can edit the text, copy it, download a `.txt` file, or send it to Voiceover. Select up to five stories and press **Make daily roundup** for one combined draft. **Save** keeps a story, and **Save draft** keeps a script, only in this browser.
 
 ## Voiceover
 
