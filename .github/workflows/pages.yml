@@ -1,0 +1,54 @@
+# Publishes the homepage to GitHub Pages after a change lands on main.
+# The page files are copied into _site so the README and this workflow
+# are not part of the public site.
+
+name: Publish site
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          # Ask GitHub to turn Pages on if it is off, and to use Actions
+          # as the source. The token Actions provides cannot create a Pages
+          # site, so the first time this still needs a person:
+          # Settings → Pages → Build and deployment → Source: GitHub Actions.
+          enablement: true
+
+      - name: Gather the files the site needs
+        run: |
+          mkdir -p _site/fonts
+          cp index.html styles.css site.js favicon.svg _site/
+          cp fonts/*.woff2 _site/fonts/
+
+      - name: Upload the site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

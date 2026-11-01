@@ -1,0 +1,10 @@
+Font files in this folder:
+
+Inter (latin, weights 400 and 500)
+Copyright 2016 The Inter Project Authors (https://github.com/rsms/inter)
+
+IBM Plex Mono (latin, weight 400)
+Copyright 2017 IBM Corp. (https://github.com/IBM/plex)
+
+Both are licensed under the SIL Open Font License, Version 1.1.
+The license text is in OFL.txt in this folder.
