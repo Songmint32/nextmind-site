@@ -14,6 +14,7 @@ import os
 import re
 import sys
 import urllib.request
+from urllib.parse import urljoin
 import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
@@ -26,6 +27,12 @@ HN_TOP = "https://hacker-news.firebaseio.com/v0/topstories.json"
 HN_ITEM = "https://hacker-news.firebaseio.com/v0/item/{}.json"
 HN_LIMIT = 30
 MAX_AGE = timedelta(days=8)
+# How many article pages to open when a feed has no picture.
+# The rest wait for a later run. Results are remembered in imageCache.
+PAGE_CAP = 36
+PAGE_TIMEOUT = 5
+PAGE_WORKERS = 6
+PAGE_BYTES = 200000
 
 # name, url. These are public feeds. Change this list to follow different sites.
 FEEDS = [
@@ -150,7 +157,101 @@ def heat_score(published, now, points, comments):
     return int(round(recency + boost))
 
 
-def make_item(title, source, url, published, points=None, comments=None):
+IMG_TAG = re.compile(r"<img\b[^>]*?\bsrc=[\"']([^\"']+)[\"']", re.I)
+META_IMAGE = re.compile(
+    r"<meta\b[^>]*?(?:property|name)=[\"'](?:og:image(?::url)?|twitter:image(?::src)?)[\"'][^>]*?\bcontent=[\"']([^\"']+)[\"']"
+    r"|<meta\b[^>]*?\bcontent=[\"']([^\"']+)[\"'][^>]*?(?:property|name)=[\"'](?:og:image(?::url)?|twitter:image(?::src)?)[\"']",
+    re.I,
+)
+
+
+def usable_image(url, base=None):
+    if not url:
+        return ""
+    url = html.unescape(url.strip())
+    if base:
+        url = urljoin(base, url)
+    if not url.startswith("http"):
+        return ""
+    if url.startswith("data:"):
+        return ""
+    if len(url) > 2000:
+        return ""
+    return url
+
+
+def raw_html(node):
+    chunks = []
+    for child in list(node):
+        if local(child.tag) in ("encoded", "content", "description", "summary"):
+            chunks.append("".join(child.itertext()))
+    return "\n".join(chunks)
+
+
+def image_from_feed(node, page_url):
+    for child in list(node):
+        name = local(child.tag)
+        url = child.attrib.get("url") or ""
+        medium = (child.attrib.get("medium") or "").lower()
+        kind = (child.attrib.get("type") or "").lower()
+        if name in ("content", "thumbnail") and url:
+            if name == "thumbnail" or medium == "image" or kind.startswith("image") or not medium:
+                found = usable_image(url, page_url)
+                if found:
+                    return found
+        if name == "enclosure" and url and (kind.startswith("image") or re.search(r"\.(jpe?g|png|webp|gif)(\?|$)", url, re.I)):
+            found = usable_image(url, page_url)
+            if found:
+                return found
+    match = IMG_TAG.search(raw_html(node))
+    if match:
+        return usable_image(match.group(1), page_url)
+    return ""
+
+
+def image_from_page(page_url):
+    if not page_url or "news.ycombinator.com" in page_url:
+        return ""
+    try:
+        req = urllib.request.Request(
+            page_url,
+            headers={"User-Agent": UA, "Accept": "text/html,application/xhtml+xml"},
+        )
+        with urllib.request.urlopen(req, timeout=PAGE_TIMEOUT) as response:
+            kind = (response.headers.get("Content-Type") or "").lower()
+            if "html" not in kind and "xml" not in kind and kind:
+                return ""
+            raw = response.read(PAGE_BYTES).decode("utf-8", "replace")
+            final_url = response.geturl()
+    except Exception:
+        return ""
+    match = META_IMAGE.search(raw)
+    if not match:
+        return ""
+    found = match.group(1) or match.group(2) or ""
+    return usable_image(found, final_url)
+
+
+def load_image_cache():
+    if not os.path.exists(OUT):
+        return {}
+    try:
+        with open(OUT, encoding="utf-8") as handle:
+            payload = json.load(handle)
+    except (OSError, json.JSONDecodeError):
+        return {}
+    cache = {}
+    for key, value in (payload.get("imageCache") or {}).items():
+        cache[key] = value if isinstance(value, str) else ""
+    for item in payload.get("items") or []:
+        url = canonical(item.get("url"))
+        image = item.get("image") or ""
+        if url and image and url not in cache:
+            cache[url] = image
+    return cache
+
+
+def make_item(title, source, url, published, points=None, comments=None, image=""):
     title = clean(title)
     url = (url or "").strip()
     if not title or not url or published is None:
@@ -164,6 +265,7 @@ def make_item(title, source, url, published, points=None, comments=None):
         "published": published,
         "points": points,
         "comments": comments,
+        "image": image or "",
     }
 
 
@@ -176,7 +278,14 @@ def parse_feed(source, raw):
             nodes.append(element)
     items = []
     for node in nodes[:25]:
-        item = make_item(text_of(node, "title"), source, link_of(node), time_of(node))
+        page = link_of(node)
+        item = make_item(
+            text_of(node, "title"),
+            source,
+            page,
+            time_of(node),
+            image=image_from_feed(node, page),
+        )
         if item:
             items.append(item)
     return items
@@ -258,9 +367,13 @@ def main():
         title_key = re.sub(r"[^a-z0-9]+", "", item["title"].lower())
         previous = by_url.get(url_key) or by_title.get(title_key)
         if previous and previous[0] >= score:
+            if not previous[1].get("image") and item.get("image"):
+                previous[1]["image"] = item["image"]
             return
         if previous:
             old = previous[1]
+            if not item.get("image") and old.get("image"):
+                item["image"] = old["image"]
             by_url.pop(canonical(old["url"]), None)
             by_title.pop(re.sub(r"[^a-z0-9]+", "", old["title"].lower()), None)
         pair = (score, item)
@@ -297,9 +410,43 @@ def main():
             record["hnPoints"] = item["points"]
         if item["comments"] is not None:
             record["hnComments"] = item["comments"]
+        if item.get("image"):
+            record["image"] = item["image"]
         items_out.append(record)
 
     items_out.sort(key=lambda row: (row["heat"], row["publishedAt"]), reverse=True)
+
+    cache = load_image_cache()
+    for record in items_out:
+        key = canonical(record["url"])
+        if record.get("image"):
+            cache[key] = record["image"]
+        elif key in cache and cache[key]:
+            record["image"] = cache[key]
+
+    missing = [record for record in items_out if not record.get("image") and canonical(record["url"]) not in cache]
+    missing.sort(key=lambda row: row["heat"], reverse=True)
+    batch = missing[:PAGE_CAP]
+
+    def lookup(record):
+        found = image_from_page(record["url"])
+        return canonical(record["url"]), found
+
+    if batch:
+        print("Looking up pictures for {} articles (cap {}).".format(len(batch), PAGE_CAP))
+        with ThreadPoolExecutor(max_workers=PAGE_WORKERS) as pool:
+            for key, found in pool.map(lookup, batch):
+                cache[key] = found or ""
+                if found:
+                    for record in items_out:
+                        if canonical(record["url"]) == key:
+                            record["image"] = found
+
+    kept_cache = {}
+    for record in items_out:
+        key = canonical(record["url"])
+        if key in cache:
+            kept_cache[key] = cache[key]
 
     if not items_out and os.path.exists(OUT):
         print("No stories fetched. Leaving the existing data file in place.")
@@ -308,13 +455,15 @@ def main():
     payload = {
         "updatedAt": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
         "feeds": reports,
+        "imageCache": kept_cache,
         "items": items_out,
     }
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as handle:
         json.dump(payload, handle, indent=2, ensure_ascii=False)
         handle.write("\n")
-    print("Wrote {} stories to {}".format(len(items_out), OUT))
+    with_images = sum(1 for row in items_out if row.get("image"))
+    print("Wrote {} stories ({} with pictures) to {}".format(len(items_out), with_images, OUT))
     return 0
 
 

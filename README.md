@@ -68,6 +68,8 @@ Every two hours, and whenever someone presses "Run workflow", GitHub runs `scrip
 
 Topic words (AI, Chips, Space, and the others) are the `TOPICS` list in that same file.
 
+The script also saves a picture address when the feed includes one. If a story has no picture, it opens the article page (a limited number each run) and reads the sharing image. It remembers the result in `imageCache` inside `data/trends.json`, so the next run does not ask again. Cards without a picture show a colored tile instead.
+
 ## Heat
 
 A brand-new story scores 100. The score falls to 0 after 48 hours. Hacker News points and comments add more. Other sites are scored only by how new they are. The Trend Radar page says this next to the list.
