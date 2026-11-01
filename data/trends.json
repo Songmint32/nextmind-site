@@ -1,0 +1,1155 @@
+{
+  "updatedAt": "2026-11-01T11:53:58Z",
+  "feeds": [
+    {
+      "source": "Hacker News",
+      "ok": true,
+      "count": 30
+    },
+    {
+      "source": "The Verge",
+      "ok": true,
+      "count": 10
+    },
+    {
+      "source": "TechCrunch",
+      "ok": true,
+      "count": 20
+    },
+    {
+      "source": "Ars Technica",
+      "ok": true,
+      "count": 20
+    },
+    {
+      "source": "MIT Technology Review",
+      "ok": true,
+      "count": 10
+    },
+    {
+      "source": "NASA",
+      "ok": true,
+      "count": 10
+    },
+    {
+      "source": "SpaceNews",
+      "ok": true,
+      "count": 14
+    }
+  ],
+  "items": [
+    {
+      "id": "d6e3252c8f31",
+      "title": "Norway makes shithouses great again",
+      "source": "Hacker News",
+      "url": "https://www.visitnorway.com/plan-your-trip/travel-tips-a-z/norwegian-scenic-routes/worlds-best-toilets/",
+      "publishedAt": "2026-11-01T10:47:58Z",
+      "topics": [],
+      "heat": 151,
+      "hnPoints": 118,
+      "hnComments": 47
+    },
+    {
+      "id": "a7e11bfba6b1",
+      "title": "HackerTube: YouTube built from videos recommended by HN",
+      "source": "Hacker News",
+      "url": "https://karpathy.bearblog.dev/hacker-tube/",
+      "publishedAt": "2026-10-31T19:56:53Z",
+      "topics": [],
+      "heat": 149,
+      "hnPoints": 1441,
+      "hnComments": 391
+    },
+    {
+      "id": "a5cafb824bf7",
+      "title": "An Italian farmer found some unknown seeds in his attic and planted them",
+      "source": "Hacker News",
+      "url": "https://www.smithsonianmag.com/science-nature/italian-farmer-found-unknown-seeds-attic-with-nothing-lose-planted-them-result-biblical-180989644/",
+      "publishedAt": "2026-10-31T22:41:06Z",
+      "topics": [],
+      "heat": 142,
+      "hnPoints": 492,
+      "hnComments": 151
+    },
+    {
+      "id": "761e5e0baaa4",
+      "title": "The AI cost of JavaScript frameworks",
+      "source": "Hacker News",
+      "url": "https://nolanlawson.com/2026/10/28/the-ai-cost-of-javascript-frameworks/",
+      "publishedAt": "2026-11-01T06:06:19Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 141,
+      "hnPoints": 105,
+      "hnComments": 56
+    },
+    {
+      "id": "6bd209feefbe",
+      "title": "TCP Use-After-Free: CVE-2026-98432 / CVSS 9.8",
+      "source": "Hacker News",
+      "url": "https://atlasum.net/blog/cve-2026-98432-linux-ipv4-tcp-uaf",
+      "publishedAt": "2026-10-31T19:16:30Z",
+      "topics": [],
+      "heat": 138,
+      "hnPoints": 534,
+      "hnComments": 249
+    },
+    {
+      "id": "2a10a176a3e7",
+      "title": "Brazilian Court Sanctions Lawyers for Prompt Injection in Court Filing",
+      "source": "Hacker News",
+      "url": "https://jetstream.security/insights/brazilian-court-sanctions-prompt-injection-filing/",
+      "publishedAt": "2026-11-01T02:19:53Z",
+      "topics": [],
+      "heat": 137,
+      "hnPoints": 150,
+      "hnComments": 61
+    },
+    {
+      "id": "f9b8a9efbf26",
+      "title": "Memdoor: A team of 5 Qwen3.8-27B models beats Fable 5 on LiveCodeBench Hard",
+      "source": "Hacker News",
+      "url": "https://github.com/guregodevo/memdoor/tree/main/examples/workflows/team-solve",
+      "publishedAt": "2026-10-31T22:46:12Z",
+      "topics": [],
+      "heat": 137,
+      "hnPoints": 264,
+      "hnComments": 121
+    },
+    {
+      "id": "1593473fbf07",
+      "title": "A tiny Pacific country rolls out universal basic income",
+      "source": "Hacker News",
+      "url": "https://www.economist.com/asia/2026/10/29/a-tiny-pacific-country-rolls-out-universal-basic-income",
+      "publishedAt": "2026-11-01T10:05:09Z",
+      "topics": [],
+      "heat": 132,
+      "hnPoints": 30,
+      "hnComments": 7
+    },
+    {
+      "id": "d7e241d7cf24",
+      "title": "Leaking Secrets from Air-Gap Computers by Spelling Radio Signals from RAM (2024)",
+      "source": "Hacker News",
+      "url": "https://arxiv.org/abs/2409.02292",
+      "publishedAt": "2026-11-01T01:46:29Z",
+      "topics": [],
+      "heat": 131,
+      "hnPoints": 95,
+      "hnComments": 50
+    },
+    {
+      "id": "85c82f0a9571",
+      "title": "ChatGPT and Codex usage limits merging",
+      "source": "Hacker News",
+      "url": "https://help.openai.com/en/articles/20001625-understanding-chatgpt-and-codex-usage-limits",
+      "publishedAt": "2026-10-31T21:49:07Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 130,
+      "hnPoints": 157,
+      "hnComments": 97
+    },
+    {
+      "id": "77042f482514",
+      "title": "Pac-Man's Siren Call",
+      "source": "Hacker News",
+      "url": "https://unsung.aresluna.org/pac-mans-siren-call/",
+      "publishedAt": "2026-11-01T06:29:49Z",
+      "topics": [],
+      "heat": 123,
+      "hnPoints": 26,
+      "hnComments": 6
+    },
+    {
+      "id": "c58cd229056d",
+      "title": "It's the memory latency, stupid",
+      "source": "Hacker News",
+      "url": "https://pivotlake.io/blog/its-the-memory-latency-stupid/",
+      "publishedAt": "2026-10-31T18:38:16Z",
+      "topics": [],
+      "heat": 123,
+      "hnPoints": 206,
+      "hnComments": 63
+    },
+    {
+      "id": "bc311e37aca4",
+      "title": "Surviving \"The Graduate\"",
+      "source": "Hacker News",
+      "url": "https://www.newyorker.com/culture/the-weekend-essay/dustin-hoffman-on-surviving-the-graduate",
+      "publishedAt": "2026-10-31T20:02:06Z",
+      "topics": [],
+      "heat": 120,
+      "hnPoints": 124,
+      "hnComments": 39
+    },
+    {
+      "id": "7be82fece5a3",
+      "title": "Electrification Could Cut Global Energy Use in Half",
+      "source": "Hacker News",
+      "url": "https://fullycharged.show/podcasts/podcast-361-why-electrification-could-cut-global-energy-use-in-half/",
+      "publishedAt": "2026-10-31T19:13:34Z",
+      "topics": [],
+      "heat": 120,
+      "hnPoints": 125,
+      "hnComments": 59
+    },
+    {
+      "id": "daeae1bce20a",
+      "title": "Altoids Project",
+      "source": "Hacker News",
+      "url": "https://uvdn7.github.io/altoids-project/",
+      "publishedAt": "2026-10-31T22:54:55Z",
+      "topics": [],
+      "heat": 119,
+      "hnPoints": 117,
+      "hnComments": 6
+    },
+    {
+      "id": "810faf01d516",
+      "title": "Jepsen: ParticleDB 1.1.4",
+      "source": "Hacker News",
+      "url": "https://jepsen.io/analyses/particledb-1.1.4",
+      "publishedAt": "2026-10-31T13:39:52Z",
+      "topics": [],
+      "heat": 119,
+      "hnPoints": 279,
+      "hnComments": 159
+    },
+    {
+      "id": "e28cd26f12f6",
+      "title": "The Duty of a Scholar",
+      "source": "Hacker News",
+      "url": "https://www.daemonology.net/blog/2026-10-31-The-Duty-of-a-Scholar.html",
+      "publishedAt": "2026-10-31T19:07:36Z",
+      "topics": [],
+      "heat": 118,
+      "hnPoints": 122,
+      "hnComments": 33
+    },
+    {
+      "id": "41bd1659364a",
+      "title": "Domain hacks with unusual Unicode characters (2018)",
+      "source": "Hacker News",
+      "url": "https://xn--69f31l4t57c0mag4b613h.xn--7uh4898msjaso/🆆🆃🅵/",
+      "publishedAt": "2026-11-01T10:44:20Z",
+      "topics": [],
+      "heat": 116,
+      "hnPoints": 6,
+      "hnComments": 1
+    },
+    {
+      "id": "381223935ae3",
+      "title": "Do the math: How we took over ChatGPT accounts",
+      "source": "Hacker News",
+      "url": "https://www.parameter.ai/labs/we-found-a-gap-at-openai",
+      "publishedAt": "2026-10-31T10:30:11Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 114,
+      "hnPoints": 338,
+      "hnComments": 166
+    },
+    {
+      "id": "a12e61cbacf8",
+      "title": "APOD: 2026 November 1 – Colors of the Moon",
+      "source": "NASA",
+      "url": "https://science.nasa.gov/image-article/apod-2026-november-1-colors-of-the-moon/",
+      "publishedAt": "2026-11-01T04:05:00Z",
+      "topics": [],
+      "heat": 84
+    },
+    {
+      "id": "8a042d77f1d6",
+      "title": "Data centers are now a midterm issue, even in Brooklyn",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/31/data-centers-are-now-a-midterm-issue-even-in-brooklyn/",
+      "publishedAt": "2026-11-01T02:22:10Z",
+      "topics": [],
+      "heat": 80
+    },
+    {
+      "id": "4ee14c2c4bb7",
+      "title": "Zinc creep in cable spelter sockets brought down the Arecibo telescope in 2020",
+      "source": "Hacker News",
+      "url": "https://maketecheasier.com/arecibo-zinc-creep-collapse/",
+      "publishedAt": "2026-10-30T22:41:03Z",
+      "topics": [
+        "Space"
+      ],
+      "heat": 75,
+      "hnPoints": 125,
+      "hnComments": 34
+    },
+    {
+      "id": "c5196c377062",
+      "title": "The Ocean 'Was the Color of Chocolate.' Mexico Declares War on Seaweed.",
+      "source": "Hacker News",
+      "url": "https://www.nytimes.com/2026/10/28/world/americas/mexico-seaweed-navy.html",
+      "publishedAt": "2026-10-31T13:41:18Z",
+      "topics": [],
+      "heat": 74,
+      "hnPoints": 4,
+      "hnComments": 5
+    },
+    {
+      "id": "9f56e268b05e",
+      "title": "Apple CEO says the company doesn’t ‘want to ship AI for AI’s sake’",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/31/apple-ceo-says-the-company-doesnt-want-to-ship-ai-for-ais-sake/",
+      "publishedAt": "2026-10-31T21:41:00Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 70
+    },
+    {
+      "id": "5a4bff0c2db2",
+      "title": "4 days left: How TechCrunch Founder Summit helps you make more useful connections to scale",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/31/4-days-left-how-techcrunch-founder-summit-helps-you-make-more-useful-connections-to-scale/",
+      "publishedAt": "2026-10-31T21:36:07Z",
+      "topics": [],
+      "heat": 70
+    },
+    {
+      "id": "e07dacdb45dc",
+      "title": "Judge allows NAACP lawsuit over xAI data center pollution to move forward",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/31/judge-allows-naacp-lawsuit-over-xai-data-center-pollution-to-move-forward/",
+      "publishedAt": "2026-10-31T21:17:03Z",
+      "topics": [],
+      "heat": 70
+    },
+    {
+      "id": "691dfa44ca49",
+      "title": "Get in the spirit with these horrors from YouTube",
+      "source": "The Verge",
+      "url": "https://www.theverge.com/entertainment/1024096/halloween-spirit-youtube-horror",
+      "publishedAt": "2026-10-31T21:06:58Z",
+      "topics": [],
+      "heat": 69
+    },
+    {
+      "id": "8853d414a301",
+      "title": "Keyboards of The Verge",
+      "source": "The Verge",
+      "url": "https://www.theverge.com/gadgets/1017979/keyboards-of-the-verge-staff-picks",
+      "publishedAt": "2026-10-31T19:30:00Z",
+      "topics": [],
+      "heat": 66
+    },
+    {
+      "id": "7d968577e0ca",
+      "title": "Binance CEO says 90 percent of stolen assets have been ‘replenished’",
+      "source": "The Verge",
+      "url": "https://www.theverge.com/tech/1024091/binance-ceo-90-percent-stolen-crypto",
+      "publishedAt": "2026-10-31T18:40:32Z",
+      "topics": [],
+      "heat": 64
+    },
+    {
+      "id": "2e89c3febb5d",
+      "title": "Happy Pikmin Day Eve",
+      "source": "The Verge",
+      "url": "https://www.theverge.com/games/1024085/happy-pikmin-day-eve",
+      "publishedAt": "2026-10-31T17:50:12Z",
+      "topics": [],
+      "heat": 62
+    },
+    {
+      "id": "01ee4bd34dad",
+      "title": "Simple circuits can create complex behaviors",
+      "source": "Hacker News",
+      "url": "https://aatishb.com/myriad/lets-build-a-brain/",
+      "publishedAt": "2026-10-27T16:01:06Z",
+      "topics": [],
+      "heat": 62,
+      "hnPoints": 262,
+      "hnComments": 80
+    },
+    {
+      "id": "c10fef6ec816",
+      "title": "OpenAI reportedly lowers funding target for new round",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/31/openai-reportedly-lowers-funding-target-for-new-round/",
+      "publishedAt": "2026-10-31T16:12:55Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 59
+    },
+    {
+      "id": "ed0268fa6e32",
+      "title": "I built an AI Tamagotchi before Meta could",
+      "source": "The Verge",
+      "url": "https://www.theverge.com/gadgets/1013375/muse-charm-gadgets-preview-waveshare-esp32-claude-vibe-code",
+      "publishedAt": "2026-10-31T16:05:00Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 59
+    },
+    {
+      "id": "c64befe67ac3",
+      "title": "From restaurant guides to payments, here’s how TikTok is building a super app",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/31/tiktoks-road-to-becoming-a-super-app/",
+      "publishedAt": "2026-10-31T15:41:57Z",
+      "topics": [],
+      "heat": 58
+    },
+    {
+      "id": "b9eafcbb59d2",
+      "title": "Pilot-wave hydrodynamics (Quantum phenomena in macroscopic hydrodynamic systems)",
+      "source": "Hacker News",
+      "url": "http://thales.mit.edu/bush/index.php/4801-2/",
+      "publishedAt": "2026-10-30T19:52:56Z",
+      "topics": [
+        "Science"
+      ],
+      "heat": 58,
+      "hnPoints": 51,
+      "hnComments": 10
+    },
+    {
+      "id": "7b5ed5dd303b",
+      "title": "Windows 11 tries new shortcuts for Xbox gaming mode and search",
+      "source": "The Verge",
+      "url": "https://www.theverge.com/tech/1024058/windows-11-search-improvements-xbox-quick-settings",
+      "publishedAt": "2026-10-31T15:12:19Z",
+      "topics": [],
+      "heat": 57
+    },
+    {
+      "id": "e40050fcf4c1",
+      "title": "Best Buy is bundling a $100 gift card with touchscreen MacBook Pro preorders",
+      "source": "The Verge",
+      "url": "https://www.theverge.com/gadgets/1023302/best-buy-gift-card-macbook-pro-proled-xdr-preorder-deal-sale",
+      "publishedAt": "2026-10-31T15:00:00Z",
+      "topics": [],
+      "heat": 56
+    },
+    {
+      "id": "589329f72aa8",
+      "title": "Vic Mensa can’t live without the Voice Memos app",
+      "source": "The Verge",
+      "url": "https://www.theverge.com/entertainment/1023477/vic-mensa-voice-memos-app-interview",
+      "publishedAt": "2026-10-31T15:00:00Z",
+      "topics": [],
+      "heat": 56
+    },
+    {
+      "id": "65857fb07bf7",
+      "title": "Running a bootstrapped SaaS for 20 years with my brother",
+      "source": "Hacker News",
+      "url": "https://blog.zamzar.com/2026/10/30/20-years-766-million-files-two-chameleons/",
+      "publishedAt": "2026-10-30T13:58:42Z",
+      "topics": [
+        "Apps"
+      ],
+      "heat": 56,
+      "hnPoints": 113,
+      "hnComments": 28
+    },
+    {
+      "id": "8629cb13d327",
+      "title": "I took two iPhones on vacation. The Duo won me over.",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/31/i-took-two-iphones-on-vacation-the-duo-won-me-over/",
+      "publishedAt": "2026-10-31T14:00:00Z",
+      "topics": [],
+      "heat": 54
+    },
+    {
+      "id": "42ff34e8c607",
+      "title": "Understanding Email Encryption",
+      "source": "Hacker News",
+      "url": "https://www.fastmail.com/blog/email-encryption/",
+      "publishedAt": "2026-10-30T20:55:56Z",
+      "topics": [],
+      "heat": 54,
+      "hnPoints": 26,
+      "hnComments": 8
+    },
+    {
+      "id": "0b58bfa85dcc",
+      "title": "Touchscreens everywhere!",
+      "source": "The Verge",
+      "url": "https://www.theverge.com/tech/1023569/ipad-mini-alexa-photo-frame-readwise-installer",
+      "publishedAt": "2026-10-31T12:00:00Z",
+      "topics": [],
+      "heat": 50
+    },
+    {
+      "id": "fe0e51086ed4",
+      "title": "Here’s why you can’t shake those unhinged political texts",
+      "source": "The Verge",
+      "url": "https://www.theverge.com/policy/1023899/political-texts-midterm-elections",
+      "publishedAt": "2026-10-31T12:00:00Z",
+      "topics": [],
+      "heat": 50
+    },
+    {
+      "id": "124eb8a4808f",
+      "title": "Seabirds racing home over the ocean can get jet-lagged",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/science/2026/10/seabirds-racing-home-over-the-ocean-can-get-jet-lagged/",
+      "publishedAt": "2026-10-31T11:15:26Z",
+      "topics": [],
+      "heat": 49
+    },
+    {
+      "id": "f08b7bd38821",
+      "title": "The FDA wants to pull its approval of a drug. It’s not so easy.",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/science/2026/10/the-fda-wants-to-pull-its-approval-of-a-drug-its-not-so-easy/",
+      "publishedAt": "2026-10-31T11:02:34Z",
+      "topics": [],
+      "heat": 48
+    },
+    {
+      "id": "023575c477d2",
+      "title": "No AI, 52 min. Build all Linux Files utils in C by Hand [video]",
+      "source": "Hacker News",
+      "url": "https://www.youtube.com/watch?v=gQRmSlcTq9c",
+      "publishedAt": "2026-10-29T15:20:04Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 46,
+      "hnPoints": 50,
+      "hnComments": 41
+    },
+    {
+      "id": "f9af676388ea",
+      "title": "A 1580 Map Shows Why Data Visualization Is Never Neutral",
+      "source": "Hacker News",
+      "url": "https://thereader.mitpress.mit.edu/a-1580-map-shows-why-data-visualization-is-never-neutral/",
+      "publishedAt": "2026-10-30T14:46:16Z",
+      "topics": [],
+      "heat": 44,
+      "hnPoints": 49,
+      "hnComments": 4
+    },
+    {
+      "id": "d758a80317ac",
+      "title": "Edgar Allan Poe, Quintessential American Writer",
+      "source": "Hacker News",
+      "url": "https://slate.com/culture/2026/10/edgar-allan-poe-poems-stories-most-influential-american-writer-death-horror-detective.html",
+      "publishedAt": "2026-10-29T05:10:00Z",
+      "topics": [],
+      "heat": 37,
+      "hnPoints": 39,
+      "hnComments": 5
+    },
+    {
+      "id": "fa15f2024532",
+      "title": "Pile-ins, payouts, and pacing pressure: the investors behind the VCs open up",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/30/pile-ins-payouts-and-pacing-pressure-the-investors-behind-the-vcs-open-up/",
+      "publishedAt": "2026-10-31T04:16:50Z",
+      "topics": [],
+      "heat": 34
+    },
+    {
+      "id": "37b29c48d72d",
+      "title": "APOD: 2026 October 31 – Night on a Spooky Planet",
+      "source": "NASA",
+      "url": "https://science.nasa.gov/image-article/apod-2026-october-31-night-on-a-spooky-planet/",
+      "publishedAt": "2026-10-31T04:05:00Z",
+      "topics": [],
+      "heat": 34
+    },
+    {
+      "id": "a067309477df",
+      "title": "Show HN: Point your camera at a landscape to learn about its geology",
+      "source": "Hacker News",
+      "url": "https://outcrop.rocks/",
+      "publishedAt": "2026-10-29T15:22:41Z",
+      "topics": [],
+      "heat": 29,
+      "hnPoints": 15,
+      "hnComments": 4
+    },
+    {
+      "id": "c6b2d3ea7917",
+      "title": "Nvidia weighs playing the cosigner for Nscale’s AI data center in West Virginia",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/30/nvidia-weighs-playing-the-cosigner-for-nscales-ai-data-center-in-west-virginia/",
+      "publishedAt": "2026-10-31T01:20:05Z",
+      "topics": [
+        "AI",
+        "Chips"
+      ],
+      "heat": 28
+    },
+    {
+      "id": "3b9a6c7e8a86",
+      "title": "A brief history of just-in-time: forty years of JIT work, from 1960–2000",
+      "source": "Hacker News",
+      "url": "https://dl.acm.org/doi/10.1145/857076.857077",
+      "publishedAt": "2026-10-29T14:30:25Z",
+      "topics": [],
+      "heat": 28,
+      "hnPoints": 32,
+      "hnComments": 0
+    },
+    {
+      "id": "d84808b6057a",
+      "title": "Once again, NASA is asking for ideas to rescue Hubble from certain death",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/space/2026/10/think-you-can-save-the-hubble-space-telescope-nasa-wants-to-know/",
+      "publishedAt": "2026-10-31T00:07:22Z",
+      "topics": [
+        "Space"
+      ],
+      "heat": 25
+    },
+    {
+      "id": "08a6fc069d4a",
+      "title": "Salesforce’s M&A spree continues with a reported $375M deal for defense tech startup Rune",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/30/salesforces-ma-spree-continues-with-a-reported-375m-deal-for-defense-tech-startup-rune/",
+      "publishedAt": "2026-10-30T23:21:23Z",
+      "topics": [],
+      "heat": 24
+    },
+    {
+      "id": "5d6f84404e1c",
+      "title": "Ollie, a privacy-focused AI assistant, is shutting down",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/30/ollie-a-privacy-focused-ai-assistant-is-shutting-down/",
+      "publishedAt": "2026-10-30T22:56:13Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 23
+    },
+    {
+      "id": "a77f1d52cf7d",
+      "title": "Flesh-eating screwworms spread to third state and are attacking pets",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/health/2026/10/flesh-eating-screwworms-are-feasting-on-pets-4-dogs-and-cat-attacked-this-week/",
+      "publishedAt": "2026-10-30T22:36:41Z",
+      "topics": [],
+      "heat": 22
+    },
+    {
+      "id": "d419f95b8526",
+      "title": "Oh captain, our captain: Ars staff remembers Patrick Stewart",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/culture/2026/10/oh-captain-our-captain-ars-staff-remembers-patrick-stewart/",
+      "publishedAt": "2026-10-30T22:21:05Z",
+      "topics": [],
+      "heat": 22
+    },
+    {
+      "id": "a977761811a9",
+      "title": "Intel’s stock crashes, knocking $12B from government’s stake",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/30/intels-stock-crashes-knocking-12b-from-governments-stake/",
+      "publishedAt": "2026-10-30T21:54:34Z",
+      "topics": [
+        "Chips"
+      ],
+      "heat": 21
+    },
+    {
+      "id": "1ad66cf690a9",
+      "title": "Anthropic expected to receive high ‘junk’ rating from credit agencies following IPO, FT report says",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/30/anthropic-expected-to-receive-high-junk-rating-from-credit-agencies-following-ipo-report-says/",
+      "publishedAt": "2026-10-30T21:52:03Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 21
+    },
+    {
+      "id": "dfee52d8d032",
+      "title": "Applebee’s exposed customers’ personal data after leaving database password in app",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/30/applebees-exposed-customers-personal-data-after-leaving-database-password-in-app/",
+      "publishedAt": "2026-10-30T21:48:53Z",
+      "topics": [],
+      "heat": 21
+    },
+    {
+      "id": "ef4c1375c469",
+      "title": "Supersonic airliner in doubt as company shifts to powering AI data centers",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/gadgets/2026/10/united-airlines-ceo-doubts-supersonic-airliner-from-boom-will-be-ready-by-2029/",
+      "publishedAt": "2026-10-30T21:41:54Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 20
+    },
+    {
+      "id": "ade2d7581a3b",
+      "title": "Last-minute Halloween costumes for tech nerds",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/30/last-minute-halloween-costumes-for-tech-nerds/",
+      "publishedAt": "2026-10-30T21:26:59Z",
+      "topics": [],
+      "heat": 20
+    },
+    {
+      "id": "07912041c313",
+      "title": "Cracks are emerging in the AI spending boom",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/30/cracks-are-emerging-in-the-ai-spending-boom/",
+      "publishedAt": "2026-10-30T21:17:40Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 20
+    },
+    {
+      "id": "93351cbb4cc4",
+      "title": "Anthropic VS code extension on Cursor backdoored for nearly 12 hours",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/security/2026/10/anthropic-vs-code-extension-on-cursor-backdoored-for-nearly-12-hours/",
+      "publishedAt": "2026-10-30T21:09:54Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 19
+    },
+    {
+      "id": "d6402cbeb2e6",
+      "title": "Dartmouth's provost warned us about AI cheating—but his own AI use cost him his job",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/tech-policy/2026/10/dartmouths-provost-warned-us-about-ai-cheating-but-his-own-ai-use-cost-him-his-job/",
+      "publishedAt": "2026-10-30T20:40:13Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 18
+    },
+    {
+      "id": "be8bb047a425",
+      "title": "Over 25% of people lie to get antibiotics—and their lies aren't even good",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/health/2026/10/over-25-of-people-lie-to-get-antibiotics-and-their-lies-arent-even-good/",
+      "publishedAt": "2026-10-30T20:17:50Z",
+      "topics": [],
+      "heat": 17
+    },
+    {
+      "id": "0f90f553dcd8",
+      "title": "AI law firm Crosby bids on disintegrating, famed firm Weil Gotshal",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/30/ai-law-firm-crosby-bids-on-disintegrating-famed-firm-weil-gotshal/",
+      "publishedAt": "2026-10-30T19:55:13Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 17
+    },
+    {
+      "id": "2268a8f9a2f9",
+      "title": "NASA Releases MAX POWER Key Events for Media, Participants",
+      "source": "NASA",
+      "url": "https://www.nasa.gov/news-release/nasa-releases-max-power-key-events-for-media-participants/",
+      "publishedAt": "2026-10-30T19:31:02Z",
+      "topics": [
+        "Space"
+      ],
+      "heat": 16
+    },
+    {
+      "id": "8f65b6637c02",
+      "title": "Basically no one is using AI agents for their DoorDash orders",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/ai/2026/10/doordash-says-outside-ai-agents-have-only-led-to-hundreds-of-orders-so-far/",
+      "publishedAt": "2026-10-30T19:30:52Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 16
+    },
+    {
+      "id": "3fcef92ac968",
+      "title": "ESI supplying solar array components to missile defense programs",
+      "source": "SpaceNews",
+      "url": "https://spacenews.com/esi-supplying-solar-array-components-to-missile-defense-programs/",
+      "publishedAt": "2026-10-30T18:54:34Z",
+      "topics": [],
+      "heat": 15
+    },
+    {
+      "id": "6636fcb78995",
+      "title": "Rare meteorite from Mars gives us a view into its ancient crust",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/science/2026/10/rare-meteorite-from-mars-gives-us-a-view-into-its-ancient-crust/",
+      "publishedAt": "2026-10-30T18:13:42Z",
+      "topics": [
+        "Space"
+      ],
+      "heat": 13
+    },
+    {
+      "id": "c72b5877fcb8",
+      "title": "Satlyt takes another step toward turning satellites into space data centers",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/30/satlyt-takes-another-step-toward-turning-satellites-into-space-data-centers/",
+      "publishedAt": "2026-10-30T18:01:24Z",
+      "topics": [
+        "Space"
+      ],
+      "heat": 13
+    },
+    {
+      "id": "a457451f7b0a",
+      "title": "Zest’s new AI agent finds restaurants and books reservations over text",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/30/zests-new-ai-agent-finds-restaurants-and-books-reservations-over-text/",
+      "publishedAt": "2026-10-30T17:47:12Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 12
+    },
+    {
+      "id": "09484dfee9e7",
+      "title": "Fujifilm to boost tape production 5x as AI fuels archiving demand",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/gadgets/2026/10/fujifilm-to-boost-tape-production-5x-as-ai-fuels-archiving-demand/",
+      "publishedAt": "2026-10-30T17:38:19Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 12
+    },
+    {
+      "id": "fc6c72287137",
+      "title": "Google’s first data center satellite is online and writing poetry",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/10/30/googles-first-data-center-satellite-is-online-and-writing-poetry/",
+      "publishedAt": "2026-10-30T17:00:00Z",
+      "topics": [
+        "Space"
+      ],
+      "heat": 11
+    },
+    {
+      "id": "871b81f930c7",
+      "title": "Thousands of “ghost students” use AI to steal millions in student loans, DOJ says",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/tech-policy/2026/10/doj-exposes-ghost-students-using-ai-to-complete-courses-steal-student-loans/",
+      "publishedAt": "2026-10-30T16:53:49Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 10
+    },
+    {
+      "id": "b3f5e32588f4",
+      "title": "Analysts find looming launch crisis is \"more severe\" than anticipated",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/space/2026/10/analysts-find-looming-launch-crisis-is-more-severe-than-anticipated/",
+      "publishedAt": "2026-10-30T16:12:59Z",
+      "topics": [],
+      "heat": 9
+    },
+    {
+      "id": "f7e8f7a4bc4c",
+      "title": "NASA’s James Webb Space Telescope Captures Eerie Cat’s Head",
+      "source": "NASA",
+      "url": "https://www.nasa.gov/image-article/nasas-james-webb-space-telescope-captures-eerie-cats-head/",
+      "publishedAt": "2026-10-30T15:56:26Z",
+      "topics": [
+        "Space"
+      ],
+      "heat": 8
+    },
+    {
+      "id": "6f116f1e09fd",
+      "title": "NASA Explores Potential Commercial Servicing for Hubble Telescope",
+      "source": "NASA",
+      "url": "https://science.nasa.gov/missions/hubble/nasa-explores-potential-commercial-servicing-for-hubble-telescope/",
+      "publishedAt": "2026-10-30T14:51:21Z",
+      "topics": [
+        "Space"
+      ],
+      "heat": 6
+    },
+    {
+      "id": "6fed219f0ec7",
+      "title": "GM to pay $220 million after selling customer Smart Driver data",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/cars/2026/10/gm-to-pay-220-million-after-selling-customer-smart-driver-data/",
+      "publishedAt": "2026-10-30T13:53:20Z",
+      "topics": [],
+      "heat": 4
+    },
+    {
+      "id": "b68c1c234553",
+      "title": "Hackers steal $6.3 billion from Binance in record crypto heist",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/security/2026/10/hackers-steal-6-3-billion-from-binance-in-record-crypto-heist/",
+      "publishedAt": "2026-10-30T13:46:39Z",
+      "topics": [],
+      "heat": 4
+    },
+    {
+      "id": "114920bae277",
+      "title": "2027 Nissan Rogue Hybrid: Drives like an EV, but there's no plug involved",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/cars/2026/10/2027-nissan-rogue-hybrid-drives-like-an-ev-but-theres-no-plug-involved/",
+      "publishedAt": "2026-10-30T12:00:18Z",
+      "topics": [
+        "EV/Tesla"
+      ],
+      "heat": 0
+    },
+    {
+      "id": "a0833c45fb9a",
+      "title": "Review: You Can See Everything blurs the view of Elizabeth Holmes' deceit",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/culture/2026/10/review-you-can-see-everything-blurs-the-view-of-elizabeth-holmes-deceit/",
+      "publishedAt": "2026-10-30T11:30:01Z",
+      "topics": [],
+      "heat": 0
+    },
+    {
+      "id": "5b88cbd333fc",
+      "title": "The Download: GLP-1s and eating disorders, self-aware cities, and forever chemicals",
+      "source": "MIT Technology Review",
+      "url": "https://www.technologyreview.com/2026/10/30/1147843/the-download-glp-1s-eating-disorders-forever-chemicals/",
+      "publishedAt": "2026-10-30T11:30:00Z",
+      "topics": [],
+      "heat": 0
+    },
+    {
+      "id": "436c69c242f6",
+      "title": "Rocket Report: Winter is coming for Themis; Cowboy Space adds iron to the fire",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/space/2026/10/rocket-report-winter-is-coming-for-themis-cowboy-space-adds-iron-to-the-fire/",
+      "publishedAt": "2026-10-30T11:00:35Z",
+      "topics": [
+        "Space"
+      ],
+      "heat": 0
+    },
+    {
+      "id": "432aad2ad7fd",
+      "title": "November’s Night Sky Notes: Light-Day Away",
+      "source": "NASA",
+      "url": "https://science.nasa.gov/solar-system/skywatching/night-sky-network/novembers-night-sky-notes-light-day-away/",
+      "publishedAt": "2026-10-30T10:00:00Z",
+      "topics": [],
+      "heat": 0
+    },
+    {
+      "id": "6a7042187d5a",
+      "title": "Eating disorders are on the rise. GLP-1s could make things worse.",
+      "source": "MIT Technology Review",
+      "url": "https://www.technologyreview.com/2026/10/30/1147838/eating-disorders-rise-glp-1s-weight-loss-drugs/",
+      "publishedAt": "2026-10-30T09:00:00Z",
+      "topics": [],
+      "heat": 0
+    },
+    {
+      "id": "9a2c196f3003",
+      "title": "APOD: 2026 October 30 – Haunting the Cepheus Flare",
+      "source": "NASA",
+      "url": "https://science.nasa.gov/image-article/apod-2026-october-30-haunting-the-cepheus-flare/",
+      "publishedAt": "2026-10-30T04:05:00Z",
+      "topics": [],
+      "heat": 0
+    },
+    {
+      "id": "aafd581c0e57",
+      "title": "Vega Island Frozen in Fright",
+      "source": "NASA",
+      "url": "https://science.nasa.gov/earth/earth-observatory/vega-island-frozen-in-fright/",
+      "publishedAt": "2026-10-30T04:01:00Z",
+      "topics": [],
+      "heat": 0
+    },
+    {
+      "id": "d2ab622f74ee",
+      "title": "Map Showing Potential Origins of Martian Meteorite Teghaza 001",
+      "source": "NASA",
+      "url": "https://science.nasa.gov/photojournal/map-showing-potential-origins-of-martian-meteorite-teghaza-001/",
+      "publishedAt": "2026-10-30T00:07:39Z",
+      "topics": [],
+      "heat": 0
+    },
+    {
+      "id": "91a0ca9e14d9",
+      "title": "Slice of Martian Meteorite Teghaza 001",
+      "source": "NASA",
+      "url": "https://science.nasa.gov/photojournal/slice-of-martian-meteorite-teghaza-001/",
+      "publishedAt": "2026-10-29T23:32:35Z",
+      "topics": [],
+      "heat": 0
+    },
+    {
+      "id": "f4ac69413052",
+      "title": "Reddit is moving to “a logged-in-only experience,” CEO says",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/gadgets/2026/10/reddit-will-require-you-to-log-in-eventually-ceo-confirms/",
+      "publishedAt": "2026-10-29T21:47:57Z",
+      "topics": [],
+      "heat": 0
+    },
+    {
+      "id": "73bb1b7bf1a4",
+      "title": "Advice for optimizing the space industry with Laura Crabtree",
+      "source": "SpaceNews",
+      "url": "https://spacenews.com/advice-for-optimizing-the-space-industry-with-laura-crabtree/",
+      "publishedAt": "2026-10-29T15:01:09Z",
+      "topics": [
+        "Space"
+      ],
+      "heat": 0
+    },
+    {
+      "id": "893bdc0ab4ed",
+      "title": "The Download: AI agent tracking and climate feedback loops",
+      "source": "MIT Technology Review",
+      "url": "https://www.technologyreview.com/2026/10/29/1147830/the-download-monitoring-ai-agents-climate-feedback-loops/",
+      "publishedAt": "2026-10-29T12:10:00Z",
+      "topics": [
+        "AI",
+        "Science"
+      ],
+      "heat": 0
+    },
+    {
+      "id": "24f676feeb3a",
+      "title": "We urgently need to monitor AI agents’ actions in real time",
+      "source": "MIT Technology Review",
+      "url": "https://www.technologyreview.com/2026/10/29/1147824/monitor-ai-agents-actions-real-time/",
+      "publishedAt": "2026-10-29T10:11:12Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 0
+    },
+    {
+      "id": "80723490c958",
+      "title": "Our climate models have a big, dangerous blind spot",
+      "source": "MIT Technology Review",
+      "url": "https://www.technologyreview.com/2026/10/29/1147735/climate-models-blind-spot/",
+      "publishedAt": "2026-10-29T10:00:00Z",
+      "topics": [
+        "Science"
+      ],
+      "heat": 0
+    },
+    {
+      "id": "e164bf48fa23",
+      "title": "Creating AI value with enterprise context",
+      "source": "MIT Technology Review",
+      "url": "https://www.technologyreview.com/2026/10/28/1147709/creating-ai-value-with-enterprise-context/",
+      "publishedAt": "2026-10-28T20:32:02Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 0
+    },
+    {
+      "id": "9ed5c6044048",
+      "title": "Flexell Space and Satoro Agree to Collaborate on In-Orbit Demonstration of Next-Generation Space Solar Cells",
+      "source": "SpaceNews",
+      "url": "https://spacenews.com/flexell-space-and-satoro-agree-to-collaborate-on-in-orbit-demonstration-of-next-generation-space-solar-cells/",
+      "publishedAt": "2026-10-28T14:43:08Z",
+      "topics": [
+        "Space"
+      ],
+      "heat": 0
+    },
+    {
+      "id": "aa8048880ffd",
+      "title": "The Download: dead startups fueling AI and interspecies communication",
+      "source": "MIT Technology Review",
+      "url": "https://www.technologyreview.com/2026/10/28/1147767/the-download-dead-startups-fueling-ai-interspecies-communication/",
+      "publishedAt": "2026-10-28T12:10:00Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 0
+    },
+    {
+      "id": "85069581580d",
+      "title": "Pairing industrial AI autonomy and human control",
+      "source": "MIT Technology Review",
+      "url": "https://www.technologyreview.com/2026/10/28/1147637/pairing-industrial-ai-autonomy-and-human-control/",
+      "publishedAt": "2026-10-28T12:00:00Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 0
+    },
+    {
+      "id": "8b48f7e53a97",
+      "title": "Ukrainian startup, GomSpace test satellite for future communications network",
+      "source": "SpaceNews",
+      "url": "https://spacenews.com/ukrainian-startup-gomspace-test-satellite-for-future-communications-network/",
+      "publishedAt": "2026-10-27T20:21:30Z",
+      "topics": [
+        "Space"
+      ],
+      "heat": 0
+    },
+    {
+      "id": "86e551dd7e95",
+      "title": "The Download: Anthropic’s IPO, smarter power grids, and exercise pills",
+      "source": "MIT Technology Review",
+      "url": "https://www.technologyreview.com/2026/10/27/1147693/the-download-anthropic-ipo-smarter-power-grids-exercise-pills/",
+      "publishedAt": "2026-10-27T12:10:00Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 0
+    },
+    {
+      "id": "c457442f2331",
+      "title": "Craft Prospect kicks off PERSEUS project to advance optical communications for space",
+      "source": "SpaceNews",
+      "url": "https://spacenews.com/craft-prospect-kicks-off-perseus-project-to-advance-optical-communications-for-space/",
+      "publishedAt": "2026-10-27T12:00:00Z",
+      "topics": [
+        "Space"
+      ],
+      "heat": 0
+    },
+    {
+      "id": "ef2da6cf0c5f",
+      "title": "Industrial Intelligence: The next growth opportunity for manufacturing",
+      "source": "MIT Technology Review",
+      "url": "https://www.technologyreview.com/2026/10/27/1147142/industrial-intelligence-the-next-growth-opportunity-for-manufacturing/",
+      "publishedAt": "2026-10-27T11:19:18Z",
+      "topics": [],
+      "heat": 0
+    },
+    {
+      "id": "319292471200",
+      "title": "Flexell Space Establishes French Subsidiary to Strengthen European Presence",
+      "source": "SpaceNews",
+      "url": "https://spacenews.com/flexell-space-establishes-french-subsidiary-to-strengthen-european-presence/",
+      "publishedAt": "2026-10-26T20:00:00Z",
+      "topics": [
+        "Space"
+      ],
+      "heat": 0
+    },
+    {
+      "id": "48455f6cb43a",
+      "title": "Astranis Upgrades Falcon 9 Launch Contract to Dedicated Mission for Entire Block 4 Production Run of Satellites",
+      "source": "SpaceNews",
+      "url": "https://spacenews.com/astranis-upgrades-falcon-9-launch-contract-to-dedicated-mission-for-entire-block-4-production-run-of-satellites/",
+      "publishedAt": "2026-10-26T13:00:00Z",
+      "topics": [],
+      "heat": 0
+    }
+  ]
+}

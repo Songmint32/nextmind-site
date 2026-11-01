@@ -1,8 +1,13 @@
-# NextMind site
+# NextMind
 
-This folder is the first version of the NextMind homepage. It is a normal website made of text files. There is nothing to install and nothing to build.
+NextMind is a small website for people who make short posts about tech. It has two tools:
 
-When it is published, the address should be:
+- **Trend Radar** shows real headlines from public tech sites.
+- **Voiceover** reads a script out loud with the voice already on your computer or phone.
+
+There is nothing to install and nothing to build. The pages are plain files. GitHub hosts them for free.
+
+The live address is:
 
 https://songmint32.github.io/nextmind-site/
 
@@ -10,63 +15,73 @@ https://songmint32.github.io/nextmind-site/
 
 ### `index.html`
 
-The page itself. The sentences a visitor reads are in this file. To change the wording, open it, edit those words, and save. Leave the `<tags>` around the words as they are.
+The app. The sentences a visitor reads are in this file. To change wording, edit the words and leave the `<tags>` around them as they are.
 
-Search this file for `TODO`. Those notes mark links that are not ready yet: the real X (Twitter) address, and a contact link. They use `#` on purpose, so they do not send anyone to the wrong place.
-
-The Daily Boards cards, the video slots, and the Tools cards are examples. The page says so. Do not type a real news story, a real count, or a working tool into them unless you mean to publish that.
+Search for `TODO`. Those notes are links that are not ready yet (the real X address, and a contact link). They use `#` on purpose.
 
 ### `styles.css`
 
-How the page looks: colors, type, spacing, and the layout on a phone versus a wide screen. The colors are named at the top, on the lines that start with `--`. You do not need to open this file to change the words.
+Colors, type, and layout. The space at the edge of the screen is `--gutter`. The page background is `--bg`. You do not need to open this file to change the words.
 
 ### `site.js`
 
-A short script that does three things:
+Makes the sections switch, fills Trend Radar from `data/trends.json`, and runs the voice preview. The preview uses the browser's own speech. It cannot be saved as an MP3.
 
-- Writes the real current month next to the title, such as “November 2026”.
-- Shows one section at a time when you use Overview, Daily Boards, Videos, Tools, or About.
-- Opens the search box when someone clicks Search or presses ⌘K (Ctrl+K on Windows).
+### `data/trends.json`
 
-The search box only jumps between those sections. It does not look up news. If this file does not run, every section stays on the page and the month written in `index.html` stays as it is.
+The headline list the page reads. A scheduled job rewrites this file. You can open it and look, but you do not type stories into it by hand.
+
+### `scripts/fetch_trends.py`
+
+The job that downloads headlines. The list of sites is near the top, in `FEEDS`. Hacker News is just above that, because it is not an RSS feed.
+
+To run it on your own computer:
+
+```bash
+python3 scripts/fetch_trends.py
+```
+
+If one site does not answer, the script keeps the others. If every site fails and this file already exists, the script leaves the old file alone.
 
 ### `assets/logo.png` and `assets/logo.svg`
 
-The NextMind mark: a white angular monogram on a black square. The page uses the SVG next to the name and as the browser icon. The PNG is the same logo, kept for phones that want a PNG icon (`apple-touch-icon`). You do not need to edit these to change the words.
+The NextMind mark. The page uses the SVG next to the name. The PNG is the icon for phones. You do not need to edit these to change the words.
 
 ### `fonts/`
 
-The lettering (Inter, and IBM Plex Mono for the small labels), so the page looks the same without loading fonts from another website. You do not need to edit this folder. `fonts/OFL.txt` is the font license, and `fonts/NOTICE.txt` says who made the fonts.
+The lettering (Inter, and IBM Plex Mono for the small labels). `fonts/OFL.txt` is the font license. You do not need to edit this folder.
 
 ### `.github/workflows/pages.yml`
 
-Instructions for GitHub. After a change is merged into the `main` branch, GitHub copies the page files and publishes them.
+Publishes the site after a change lands on `main`.
 
-## How to edit the text
+### `.github/workflows/trends.yml`
 
-1. Open `index.html` in any text editor.
-2. Change the words you want to change.
-3. Save the file.
-4. Refresh the page in your browser.
+Every two hours, and whenever someone presses "Run workflow", GitHub runs `scripts/fetch_trends.py`, saves `data/trends.json`, and commits that file. The publish workflow then puts the new file on the live site.
 
-## See the page on your computer
+## How to follow a different site
 
-In this folder, run:
+1. Open `scripts/fetch_trends.py`.
+2. Find `FEEDS`.
+3. Add a line with the site name and its RSS address, or delete a line you do not want.
+4. Save, and run `python3 scripts/fetch_trends.py` to try it.
 
-```bash
-python3 -m http.server 8080
-```
+Topic words (AI, Chips, Space, and the others) are the `TOPICS` list in that same file.
 
-Then open http://localhost:8080
+## Heat
 
-Opening `index.html` directly also works. The small server is a closer match to how GitHub will host the page.
+A brand-new story scores 100. The score falls to 0 after 48 hours. Hacker News points and comments add more. Other sites are scored only by how new they are. The Trend Radar page says this next to the list.
+
+## Voiceover
+
+Play uses the free voice built into the browser. Studio voices and an MP3 download are marked "coming soon" because they need a server, and this site does not have one.
 
 ## Publishing
 
-1. Merge the change into the `main` branch.
-2. GitHub runs the “Publish site” workflow.
-3. One setting has to be switched on, or that run cannot finish. On GitHub, open this repository and go to **Settings → Pages → Build and deployment**. Set **Source** to **GitHub Actions**.
+1. Merge the change into `main`.
+2. GitHub runs "Publish site".
+3. The headline job needs permission to save its file. In the repository on GitHub, open **Settings → Actions → General → Workflow permissions** and choose **Read and write permissions**.
 
-The workflow includes `enablement: true`, which asks GitHub to turn Pages on by itself. The token GitHub Actions uses is not allowed to create a Pages site, so that settings switch is still required the first time. After it is on, every later merge to `main` publishes the site.
+If that switch is off, the fetch can run but it cannot commit `data/trends.json`, so the live list will not refresh.
 
-If the first run fails, turn that setting on, open the **Actions** tab, and run **Publish site** again.
+The site itself is published from **Settings → Pages → Build and deployment → Source: GitHub Actions**. That is already how this repository publishes. A commit made by the headline job does not start the publish workflow by itself, so `pages.yml` also listens for the "Update trends" job to finish.
