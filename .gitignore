@@ -2,3 +2,5 @@ node_modules/
 test-results/
 playwright-report/
 scripts/__pycache__/
+.agents/
+skills-lock.json

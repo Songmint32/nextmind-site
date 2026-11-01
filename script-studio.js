@@ -6,7 +6,6 @@
    It does not invent what the article says. */
 (function (root) {
   var WPM = 150;
-  var TARGET = { "30s": 75, "60s": 150, "3min": 450 };
 
   function countWords(text) {
     var trimmed = String(text || "").trim();
@@ -14,7 +13,16 @@
     return trimmed.split(/\s+/).length;
   }
 
+  function excerpt(story, maxWords) {
+    var text = story && story.text ? String(story.text).replace(/\s+/g, " ").trim() : "";
+    if (!text) return summaryOf(story);
+    var words = text.split(" ").filter(Boolean);
+    var cut = words.slice(0, maxWords).join(" ");
+    return words.length > maxWords ? cut + "…" : cut;
+  }
+
   function summaryOf(story) {
+    if (story && story.text) return excerpt(story, 80);
     var given = story && story.summary ? String(story.summary).trim() : "";
     if (given) return given;
     var title = (story && story.title) || "Untitled";
@@ -62,7 +70,6 @@
   function single(story, opts) {
     var s = storyLines(story);
     var tone = opts.tone || "neutral";
-    var aim = TARGET[opts.format] || TARGET["60s"];
     var note = notesFor(opts.format);
     var hook = toneOpen(tone) + " " + s.title;
     var beat1 = "This comes from " + s.source + ". The summary we have is: " + s.summary + (s.url ? " The link is " + s.url + "." : "") + note;
@@ -76,15 +83,12 @@
       "BEAT 2", beat2,
       "BEAT 3", beat3,
       "TAKEAWAY", takeaway,
-      "CTA", cta,
-      "Aim for about " + aim + " words. Add your own lines after you read the source.",
-      "Template draft · AI scripts coming soon"
+      "CTA", cta
     ].join("\n\n");
   }
 
   function roundup(stories, opts) {
     var tone = opts.tone || "neutral";
-    var aim = TARGET[opts.format] || TARGET["60s"];
     var lines = stories.map(storyLines);
     var hook = toneOpen(tone) + " This is a daily roundup of " + lines.length + " headline" + (lines.length === 1 ? "" : "s") + ".";
     var groups = [[], [], []];
@@ -101,9 +105,7 @@
       "BEAT 2", beat(groups[1]),
       "BEAT 3", beat(groups[2]) + " " + toneClose(tone),
       "TAKEAWAY", "Pick the one headline your audience needs today. The others can wait. Do not merge facts from different stories into one claim.",
-      "CTA", "The links are the sources named above. Open them before you publish.",
-      "Aim for about " + aim + " words. Add your own lines after you read each source.",
-      "Template draft · AI scripts coming soon"
+      "CTA", "The links are the sources named above. Open them before you publish."
     ].join("\n\n");
   }
 
@@ -115,7 +117,7 @@
         text: "",
         words: 0,
         seconds: 0,
-        label: "Template draft · AI scripts coming soon",
+        label: "",
         error: "Choose a story first."
       };
     }
@@ -126,7 +128,7 @@
       text: text,
       words: words,
       seconds: Math.round(words / WPM * 60),
-      label: "Template draft · AI scripts coming soon",
+      label: "",
       error: ""
     };
   }

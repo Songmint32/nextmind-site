@@ -16,12 +16,16 @@ import sys
 import urllib.request
 from urllib.parse import urljoin
 import xml.etree.ElementTree as ET
+
+import trafilatura
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "data", "trends.json")
+ARTICLES = os.path.join(ROOT, "data", "articles")
+WORD_CAP = 1500
 UA = "NextMindTrendRadar/1.0 (+https://github.com/Songmint32/nextmind-site)"
 HN_TOP = "https://hacker-news.firebaseio.com/v0/topstories.json"
 HN_ITEM = "https://hacker-news.firebaseio.com/v0/item/{}.json"
@@ -452,6 +456,7 @@ def main():
         print("No stories fetched. Leaving the existing data file in place.")
         return 0
 
+    save_articles(items_out)
     payload = {
         "updatedAt": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
         "feeds": reports,
@@ -465,6 +470,92 @@ def main():
     with_images = sum(1 for row in items_out if row.get("image"))
     print("Wrote {} stories ({} with pictures) to {}".format(len(items_out), with_images, OUT))
     return 0
+
+
+def clean_article(text):
+    text = re.sub(r"!\[[^\]]*\]\([^)]+\)", " ", text)
+    text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
+    text = re.sub(r"[ \t]+\n", "\n", text)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return re.sub(r"[ \t]{2,}", " ", text).strip()
+
+
+def cap_words(text, limit=WORD_CAP):
+    text = clean_article(text)
+    words = text.split()
+    if len(words) <= limit:
+        return text
+    return " ".join(words[:limit]).strip()
+
+
+def article_file(art_id):
+    return os.path.join(ARTICLES, art_id + ".json")
+
+
+def write_article(payload):
+    os.makedirs(ARTICLES, exist_ok=True)
+    with open(article_file(payload["id"]), "w", encoding="utf-8") as handle:
+        json.dump(payload, handle, indent=2, ensure_ascii=False)
+        handle.write("\n")
+
+
+def extract_article(record):
+    art_id = record["id"]
+    if os.path.exists(article_file(art_id)):
+        return "cached"
+    url = record.get("url") or ""
+    payload = {
+        "id": art_id,
+        "url": url,
+        "title": record.get("title") or "",
+        "source": record.get("source") or "",
+        "image": record.get("image") or "",
+        "ok": False,
+        "text": "",
+    }
+    if (not url.startswith("http")) or ("news.ycombinator.com/item" in url):
+        write_article(payload)
+        return "skip"
+    try:
+        raw = fetch(url, timeout=12)
+        html_text = raw.decode("utf-8", "replace")
+        doc = trafilatura.bare_extraction(
+            html_text,
+            url=url,
+            include_comments=False,
+            include_tables=False,
+            include_images=True,
+            favor_precision=True,
+        )
+    except Exception as error:
+        payload["error"] = str(error)[:180]
+        write_article(payload)
+        return "fail"
+    if not doc:
+        write_article(payload)
+        return "fail"
+    data = doc.as_dict() if hasattr(doc, "as_dict") else doc
+    text = cap_words((data.get("text") or data.get("body") or "").strip())
+    image = data.get("image") or payload["image"]
+    if image and not record.get("image"):
+        record["image"] = image
+    payload["image"] = image or ""
+    if len(text.split()) < 80:
+        write_article(payload)
+        return "short"
+    payload["ok"] = True
+    payload["text"] = text
+    payload["words"] = len(text.split())
+    write_article(payload)
+    return "ok"
+
+
+def save_articles(items):
+    counts = {}
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        for status in pool.map(extract_article, items):
+            counts[status] = counts.get(status, 0) + 1
+    print("Articles:", counts)
 
 
 if __name__ == "__main__":

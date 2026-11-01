@@ -4,13 +4,14 @@
    If this file does not run, the sections stay on the page but the tools do not. */
 (function () {
   var views = {
-    overview: { crumb: "Overview", lede: "Find what's moving in tech, then voice the post." },
-    radar: { crumb: "Trend Radar", lede: "Public headlines from tech sites and Hacker News. Open the original to read it." },
-    studio: { crumb: "Script Studio", lede: "Turn a headline into a spoken draft, then send it to Voiceover." },
-    saved: { crumb: "Saved", lede: "Stories you kept in this browser." },
-    voiceover: { crumb: "Voiceover", lede: "Preview a script with an English voice on this device. Nothing is uploaded." },
-    pricing: { crumb: "Pricing", lede: "Placeholder tiers. Nothing here is for sale." },
-    about: { crumb: "About", lede: "What this app does, and what it does not do." }
+    overview: { crumb: "Overview", lede: "" },
+    radar: { crumb: "Trend Radar", lede: "" },
+    studio: { crumb: "Script Studio", lede: "" },
+    saved: { crumb: "Saved", lede: "" },
+    voiceover: { crumb: "Voiceover", lede: "" },
+    pricing: { crumb: "Pricing", lede: "" },
+    about: { crumb: "About", lede: "" },
+    read: { crumb: "Story", lede: "" }
   };
 
   var HEAT_HN = "Heat starts at 100 when a story is new and falls to 0 after 48 hours. This one also adds Hacker News points and comments.";
@@ -48,9 +49,14 @@
     if (label) month.textContent = label;
   }
 
+  function parseHash() {
+    var hash = (location.hash || "").replace(/^#/, "");
+    if (hash.indexOf("read/") === 0) return { view: "read", id: decodeURIComponent(hash.slice(5)) };
+    return { view: views[hash] ? hash : "overview", id: "" };
+  }
+
   function viewFromHash() {
-    var name = location.hash.replace("#", "");
-    return views[name] ? name : "overview";
+    return parseHash().view;
   }
 
   function menuIsOverlay() {
@@ -84,14 +90,19 @@
     document.querySelectorAll("[data-view-panel]").forEach(function (panel) {
       panel.classList.toggle("is-active", panel.getAttribute("data-view-panel") === name);
     });
-    document.querySelectorAll(".nav a[data-view]").forEach(function (link) {
-      if (link.getAttribute("data-view") === name) link.setAttribute("aria-current", "page");
-      else link.removeAttribute("aria-current");
-    });
     if (crumb) crumb.textContent = info.crumb;
     var title = document.getElementById("view-title");
     if (title) title.textContent = info.crumb;
-    if (lede) lede.textContent = info.lede;
+    if (lede) {
+      lede.textContent = info.lede || "";
+      lede.hidden = !info.lede;
+    }
+    document.body.classList.toggle("is-reading", name === "read");
+    var activeNav = name === "read" ? "radar" : name;
+    document.querySelectorAll(".nav a[data-view]").forEach(function (link) {
+      if (link.getAttribute("data-view") === activeNav) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    });
     setMenu(false);
     if (name === "radar") renderRadar();
     if (name === "overview") renderOverview();
@@ -106,6 +117,7 @@
     }
     if (name === "studio") renderStudio();
     if (name === "saved") renderSaved();
+    if (name === "read") loadReader(parseHash().id);
   }
 
   function showAndStay(name) {
@@ -256,6 +268,7 @@
         updateRoundupBar();
         renderOverview();
         renderRadar();
+        if (viewFromHash() === "read") loadReader(parseHash().id, { focus: false });
       })
       .catch(function (error) {
         var message = error && error.message ? error.message : "Could not load headlines.";
@@ -377,7 +390,9 @@
       url: item.url || "",
       topics: item.topics || [],
       summary: item.summary || ("Headline from " + source + ": " + title),
-      publishedAt: item.publishedAt || ""
+      publishedAt: item.publishedAt || "",
+      text: item.text || "",
+      image: item.image || ""
     };
   }
 
@@ -597,8 +612,11 @@
     rows.forEach(function (story) {
       var card = document.createElement("article");
       card.className = "card";
-      var title = document.createElement("h2");
+      var title = document.createElement("button");
+      title.type = "button";
+      title.className = "story-title";
       title.textContent = story.title;
+      title.addEventListener("click", function () { openReader(story); });
       var meta = document.createElement("p");
       meta.textContent = story.source || "";
       var actions = document.createElement("div");
@@ -698,10 +716,155 @@
     return box;
   }
 
+  function openReader(item) {
+    if (!item || !item.id) return;
+    location.hash = "read/" + encodeURIComponent(item.id);
+  }
+
+  function findItem(id) {
+    var items = trends && trends.items ? trends.items : [];
+    var i;
+    for (i = 0; i < items.length; i++) if (storyKey(items[i]) === id) return items[i];
+    var saved = readStore("nextmind-saved");
+    for (i = 0; i < saved.length; i++) if (saved[i].id === id) return saved[i];
+    return null;
+  }
+
+  var readerCache = {};
+  var readerRequest = 0;
+
+  function readerStory(item, article) {
+    var text = article && article.ok && article.text ? article.text : "";
+    return {
+      id: item.id,
+      title: (article && article.title) || item.title,
+      url: item.url,
+      source: item.source,
+      topics: item.topics || [],
+      summary: item.summary || "",
+      text: text
+    };
+  }
+
+  function paintReader(item, article) {
+    var shell = document.getElementById("reader");
+    if (!shell) return;
+    shell.innerHTML = "";
+    var shown = {
+      image: (article && article.image) || item.image,
+      source: item.source,
+      title: item.title,
+      topics: item.topics
+    };
+    var hero = thumbFor(shown);
+    hero.classList.add("reader-hero");
+    var meta = document.createElement("p");
+    meta.className = "reader-meta";
+    var stamp = localStamp(item.publishedAt);
+    meta.textContent = [item.source, timeAgo(item.publishedAt), stamp.clock].filter(Boolean).join(" · ");
+    shell.appendChild(meta);
+    shell.appendChild(hero);
+    var body = document.createElement("div");
+    body.className = "reader-body";
+    var pending = article == null;
+    var text = article && article.ok && article.text ? article.text : "";
+    if (!text) text = item.summary || (pending ? "" : "Couldn't read this article.");
+    text.split(/\n+/).forEach(function (para) {
+      var p = document.createElement("p");
+      p.textContent = para.trim();
+      if (p.textContent) body.appendChild(p);
+    });
+    shell.appendChild(body);
+    var actions = document.createElement("div");
+    actions.className = "reader-actions";
+    var make = document.createElement("button");
+    make.type = "button";
+    make.className = "btn primary";
+    make.textContent = "Make script";
+    make.addEventListener("click", function () { queueStudio([readerStory(item, article)], false); });
+    var save = document.createElement("button");
+    save.type = "button";
+    save.className = "btn";
+    save.textContent = isSaved(item) ? "Saved" : "Save";
+    save.addEventListener("click", function () {
+      var story = readerStory(item, article);
+      toggleSaved(story);
+      save.textContent = isSaved(story) ? "Saved" : "Save";
+    });
+    actions.appendChild(make);
+    actions.appendChild(save);
+    shell.appendChild(actions);
+    if (item.url) {
+      var original = document.createElement("p");
+      original.className = "reader-original";
+      var link = document.createElement("a");
+      link.href = item.url;
+      link.target = "_blank";
+      link.rel = "noreferrer";
+      link.textContent = "Original";
+      original.appendChild(link);
+      shell.appendChild(original);
+    }
+  }
+
+  function setReaderTitle(text) {
+    var title = document.getElementById("view-title");
+    if (!title) return;
+    title.textContent = text || "Story";
+  }
+
+  function loadReader(id, opts) {
+    var focusTitle = !opts || opts.focus !== false;
+    var req = ++readerRequest;
+    var shell = document.getElementById("reader");
+    var status = document.getElementById("reader-status");
+    if (!shell) return;
+    if (!id || !/^[a-f0-9]{8,40}$/i.test(id)) {
+      shell.innerHTML = "";
+      if (status) status.textContent = "That story link is not valid.";
+      return;
+    }
+    if (status) status.textContent = "";
+    var item = findItem(id) || { id: id, title: "Story", source: "", url: "", publishedAt: "", topics: [], summary: "" };
+    paintReader(item, null);
+    setReaderTitle(item.title);
+    var title = document.getElementById("view-title");
+    if (focusTitle && title) {
+      title.tabIndex = -1;
+      title.focus();
+    }
+    if (readerCache[id]) {
+      paintReader(item, readerCache[id]);
+      return;
+    }
+    fetch("data/articles/" + encodeURIComponent(id) + ".json")
+      .then(function (res) {
+        if (!res.ok) throw new Error("missing");
+        return res.json();
+      })
+      .then(function (article) {
+        if (req !== readerRequest) return;
+        readerCache[id] = article;
+        var resolved = findItem(id) || item;
+        paintReader(resolved, article);
+        setReaderTitle((article && article.title) || resolved.title);
+      })
+      .catch(function () {
+        if (req !== readerRequest) return;
+        paintReader(findItem(id) || item, { ok: false, text: "" });
+      });
+  }
+
   function trendCard(item, compact) {
     var card = document.createElement("article");
     card.className = compact ? "trend compact" : "trend";
-    card.appendChild(thumbFor(item));
+    var opener = document.createElement("button");
+    opener.type = "button";
+    opener.className = "thumb-hit";
+    opener.setAttribute("aria-label", "Read " + item.title);
+    opener.appendChild(thumbFor(item));
+    opener.addEventListener("click", function () { openReader(item); });
+    card.appendChild(opener);
     var body = document.createElement("div");
     body.className = "trend-body";
     var top = document.createElement("div");
@@ -729,9 +892,12 @@
     top.appendChild(source);
     top.appendChild(heat);
 
-    var title = document.createElement("h3");
+    var title = document.createElement("button");
+    title.type = "button";
+    title.className = "story-title";
     title.textContent = item.title;
     title.title = item.title;
+    title.addEventListener("click", function () { openReader(item); });
     body.appendChild(top);
     body.appendChild(title);
 
@@ -749,11 +915,6 @@
 
     var actions = document.createElement("div");
     actions.className = "trend-actions";
-    var link = document.createElement("a");
-    link.href = item.url;
-    link.target = "_blank";
-    link.rel = "noreferrer";
-    link.textContent = "Read source";
     var copy = document.createElement("button");
     copy.type = "button";
     copy.className = "mini";
@@ -779,7 +940,6 @@
     select.addEventListener("change", function () { togglePick(item, select); });
     selectLabel.appendChild(select);
     selectLabel.appendChild(document.createTextNode(" Select for roundup"));
-    actions.appendChild(link);
     actions.appendChild(copy);
     actions.appendChild(make);
     actions.appendChild(save);

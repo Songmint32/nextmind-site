@@ -21,7 +21,7 @@ test("story to script to voiceover, saves, and filters", async ({ page }) => {
   const errors = await noErrors(page);
   await page.setViewportSize({ width: 1440, height: 900 });
   await openRadar(page);
-  const title = (await page.locator("#radar-list h3").first().innerText()).trim();
+  const title = (await page.locator("#radar-list .story-title").first().innerText()).trim();
   await expect(page.getByRole("button", { name: "Make script" }).first()).toBeVisible();
   await expect(page.getByRole("button", { name: "Copy as post" }).first()).toBeVisible();
   await expect(page.getByRole("button", { name: "Save", exact: true }).first()).toBeVisible();
@@ -40,7 +40,6 @@ test("story to script to voiceover, saves, and filters", async ({ page }) => {
   await expect(page.locator("#view-title")).toHaveText("Script Studio");
   await expect(page.locator("#studio-output")).toHaveValue(/HOOK/);
   await expect(page.locator("#studio-output")).toHaveValue(new RegExp(title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
-  await expect(page.locator("#studio-label")).toContainText("Template draft");
   await expect(page.locator("#studio-counts")).toContainText("words");
   const before = await page.locator("#studio-output").inputValue();
   await page.getByRole("button", { name: "Hype" }).click();
@@ -91,6 +90,20 @@ test("story to script to voiceover, saves, and filters", async ({ page }) => {
   await page.keyboard.press("Shift+Slash");
   await expect(page.getByRole("dialog", { name: "Keyboard shortcuts" })).toBeVisible();
   await page.getByRole("button", { name: "Close" }).click();
+
+  await page.goto("/#radar");
+  await page.locator("#radar-list .story-title").first().click();
+  await expect(page.locator(".reader")).toBeVisible();
+  await expect(page.locator(".reader-original a")).toBeVisible();
+  await page.goto("/#read/a7e11bfba6b1");
+  await expect(page.locator(".reader-body")).toContainText("YouTube");
+  const readerText = await page.locator(".reader-body").innerText();
+  expect(readerText.trim().length).toBeGreaterThan(200);
+  await page.getByRole("button", { name: "Make script" }).click();
+  await expect(page.locator("#studio-output")).toHaveValue(/HOOK/);
+  await expect(page.locator("#studio-output")).toHaveValue(/YouTube/);
+  await page.getByRole("link", { name: "Trend Radar" }).click();
+  await expect(page.locator("#radar-list .trend").first()).toBeVisible();
 
   expect(errors).toEqual([]);
 });

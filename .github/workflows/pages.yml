@@ -48,11 +48,12 @@ jobs:
 
       - name: Gather the files the site needs
         run: |
-          mkdir -p _site/fonts _site/assets _site/data
+          mkdir -p _site/fonts _site/assets _site/data/articles
           cp index.html styles.css site.js script-studio.js _site/
           cp assets/logo.svg assets/logo.png _site/assets/
           cp fonts/*.woff2 _site/fonts/
           cp data/trends.json _site/data/
+          cp data/articles/*.json _site/data/articles/
 
       - name: Upload the site
         uses: actions/upload-pages-artifact@v3

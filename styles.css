@@ -70,6 +70,7 @@ body {
     var(--bg);
   color: var(--text);
   font-family: var(--sans);
+  font-synthesis: none;
   font-size: 15px;
   line-height: 1.5;
   overflow-wrap: break-word;
@@ -79,7 +80,13 @@ body {
 
 img, svg { max-width: 100%; }
 button, input, select, textarea { font: inherit; color: inherit; }
+input, select, textarea { font-size: 16px; }
 button { cursor: pointer; }
+button, .nav a, .crumb, .chip, .search-pill { user-select: none; }
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid #b9cdff;
+  outline-offset: 2px;
+}
 ::selection { background: rgba(106, 166, 255, 0.35); color: #fff; }
 :focus { outline: none; }
 :focus-visible { outline: 2px solid #b9cdff; outline-offset: 3px; }
@@ -279,7 +286,8 @@ main, .card, .trend, .segment { min-width: 0; }
 }
 .display .name { font-size: 26px; }
 .display .month { font-size: 18px; font-weight: 400; color: #8d8d95; letter-spacing: -0.03em; }
-.lede, .section-note { max-width: 42rem; margin: 12px 0 0; color: var(--body); }
+.lede, .section-note { max-width: 65ch; margin: 12px 0 0; color: var(--body); }
+.lede[hidden], .lede:empty { display: none; }
 .section-note { margin: 0 0 12px; }
 
 .js .view { display: none; }
@@ -320,7 +328,7 @@ textarea { resize: vertical; min-height: 96px; }
   font-size: 14px;
 }
 .btn.primary { background: #f3f3f5; color: #0b0b0c; border-color: transparent; }
-.btn.primary:hover { background: #fff; }
+.btn.primary:hover { background: #fafafa; }
 .btn:disabled { opacity: 0.45; cursor: default; }
 .hint, .counts, .meta { color: var(--muted); font-size: 12px; }
 .hint { margin: 8px 0 0; letter-spacing: 0.01em; }
@@ -351,6 +359,7 @@ textarea { resize: vertical; min-height: 96px; }
   text-transform: uppercase;
 }
 .heat {
+  font-variant-numeric: tabular-nums;
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -528,15 +537,67 @@ input[type="range"] { width: 100%; margin: 0; accent-color: #c9d7ff; }
   display: flex;
   flex-direction: column;
   padding: 16px;
-  transition: transform var(--ease), border-color var(--ease);
+  transition: border-color var(--ease), background var(--ease);
 }
-.trend:hover { transform: translateY(-2px); border-color: var(--line-strong); }
-.trend h3 {
+.trend:hover { border-color: var(--line-strong); }
+.story-title, .trend h3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
 }
+.story-title:hover { color: var(--text); }
+.trend.compact .thumb-hit {
+  width: 88px;
+  margin: 0;
+  border-radius: 12px;
+}
+.trend.compact .thumb-hit .thumb {
+  aspect-ratio: 1;
+  border-radius: 12px;
+}
+.thumb-hit {
+  display: block;
+  width: calc(100% + 32px);
+  margin: -16px -16px 12px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 15px 15px 12px 12px;
+  cursor: pointer;
+}
+.thumb-hit .thumb { margin: 0; width: 100%; border-radius: inherit; }
+body.is-reading .month { display: none; }
+body.is-reading .display { display: block; }
+.reader { max-width: 65ch; }
+.reader-hero { width: 100%; margin: 0 0 16px; border-radius: 12px; }
+.reader-meta { margin: 0 0 8px; color: var(--meta); font-size: 13px; }
+.reader-title {
+  margin: 0 0 16px;
+  font-size: 22px;
+  font-weight: 560;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+.reader-body p { margin: 0 0 1lh; color: var(--body); font-size: 16px; line-height: 1.6; }
+.reader-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.reader-original { margin: 24px 0 0; }
+.reader-original a { color: var(--muted); font-size: 13px; }
+.reader-status:empty { display: none; }
+.reader-status { margin: 0 0 12px; color: var(--muted); }
 .thumb {
   position: relative;
   display: grid;
@@ -553,6 +614,11 @@ input[type="range"] { width: 100%; margin: 0; accent-color: #c9d7ff; }
 .thumb[data-topic="EV/Tesla"] { background: linear-gradient(160deg, #3a2030, #161014); }
 .thumb[data-topic="Science"] { background: linear-gradient(160deg, #2a2040, #12101a); }
 .thumb[data-topic="Apps"] { background: linear-gradient(160deg, #2a2a30, #141416); }
+.reader .thumb {
+  width: 100%;
+  margin: 0 0 16px;
+  border-radius: 12px;
+}
 .thumb img {
   position: absolute;
   inset: 0;
