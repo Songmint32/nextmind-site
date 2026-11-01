@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NextMind</title>
+  <meta name="description" content="NextMind explains what is really happening in tech. This first page is a labeled placeholder for daily news images and short videos.">
+  <meta name="theme-color" content="#0b0b0c">
+  <meta property="og:title" content="NextMind">
+  <meta property="og:description" content="Explaining what's really happening in tech.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <div class="app">
+    <aside class="sidebar">
+      <a class="brand" href="#top">
+        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="9" fill="#17171a"/>
+          <path d="M7 21c3.2-7 6.4-9 10-5.2 2.4 2.5 4.6 2.2 8.2-3.6" fill="none" stroke="url(#mark-line)" stroke-width="2.2" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="mark-line" x1="6" y1="16" x2="26" y2="10" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#e6c35c"/>
+              <stop offset=".5" stop-color="#6aa6ff"/>
+              <stop offset="1" stop-color="#c4a1ff"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-name">NextMind</span>
+          <span class="brand-meta">Homepage</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="On this page">
+        <a href="#about"><span class="dot dot-yellow" aria-hidden="true"></span>About</a>
+        <a href="#daily"><span class="dot dot-green" aria-hidden="true"></span>Daily news</a>
+        <a href="#videos"><span class="dot dot-blue" aria-hidden="true"></span>Videos</a>
+        <a href="#links"><span class="dot dot-pink" aria-hidden="true"></span>Links</a>
+      </nav>
+
+      <p class="side-foot">v1 · static page</p>
+    </aside>
+
+    <main id="content">
+      <div class="wrap">
+        <header class="hero" id="top">
+          <p class="kicker"><span class="dot dot-green" aria-hidden="true"></span>Tech · AI · chips · space · science</p>
+          <h1 class="display">
+            <span class="name">NextMind</span>
+            <span class="month" id="month-label">November 2026</span>
+          </h1>
+          <p class="tagline">Explaining what's really happening in tech.</p>
+          <p class="zh" lang="zh-Hans">把科技里真正发生的事，说清楚。</p>
+
+          <!-- Decorative curve only. It is not a chart of real numbers. -->
+          <figure class="card chart-card">
+            <figcaption class="chart-caption">
+              <span>Accent</span>
+              <span>Decorative · not data</span>
+            </figcaption>
+            <svg class="chart" viewBox="0 0 840 250" role="img" aria-label="A glowing multi-color curve used as decoration. It does not show real data.">
+              <defs>
+                <linearGradient id="curve" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#e6c35c"/>
+                  <stop offset="0.28" stop-color="#3dcf8e"/>
+                  <stop offset="0.52" stop-color="#6aa6ff"/>
+                  <stop offset="0.76" stop-color="#ff7aa2"/>
+                  <stop offset="1" stop-color="#c4a1ff"/>
+                </linearGradient>
+                <linearGradient id="curve-fill" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#e6c35c" stop-opacity="0.28"/>
+                  <stop offset="0.28" stop-color="#3dcf8e" stop-opacity="0.24"/>
+                  <stop offset="0.52" stop-color="#6aa6ff" stop-opacity="0.28"/>
+                  <stop offset="0.76" stop-color="#ff7aa2" stop-opacity="0.22"/>
+                  <stop offset="1" stop-color="#c4a1ff" stop-opacity="0.26"/>
+                </linearGradient>
+                <linearGradient id="fade-down" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="white"/>
+                  <stop offset="0.72" stop-color="white" stop-opacity="0.15"/>
+                  <stop offset="1" stop-color="white" stop-opacity="0"/>
+                </linearGradient>
+                <mask id="fade-mask">
+                  <rect width="840" height="250" fill="url(#fade-down)"/>
+                </mask>
+                <filter id="glow" x="-10%" y="-60%" width="120%" height="220%">
+                  <feGaussianBlur stdDeviation="5" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+              <path mask="url(#fade-mask)" fill="url(#curve-fill)" d="M16 168 C90 172 124 96 196 104 C268 112 300 196 368 148 C436 100 470 52 536 88 C602 124 640 176 708 122 C748 92 770 86 786 94 L786 250 L16 250 Z"/>
+              <path fill="none" stroke="url(#curve)" stroke-width="2.75" stroke-linecap="round" filter="url(#glow)" d="M16 168 C90 172 124 96 196 104 C268 112 300 196 368 148 C436 100 470 52 536 88 C602 124 640 176 708 122 C748 92 770 86 786 94"/>
+              <g>
+                <circle cx="196" cy="104" r="4" fill="#e6c35c"/>
+                <circle cx="368" cy="148" r="4" fill="#3dcf8e"/>
+                <circle cx="536" cy="88" r="4" fill="#6aa6ff"/>
+                <circle cx="708" cy="122" r="4" fill="#ff7aa2"/>
+                <circle cx="786" cy="94" r="4" fill="#c4a1ff"/>
+              </g>
+            </svg>
+          </figure>
+        </header>
+
+        <section class="block" id="about" aria-labelledby="about-label">
+          <h2 class="section-label" id="about-label"><span class="dot dot-yellow" aria-hidden="true"></span>About</h2>
+          <article class="card prose">
+            <p>NextMind is Jerry's content brand. He is learning to build and ship things with AI, and this is the first public page for that work.</p>
+            <p>The plan is short daily news images and videos about tech, AI, chips, space, and science, for readers in Chinese and in English, plus an account on X. Those posts are not on this page yet.</p>
+          </article>
+        </section>
+
+        <section class="block" id="daily" aria-labelledby="daily-label">
+          <h2 class="section-label" id="daily-label"><span class="dot dot-green" aria-hidden="true"></span>Daily news</h2>
+          <p class="section-note">Three example cards. A later version can put the day's image boards here. Nothing below is a real post.</p>
+          <div class="news-grid">
+            <article class="card slot">
+              <p class="pill"><span class="dot dot-yellow" aria-hidden="true"></span>Example 01</p>
+              <div class="board" aria-hidden="true">Image board</div>
+              <h3>Image board slot</h3>
+              <p>Placeholder. This is where one day's news image will sit.</p>
+            </article>
+            <article class="card slot">
+              <p class="pill"><span class="dot dot-green" aria-hidden="true"></span>Example 02</p>
+              <div class="board" aria-hidden="true">Image board</div>
+              <h3>Image board slot</h3>
+              <p>Placeholder. Real boards are meant to cover tech, AI, chips, space, and science. This card has no story in it.</p>
+            </article>
+            <article class="card slot">
+              <p class="pill"><span class="dot dot-blue" aria-hidden="true"></span>Example 03</p>
+              <div class="board" aria-hidden="true">Image board</div>
+              <h3>Image board slot</h3>
+              <p>Placeholder. Posts are for Chinese and English audiences. This card is only the empty slot.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="block" id="videos" aria-labelledby="videos-label">
+          <h2 class="section-label" id="videos-label"><span class="dot dot-blue" aria-hidden="true"></span>Videos</h2>
+          <p class="section-note">Empty slots for short videos. Nothing here plays.</p>
+          <div class="video-grid">
+            <article class="card slot">
+              <p class="pill"><span class="dot dot-pink" aria-hidden="true"></span>Example</p>
+              <div class="frame" aria-hidden="true">No video yet</div>
+              <h3>Video slot</h3>
+              <p>Placeholder. A short video will be linked here later. This frame does not play.</p>
+            </article>
+            <article class="card slot">
+              <p class="pill"><span class="dot dot-purple" aria-hidden="true"></span>Example</p>
+              <div class="frame" aria-hidden="true">No video yet</div>
+              <h3>Video slot</h3>
+              <p>Placeholder. A second empty frame for the same kind of video. Nothing is uploaded.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="block" id="links" aria-labelledby="links-label">
+          <h2 class="section-label" id="links-label"><span class="dot dot-pink" aria-hidden="true"></span>Links</h2>
+          <p class="section-note">The X account and a contact address are not filled in yet. The link to this page's code is real.</p>
+          <div class="card link-card">
+            <!-- TODO: replace href="#" with Jerry's real X (Twitter) profile URL. -->
+            <a class="link-row" href="#">
+              <span class="dot dot-blue" aria-hidden="true"></span>
+              <span class="link-copy">
+                <span class="link-name">X (Twitter)</span>
+                <span class="link-note">Placeholder. The profile URL is not set yet.</span>
+              </span>
+              <span class="link-go">Not set</span>
+            </a>
+            <!-- TODO: replace href="#" with a real contact link once one exists (email or a form). -->
+            <a class="link-row" href="#">
+              <span class="dot dot-purple" aria-hidden="true"></span>
+              <span class="link-copy">
+                <span class="link-name">Contact</span>
+                <span class="link-note">Placeholder. No address yet.</span>
+              </span>
+              <span class="link-go">Not set</span>
+            </a>
+            <a class="link-row" href="https://github.com/Songmint32/nextmind-site" target="_blank" rel="noreferrer">
+              <span class="dot dot-green" aria-hidden="true"></span>
+              <span class="link-copy">
+                <span class="link-name">This site's code</span>
+                <span class="link-note">The GitHub repository for this page.</span>
+              </span>
+              <span class="link-go">github.com</span>
+            </a>
+          </div>
+        </section>
+
+        <footer class="colophon">
+          <span>NextMind</span>
+          <span>Static homepage · examples only</span>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <script src="site.js"></script>
+</body>
+</html>
