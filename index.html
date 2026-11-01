@@ -91,7 +91,7 @@
           <span class="name" id="view-title">Overview</span>
           <span class="month" id="month-label">November 2026</span>
         </h1>
-        <p class="lede" id="lede">Find what's moving in tech, then voice the post.</p>
+        <p class="lede" id="lede" hidden></p>
       </header>
 
       <section class="view is-active" id="panel-overview" data-view-panel="overview" aria-label="Overview">
@@ -111,26 +111,20 @@
           <form class="card quick-voice" id="quick-voice">
             <p class="meta">Voiceover</p>
             <h2>Try a line</h2>
-            <label class="field-label" for="quick-script">A sentence to speak</label>
-            <textarea id="quick-script" rows="4" placeholder="Write one line. The browser voice reads it. Nothing is uploaded."></textarea>
+            <label class="field-label" for="quick-script">Line</label>
+            <textarea id="quick-script" rows="4" placeholder="A sentence"></textarea>
             <div class="button-row">
               <button class="btn primary" type="button" id="quick-play">Play</button>
               <button class="btn" type="button" id="quick-open">Open in Voiceover</button>
             </div>
             <p class="hint" id="quick-status" aria-live="polite"></p>
           </form>
-          <article class="card">
-            <p class="pill"><span class="dot dot-blue" aria-hidden="true"></span>Coming soon</p>
-            <h2>Video</h2>
-            <p>A later version could build a video from a script plus a voiceover. This site cannot render or export video. There is no upload.</p>
-          </article>
           </div>
         </div>
       </section>
 
       <section class="view" id="panel-radar" data-view-panel="radar" aria-label="Trend Radar">
-        <p class="section-note" id="heat-note">Heat starts at 100 for a story published just now and falls to 0 after 48 hours. Hacker News points and comments add more. Other sources are scored on recency only.</p>
-        <p class="meta" id="radar-updated">Loading…</p>
+        <p class="meta" id="radar-updated"></p>
         <div class="filters">
           <div class="chips" role="group" aria-label="Topic">
             <button type="button" class="chip is-on" data-topic="">All</button>
@@ -181,14 +175,12 @@
       </section>
 
       <section class="view" id="panel-studio" data-view-panel="studio" aria-label="Script Studio">
-        <p class="pill" id="studio-label">Template draft · AI scripts coming soon</p>
-        <p class="section-note">The draft uses the headline, the source, and the link. It does not invent the rest of the article. Press Generate again after you change the format or the tone.</p>
         <div id="studio-sources" class="stack"></div>
         <div class="studio-controls">
           <div class="chips" role="group" aria-label="Format">
-            <button type="button" class="chip is-on" data-format="30s">30s Short/Reel</button>
+            <button type="button" class="chip is-on" data-format="30s">30s</button>
             <button type="button" class="chip" data-format="60s">60s</button>
-            <button type="button" class="chip" data-format="3min">3-min explainer</button>
+            <button type="button" class="chip" data-format="3min">3 min</button>
           </div>
           <div class="chips" role="group" aria-label="Tone">
             <button type="button" class="chip is-on" data-tone="neutral">Neutral</button>
@@ -200,7 +192,7 @@
           </div>
         </div>
         <label class="field-label" for="studio-output">Script</label>
-        <textarea id="studio-output" rows="14" placeholder="Choose Make script on a headline. The draft shows up here, and you can edit it."></textarea>
+        <textarea id="studio-output" rows="14" placeholder="Draft"></textarea>
         <p class="counts" id="studio-counts" aria-live="polite">0 words · about 0:00</p>
         <p class="hint" id="studio-status" aria-live="polite"></p>
         <div class="button-row">
@@ -210,20 +202,23 @@
           <button class="btn" type="button" id="studio-save">Save draft</button>
         </div>
         <h2 class="subhead">Drafts</h2>
-        <p class="hint">Saved in this browser only. Rename a draft in the box, or delete it.</p>
         <div id="draft-list" class="stack"></div>
       </section>
 
       <section class="view" id="panel-saved" data-view-panel="saved" aria-label="Saved">
-        <p class="section-note">Stories you save stay in this browser. They are not uploaded.</p>
         <div id="saved-list" class="stack"></div>
+      </section>
+
+      <section class="view" id="panel-read" data-view-panel="read" aria-label="Story">
+        <p class="reader-status" id="reader-status" role="status"></p>
+        <article class="reader" id="reader"></article>
       </section>
 
       <section class="view" id="panel-voiceover" data-view-panel="voiceover" aria-label="Voiceover">
         <div class="voice-layout">
           <div class="stack">
             <label class="field-label" for="script">Script</label>
-            <textarea id="script" rows="8" placeholder="Write the post. Leave a blank line between parts you want to preview on their own."></textarea>
+            <textarea id="script" rows="8" placeholder="Script"></textarea>
             <p class="counts" id="script-counts" aria-live="polite">0 characters · 0 words · about 0:00</p>
             <div class="button-row">
               <button class="btn primary" type="button" id="voice-play">Play</button>
@@ -247,25 +242,15 @@
                 <span class="field-label">Pitch <span id="pitch-label">1.0</span></span>
                 <input id="voice-pitch" type="range" min="0.6" max="1.5" step="0.1" value="1">
               </label>
-              <p class="hint">English voices on this device are listed first. Speed changes the time estimate. About 150 words per minute at speed 1.0.</p>
             </div>
-            <article class="card studio">
-              <p class="pill"><span class="dot dot-purple" aria-hidden="true"></span>Coming soon</p>
-              <h2>Studio voices</h2>
-              <p>Premium AI voices and an MP3 download need a server. This free site does not have one.</p>
-              <p>The Play button uses the browser's built-in voice. That preview cannot be downloaded.</p>
-            </article>
           </div>
         </div>
       </section>
 
       <section class="view" id="panel-pricing" data-view-panel="pricing" aria-label="Pricing">
-        <p class="section-note">These tier names are placeholders. Nothing is for sale, and no price is shown because none has been set.</p>
         <div class="price-grid">
           <article class="card">
-            <p class="pill"><span class="dot dot-green" aria-hidden="true"></span>Available</p>
             <h2>Free</h2>
-            <p>What you can use on this site today. There is no checkout.</p>
             <ul>
               <li>Trend Radar, from public headlines</li>
               <li>Browser voiceover preview</li>
@@ -273,9 +258,7 @@
             </ul>
           </article>
           <article class="card">
-            <p class="pill"><span class="dot dot-yellow" aria-hidden="true"></span>Coming soon</p>
             <h2>Pro</h2>
-            <p>Placeholder. Not for sale. A price has not been chosen.</p>
             <ul>
               <li>Studio voices</li>
               <li>MP3 export</li>
@@ -318,7 +301,7 @@
           </a>
         </div>
       </section>
-      <footer class="colophon"><span>NextMind</span><span>Public headlines · browser voice</span></footer>
+      <footer class="colophon"><span>NextMind</span></footer>
     </main>
   </div>
 
@@ -328,7 +311,7 @@
       <p class="meta" id="palette-title">Search headlines</p>
       <input class="palette-input" id="palette-input" type="text" placeholder="Search headlines" autocomplete="off" aria-label="Search headlines">
       <div class="palette-list" id="palette-list"></div>
-      <p class="palette-hint">Searches headlines already on this page. It does not contact another server.</p>
+      <p class="palette-hint" hidden>Search</p>
     </form>
   </dialog>
   <dialog class="palette" id="help" aria-labelledby="help-title">

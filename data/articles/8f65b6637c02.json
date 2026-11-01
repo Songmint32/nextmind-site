@@ -1,0 +1,10 @@
+{
+  "id": "8f65b6637c02",
+  "url": "https://arstechnica.com/ai/2026/10/doordash-says-outside-ai-agents-have-only-led-to-hundreds-of-orders-so-far/",
+  "title": "Basically no one is using AI agents for their DoorDash orders",
+  "source": "Ars Technica",
+  "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/10/GettyImages-2301817894-1024x648.jpg",
+  "ok": true,
+  "text": "As AI tools and agents have continued their march across all aspects of digital life, many companies are trying to use LLMs to improve the experience of purchasing goods and services on the Internet. Thus far, though, a vanishingly small number of people seem to be taking advantage of those capabilities, at least when it comes to using the popular food delivery app DoorDash with an outside AI agent.\nIn a third-quarter earnings call Thursday, DoorDash co-founder and CEO Tony Xu responded to an analyst question by noting that “AI agents are generating several hundred orders [on DoorDash] across the time that they’ve been up and running.” In a marked understatement, Xu called this a “very low use case” for a company that handled just shy of 1 billion orders total in the third quarter of 2026 alone.\nSpeaking generally, Xu said he sees the potential for AI agents to be genuinely helpful for “long consideration purchases” and major decisions where agents would be “doing work on your behalf proactively in the background.” However, Xu added, “when it comes to a task that’s as simple as ordering food, we tend to see that come directly to DoorDash.”\nGive it time?\nTo be fair to the AI boosters, DoorDash only rolled out its Model Context Protocol (MCP) connector less than a month ago. The connector provides a standardized, open-standard way for third-party AI tools to easily order through DoorDash’s platform. Without that kind of linkup—which is still only available to a small number of “early beta partners” and mainly used to streamline corporate lunch orders—AI agents have to go through a bit more effort to access DoorDash through a web interface, for instance.",
+  "words": 282
+}

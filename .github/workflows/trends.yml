@@ -28,6 +28,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install the article extractor
+        run: pip install trafilatura
+
       - name: Fetch public headlines
         run: python3 scripts/fetch_trends.py
 
