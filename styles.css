@@ -43,7 +43,7 @@
   --pink: #ff7aa2;
   --purple: #c4a1ff;
   --radius: 16px;
-  --sans: "Inter", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  --sans: "Inter", sans-serif;
   --mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace;
 }
 
@@ -131,9 +131,10 @@ body {
 }
 
 .mark {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   flex: none;
+  display: block;
 }
 
 .brand-text {
@@ -263,12 +264,6 @@ body {
   color: #dedee3;
   font-size: 1.15rem;
   letter-spacing: -0.02em;
-}
-
-.zh {
-  margin: 8px 0 0;
-  color: #a3a3ab;
-  font-size: 1.02rem;
 }
 
 .card {
