@@ -128,5 +128,81 @@ test("layouts do not overflow and a failed feed stays usable", async ({ page }) 
   await page.getByRole("link", { name: "Voiceover" }).click();
   await page.locator("#script").fill("Still here.");
   await page.getByRole("button", { name: "Play", exact: true }).click();
+  await expect(page.locator("#voice-status")).toHaveText("Add an ElevenLabs API key in Settings.");
+  expect(errors).toEqual([]);
+});
+
+function silentWav() {
+  const samples = 200;
+  const buffer = Buffer.alloc(44 + samples * 2);
+  buffer.write("RIFF", 0);
+  buffer.writeUInt32LE(36 + samples * 2, 4);
+  buffer.write("WAVE", 8);
+  buffer.write("fmt ", 12);
+  buffer.writeUInt32LE(16, 16);
+  buffer.writeUInt16LE(1, 20);
+  buffer.writeUInt16LE(1, 22);
+  buffer.writeUInt32LE(8000, 24);
+  buffer.writeUInt32LE(16000, 28);
+  buffer.writeUInt16LE(2, 32);
+  buffer.writeUInt16LE(16, 34);
+  buffer.write("data", 36);
+  buffer.writeUInt32LE(samples * 2, 40);
+  return buffer;
+}
+
+test("elevenlabs voiceover uses the saved key and can download", async ({ page }) => {
+  const errors = await noErrors(page);
+  await page.setViewportSize({ width: 1440, height: 900 });
+  let hits = 0;
+  let last = null;
+  await page.route("https://api.elevenlabs.io/**", async (route) => {
+    hits += 1;
+    last = {
+      url: route.request().url(),
+      key: route.request().headers()["xi-api-key"],
+      body: route.request().postData()
+    };
+    await route.fulfill({ status: 200, contentType: "audio/wav", body: silentWav() });
+  });
+
+  await page.goto("/#voiceover");
+  await page.getByRole("button", { name: "Play", exact: true }).click();
+  await expect(page.locator("#voice-status")).toHaveText("Add an ElevenLabs API key in Settings.");
+
+  await page.getByRole("button", { name: "Settings" }).first().click();
+  await page.getByLabel("ElevenLabs API key").fill("test-key-not-real");
+  await page.getByRole("button", { name: "Save key" }).click();
+  await expect(page.locator("#settings-status")).toHaveText("Key saved on this device.");
+  await expect(page.getByLabel("ElevenLabs API key")).toHaveValue("");
+  await page.getByRole("button", { name: "Close" }).click();
+
+  await page.locator("#script").fill("Hello from NextMind.");
+  await page.locator("#voice-picker").selectOption("pNInz6obpgDQGcFmaJgB");
+  await page.getByRole("button", { name: "Play", exact: true }).click();
+  await expect.poll(() => hits).toBe(1);
+  expect(last.url).toContain("pNInz6obpgDQGcFmaJgB");
+  expect(last.key).toBe("test-key-not-real");
+  expect(last.body).toContain("Hello from NextMind.");
+  await expect(page.locator("#voice-audio")).toBeVisible();
+  await expect(page.locator("#voice-download")).toBeEnabled();
+
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Download mp3" }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("nextmind-voiceover.mp3");
+
+  await page.getByRole("button", { name: "Play", exact: true }).click();
+  await page.waitForTimeout(300);
+  expect(hits).toBe(1);
+
+  await page.route("https://api.elevenlabs.io/**", (route) => route.fulfill({
+    status: 401,
+    contentType: "application/json",
+    body: "{\"detail\":\"invalid\"}"
+  }));
+  await page.locator("#script").fill("A different line.");
+  await page.getByRole("button", { name: "Play", exact: true }).click();
+  await expect(page.locator("#voice-status")).toHaveText("That API key was rejected. Check Settings.");
   expect(errors).toEqual([]);
 });

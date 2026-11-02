@@ -1,6 +1,6 @@
 /* NextMind app behavior.
    Trend Radar reads data/trends.json, which a scheduled job refreshes.
-   Voiceover uses the browser's own speech, not a paid voice service.
+   Voiceover calls ElevenLabs from this browser. The API key stays in localStorage.
    If this file does not run, the sections stay on the page but the tools do not. */
 (function () {
   var views = {
@@ -14,8 +14,9 @@
     read: { crumb: "Story", lede: "" }
   };
 
-  var HEAT_HN = "Heat starts at 100 when a story is new and falls to 0 after 48 hours. This one also adds Hacker News points and comments.";
-  var HEAT_TIME = "Heat starts at 100 when a story is new and falls to 0 after 48 hours. This source has no points, so the score is recency only.";
+  var KEY_NAME = "nextmind-eleven-key";
+  var VOICE_NAME = "nextmind-voice";
+  var KEY_HINT = "Add an ElevenLabs API key in Settings.";
 
   var state = { topic: "", source: "", range: "24h", sort: "heat", query: "" };
   var BATCH = 20;
@@ -30,7 +31,6 @@
     ["about", "About"]
   ];
   var trends = null;
-  var speaking = false;
   var picked = [];
   var studioStories = [];
   var studioRoundup = false;
@@ -112,8 +112,9 @@
       if (savedScript != null && script) {
         script.value = savedScript;
         sessionStorage.removeItem("nextmind-script");
-        updateScript();
       }
+      updateScript();
+      refreshKeyHint();
     }
     if (name === "studio") renderStudio();
     if (name === "saved") renderSaved();
@@ -493,7 +494,7 @@
       if (!studioStories.length) {
         var empty = document.createElement("p");
         empty.className = "empty";
-        empty.textContent = "Choose Make script on a headline, or select up to 5 stories for a daily roundup.";
+        empty.textContent = "No story yet.";
         box.appendChild(empty);
       } else {
         studioStories.forEach(function (story) {
@@ -502,12 +503,9 @@
           var title = document.createElement("h2");
           title.textContent = story.title;
           var meta = document.createElement("p");
-          meta.textContent = story.source + (story.url ? " · " + story.url : "");
-          var summary = document.createElement("p");
-          summary.textContent = story.summary;
+          meta.textContent = story.source || "";
           card.appendChild(title);
           card.appendChild(meta);
-          card.appendChild(summary);
           box.appendChild(card);
         });
       }
@@ -530,7 +528,7 @@
       output.value = draft && draft.text ? draft.text : "";
       updateStudioCounts();
       var label = document.getElementById("studio-label");
-      if (label) label.textContent = (draft && draft.label) || "Template draft · AI scripts coming soon";
+      if (label) label.textContent = (draft && draft.label) || "";
       if (status) status.textContent = draft && draft.error ? draft.error : "";
     }).catch(function (error) {
       if (status) status.textContent = error && error.message ? error.message : "The draft could not be built.";
@@ -543,7 +541,7 @@
     if (!output || !counts) return;
     var text = output.value.trim();
     var words = text ? text.split(/\s+/).length : 0;
-    counts.textContent = words + " words · about " + clock(Math.round(words / 150 * 60)) + " at 150 words per minute";
+    counts.textContent = words + " words · " + clock(Math.round(words / 150 * 60));
   }
 
   function renderDrafts() {
@@ -554,7 +552,7 @@
     if (!drafts.length) {
       var empty = document.createElement("p");
       empty.className = "empty";
-      empty.textContent = "No drafts yet. Save the script above and it stays in this browser.";
+      empty.textContent = "No drafts yet.";
       list.appendChild(empty);
       return;
     }
@@ -605,7 +603,7 @@
     if (!rows.length) {
       var empty = document.createElement("p");
       empty.className = "empty";
-      empty.textContent = "No saved stories yet. Use Save on a headline.";
+      empty.textContent = "No saved stories yet.";
       list.appendChild(empty);
       return;
     }
@@ -879,16 +877,9 @@
     source.appendChild(document.createTextNode(item.source + " · "));
     source.appendChild(time);
     if (stamp.clock) source.appendChild(document.createTextNode(" · " + stamp.clock));
-    var heat = document.createElement("button");
-    heat.type = "button";
+    var heat = document.createElement("span");
     heat.className = "heat";
-    heat.setAttribute("aria-label", "Heat " + item.heat + ". " + (item.hnPoints != null ? HEAT_HN : HEAT_TIME));
-    heat.appendChild(document.createTextNode("Heat " + item.heat));
-    var tip = document.createElement("span");
-    tip.className = "heat-tip";
-    tip.setAttribute("role", "tooltip");
-    tip.textContent = item.hnPoints != null ? HEAT_HN : HEAT_TIME;
-    heat.appendChild(tip);
+    heat.textContent = "Heat " + item.heat;
     top.appendChild(source);
     top.appendChild(heat);
 
@@ -987,7 +978,7 @@
     }
     if (feeds) {
       var failed = (trends.feeds || []).filter(function (feed) { return !feed.ok; }).map(function (feed) { return feed.source; });
-      feeds.textContent = failed.length ? "Some sources did not respond this run: " + failed.join(", ") + "." : "";
+      feeds.textContent = failed.length ? "Some sources did not respond." : "";
     }
     var items = filtered();
     list.textContent = "";
@@ -1095,7 +1086,14 @@
   var studioSend = document.getElementById("studio-send");
   if (studioSend) studioSend.addEventListener("click", function () {
     var output = document.getElementById("studio-output");
-    sessionStorage.setItem("nextmind-script", output ? output.value : "");
+    var text = output ? output.value.trim() : "";
+    var status = document.getElementById("studio-status");
+    if (!text) {
+      if (status) status.textContent = "Write a script first.";
+      return;
+    }
+    if (status) status.textContent = "";
+    sessionStorage.setItem("nextmind-script", output.value);
     go("voiceover");
   });
   var studioSave = document.getElementById("studio-save");
@@ -1137,213 +1135,213 @@
     });
   }
 
-  function wordsIn(text) {
-    var trimmed = text.trim();
-    if (!trimmed) return 0;
-    return trimmed.split(/\s+/).length;
-  }
-
-  function formatDuration(text, rate) {
-    var words = wordsIn(text);
-    var seconds = Math.round(words / (150 * rate) * 60);
-    var mins = Math.floor(seconds / 60);
-    var rest = seconds % 60;
-    return {
-      words: words,
-      chars: text.length,
-      label: "about " + mins + ":" + (rest < 10 ? "0" : "") + rest
-    };
-  }
-
-  function paragraphs(text) {
-    return text.split(/\n+/).map(function (part) { return part.trim(); }).filter(Boolean);
-  }
-
   var scriptBox = document.getElementById("script");
-  var rateInput = document.getElementById("voice-rate");
-  var pitchInput = document.getElementById("voice-pitch");
-  var rateLabel = document.getElementById("rate-label");
-  var pitchLabel = document.getElementById("pitch-label");
   var counts = document.getElementById("script-counts");
-  var segmentBox = document.getElementById("segments");
   var voicePicker = document.getElementById("voice-picker");
   var playBtn = document.getElementById("voice-play");
   var stopBtn = document.getElementById("voice-stop");
+  var downloadBtn = document.getElementById("voice-download");
   var voiceStatus = document.getElementById("voice-status");
+  var audio = document.getElementById("voice-audio");
+  var settingsDialog = document.getElementById("settings");
+  var voiceCache = { sig: "", url: "" };
+  var voiceRequest = null;
 
-  function currentRate() { return rateInput ? Number(rateInput.value) : 1; }
-  function currentPitch() { return pitchInput ? Number(pitchInput.value) : 1; }
+  function readKey() {
+    try { return (localStorage.getItem(KEY_NAME) || "").trim(); }
+    catch (error) { return ""; }
+  }
+
+  function scriptSignature() {
+    var voiceId = voicePicker ? voicePicker.value : "";
+    var text = scriptBox ? scriptBox.value.trim() : "";
+    return voiceId + "\n" + text;
+  }
 
   function updateScript() {
-    var text = scriptBox ? scriptBox.value : "";
-    var stats = formatDuration(text, currentRate());
-    if (counts) counts.textContent = stats.chars + " characters · " + stats.words + " words · " + stats.label;
-    if (rateLabel && rateInput) rateLabel.textContent = Number(rateInput.value).toFixed(1);
-    if (pitchLabel && pitchInput) pitchLabel.textContent = Number(pitchInput.value).toFixed(1);
-    renderSegments(paragraphs(text));
+    var text = scriptBox ? scriptBox.value.trim() : "";
+    var words = text ? text.split(/\s+/).length : 0;
+    if (counts) counts.textContent = words + " words · " + clock(Math.round(words / 150 * 60));
+    if (downloadBtn) downloadBtn.disabled = !voiceCache.url || voiceCache.sig !== scriptSignature();
   }
 
-  function renderSegments(parts) {
-    if (!segmentBox) return;
-    segmentBox.textContent = "";
-    if (!parts.length) {
-      var empty = document.createElement("p");
-      empty.className = "empty";
-      empty.textContent = "Parts show up when the script has text. Each block between line breaks can be played on its own.";
-      segmentBox.appendChild(empty);
+  function refreshKeyHint() {
+    if (!voiceStatus) return;
+    if (!readKey()) {
+      voiceStatus.textContent = KEY_HINT;
       return;
     }
-    parts.forEach(function (part, index) {
-      var row = document.createElement("article");
-      row.className = "segment";
-      var heading = document.createElement("h3");
-      heading.textContent = "Part " + (index + 1);
-      var body = document.createElement("p");
-      body.textContent = part;
-      var button = document.createElement("button");
-      button.type = "button";
-      button.className = "btn";
-      button.textContent = "Play this part";
-      button.addEventListener("click", function () { speak([part], row); });
-      row.appendChild(heading);
-      row.appendChild(body);
-      row.appendChild(button);
-      segmentBox.appendChild(row);
-    });
+    if (voiceStatus.textContent === KEY_HINT) voiceStatus.textContent = "";
   }
 
-  function chosenVoice() {
-    if (!voicePicker || !window.speechSynthesis) return null;
-    var voices = window.speechSynthesis.getVoices();
-    for (var i = 0; i < voices.length; i++) {
-      if (voices[i].voiceURI === voicePicker.value || voices[i].name === voicePicker.value) return voices[i];
-    }
-    return null;
+  function voiceMessage(error) {
+    var code = error && error.status;
+    var body = error && error.body ? String(error.body) : "";
+    if (code === 401) return "That API key was rejected. Check Settings.";
+    if (code === 429) return "ElevenLabs is rate limiting. Wait and try again.";
+    if (code === 402 || /quota/i.test(body)) return "ElevenLabs quota is used up.";
+    if (!code) return "Couldn't reach ElevenLabs. Check the connection and try again.";
+    return "Couldn't generate audio. Try again.";
   }
 
-  function fillVoices() {
-    if (!voicePicker || !window.speechSynthesis) return;
-    var voices = window.speechSynthesis.getVoices();
-    var english = voices.filter(function (voice) { return /^en([-_]|$)/i.test(voice.lang); });
-    var list = english.length ? english : voices;
-    var previous = voicePicker.value;
-    voicePicker.textContent = "";
-    if (!list.length) {
-      var missing = document.createElement("option");
-      missing.textContent = "No voice installed";
-      voicePicker.appendChild(missing);
-      voicePicker.disabled = true;
-      return;
-    }
-    voicePicker.disabled = false;
-    list.forEach(function (voice) {
-      var option = document.createElement("option");
-      option.value = voice.voiceURI || voice.name;
-      option.textContent = voice.name + " (" + voice.lang + ")";
-      voicePicker.appendChild(option);
-    });
-    var preferred = list.filter(function (voice) { return /en-US/i.test(voice.lang); })[0] || list[0];
-    voicePicker.value = previous || preferred.voiceURI || preferred.name;
-  }
-
-  function setSpeaking(on) {
-    speaking = on;
+  function setGenerating(on) {
     if (playBtn) playBtn.disabled = on;
-    if (stopBtn) stopBtn.disabled = !on;
-    if (!on) {
-      document.querySelectorAll(".segment.is-speaking").forEach(function (row) {
-        row.classList.remove("is-speaking");
+    if (stopBtn) stopBtn.disabled = !on && (!audio || audio.paused || audio.ended);
+  }
+
+  function playCached() {
+    if (!audio || !voiceCache.url) return;
+    audio.hidden = false;
+    audio.src = voiceCache.url;
+    var played = audio.play();
+    if (played && played.catch) {
+      played.catch(function () {
+        setGenerating(false);
+        if (voiceStatus) voiceStatus.textContent = "Audio is ready.";
       });
     }
   }
 
-  function speak(parts, highlight) {
-    if (!window.speechSynthesis) {
-      if (voiceStatus) voiceStatus.textContent = "This browser cannot speak. Web Speech is unavailable.";
+  function generateVoice() {
+    var text = scriptBox ? scriptBox.value.trim() : "";
+    var voiceId = voicePicker ? voicePicker.value : "";
+    var apiKey = readKey();
+    if (!apiKey) {
+      if (voiceStatus) voiceStatus.textContent = KEY_HINT;
       return;
     }
-    if (voicePicker && voicePicker.disabled) {
-      if (voiceStatus) voiceStatus.textContent = "This browser has no speech voice, so preview cannot play.";
+    if (!text) {
+      if (voiceStatus) voiceStatus.textContent = "Write a script first.";
       return;
     }
-    var lines = parts.filter(Boolean);
-    if (!lines.length) {
-      if (voiceStatus) voiceStatus.textContent = "Write something first.";
+    if (text.length > 10000) {
+      if (voiceStatus) voiceStatus.textContent = "Script is over 10,000 characters. Shorten it.";
       return;
     }
-    window.speechSynthesis.cancel();
-    setSpeaking(true);
-    if (voiceStatus) voiceStatus.textContent = "Speaking…";
-    var index = 0;
-    var voice = chosenVoice();
-    function next() {
-      if (!speaking || index >= lines.length) {
-        setSpeaking(false);
-        if (voiceStatus && index >= lines.length) voiceStatus.textContent = "Finished.";
-        return;
+    var sig = scriptSignature();
+    if (voiceCache.url && voiceCache.sig === sig) {
+      playCached();
+      return;
+    }
+    if (voiceRequest) voiceRequest.abort();
+    voiceRequest = new AbortController();
+    var active = voiceRequest;
+    setGenerating(true);
+    if (voiceStatus) voiceStatus.textContent = "Generating…";
+    fetch("https://api.elevenlabs.io/v1/text-to-speech/" + encodeURIComponent(voiceId), {
+      method: "POST",
+      signal: active.signal,
+      headers: {
+        "xi-api-key": apiKey,
+        "Content-Type": "application/json",
+        "Accept": "audio/mpeg"
+      },
+      body: JSON.stringify({
+        text: text,
+        model_id: "eleven_multilingual_v2",
+        voice_settings: { stability: 0.45, similarity_boost: 0.75 }
+      })
+    }).then(function (response) {
+      if (!response.ok) {
+        return response.text().then(function (body) {
+          var failure = new Error("voice");
+          failure.status = response.status;
+          failure.body = body;
+          throw failure;
+        });
       }
-      document.querySelectorAll(".segment.is-speaking").forEach(function (row) { row.classList.remove("is-speaking"); });
-      if (highlight) highlight.classList.add("is-speaking");
-      var utter = new SpeechSynthesisUtterance(lines[index]);
-      utter.rate = currentRate();
-      utter.pitch = currentPitch();
-      if (voice) utter.voice = voice;
-      utter.onend = function () {
-        if (!speaking) return;
-        index += 1;
-        next();
-      };
-      utter.onerror = function () {
-        if (!speaking) return;
-        setSpeaking(false);
-        if (voiceStatus) voiceStatus.textContent = "The voice stopped before the end.";
-      };
-      window.speechSynthesis.speak(utter);
+      return response.blob();
+    }).then(function (blob) {
+      if (active !== voiceRequest) return;
+      if (voiceCache.url) URL.revokeObjectURL(voiceCache.url);
+      voiceCache = { sig: sig, url: URL.createObjectURL(blob) };
+      if (voiceStatus) voiceStatus.textContent = "";
+      updateScript();
+      playCached();
+    }).catch(function (error) {
+      if (error && error.name === "AbortError") return;
+      if (active !== voiceRequest) return;
+      setGenerating(false);
+      if (voiceStatus) voiceStatus.textContent = voiceMessage(error);
+    });
+  }
+
+  function stopVoice() {
+    if (voiceRequest) voiceRequest.abort();
+    voiceRequest = null;
+    if (audio) audio.pause();
+    setGenerating(false);
+    if (voiceStatus && readKey()) voiceStatus.textContent = "Stopped.";
+  }
+
+  function openSettings() {
+    if (!settingsDialog || !settingsDialog.showModal) return;
+    var status = document.getElementById("settings-status");
+    var input = document.getElementById("eleven-key");
+    if (input) input.value = "";
+    if (status) status.textContent = readKey() ? "A key is saved on this device." : "";
+    settingsDialog.showModal();
+    if (input) input.focus();
+  }
+
+  function saveKey() {
+    var input = document.getElementById("eleven-key");
+    var status = document.getElementById("settings-status");
+    var value = input ? input.value.trim() : "";
+    if (!value) {
+      if (status) status.textContent = "Paste a key first.";
+      return;
     }
-    window.setTimeout(next, 40);
+    localStorage.setItem(KEY_NAME, value);
+    if (input) input.value = "";
+    if (status) status.textContent = "Key saved on this device.";
+    refreshKeyHint();
   }
 
-  function stopSpeaking() {
-    speaking = false;
-    if (window.speechSynthesis) window.speechSynthesis.cancel();
-    setSpeaking(false);
-    if (voiceStatus) voiceStatus.textContent = "Stopped.";
+  function clearKey() {
+    localStorage.removeItem(KEY_NAME);
+    var input = document.getElementById("eleven-key");
+    var status = document.getElementById("settings-status");
+    if (input) input.value = "";
+    if (status) status.textContent = "Key removed.";
+    refreshKeyHint();
   }
 
+  if (voicePicker) {
+    var storedVoice = "";
+    try { storedVoice = localStorage.getItem(VOICE_NAME) || ""; } catch (error) { storedVoice = ""; }
+    if (storedVoice) voicePicker.value = storedVoice;
+    voicePicker.addEventListener("change", function () {
+      try { localStorage.setItem(VOICE_NAME, voicePicker.value); } catch (error) { /* ignore quota */ }
+      updateScript();
+    });
+  }
   if (scriptBox) scriptBox.addEventListener("input", updateScript);
-  if (rateInput) rateInput.addEventListener("input", updateScript);
-  if (pitchInput) pitchInput.addEventListener("input", updateScript);
-  if (playBtn) playBtn.addEventListener("click", function () { speak(paragraphs(scriptBox.value), null); });
-  if (stopBtn) stopBtn.addEventListener("click", stopSpeaking);
-  if (window.speechSynthesis) {
-    fillVoices();
-    window.speechSynthesis.addEventListener("voiceschanged", fillVoices);
+  if (playBtn) playBtn.addEventListener("click", generateVoice);
+  if (stopBtn) stopBtn.addEventListener("click", stopVoice);
+  if (downloadBtn) downloadBtn.addEventListener("click", function () {
+    if (!voiceCache.url || voiceCache.sig !== scriptSignature()) return;
+    var link = document.createElement("a");
+    link.href = voiceCache.url;
+    link.download = "nextmind-voiceover.mp3";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+  if (audio) {
+    audio.addEventListener("play", function () { setGenerating(false); });
+    audio.addEventListener("ended", function () { setGenerating(false); });
+    audio.addEventListener("pause", function () { setGenerating(false); });
   }
+  document.querySelectorAll("[data-open-settings]").forEach(function (button) {
+    button.addEventListener("click", openSettings);
+  });
+  var saveKeyBtn = document.getElementById("save-key");
+  var clearKeyBtn = document.getElementById("clear-key");
+  if (saveKeyBtn) saveKeyBtn.addEventListener("click", saveKey);
+  if (clearKeyBtn) clearKeyBtn.addEventListener("click", clearKey);
   updateScript();
-
-  var quickScript = document.getElementById("quick-script");
-  var quickPlay = document.getElementById("quick-play");
-  var quickOpen = document.getElementById("quick-open");
-  var quickStatus = document.getElementById("quick-status");
-  if (quickPlay) {
-    quickPlay.addEventListener("click", function () {
-      var line = quickScript ? quickScript.value.trim() : "";
-      if (!line) {
-        if (quickStatus) quickStatus.textContent = "Write a line first.";
-        return;
-      }
-      if (quickStatus) quickStatus.textContent = "Speaking with the device voice. This cannot be downloaded.";
-      speak([line], null);
-    });
-  }
-  var quickForm = document.getElementById("quick-voice");
-  if (quickForm) quickForm.addEventListener("submit", function (event) { event.preventDefault(); });
-  if (quickOpen) {
-    quickOpen.addEventListener("click", function () {
-      sessionStorage.setItem("nextmind-script", quickScript ? quickScript.value : "");
-      go("voiceover");
-    });
-  }
+  refreshKeyHint();
 
   window.addEventListener("hashchange", function () { showAndStay(viewFromHash()); });
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
