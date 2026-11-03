@@ -43,10 +43,13 @@ The job that downloads headlines. The list of sites is near the top, in `FEEDS`.
 To run it on your own computer:
 
 ```bash
+pip install -r requirements-trends.txt
 python3 scripts/fetch_trends.py
 ```
 
 If one site does not answer, the script keeps the others. If every site fails and this file already exists, the script leaves the old file alone.
+
+Headlines are written before article text is extracted. The extractor versions are pinned in `requirements-trends.txt`. Article text is saved when that step works. If it crashes, the new headline list is still written.
 
 ### `assets/logo.png` and `assets/logo.svg`
 
@@ -62,7 +65,7 @@ Publishes the site after a change lands on `main`.
 
 ### `.github/workflows/trends.yml`
 
-Every two hours, and whenever someone presses "Run workflow", GitHub runs `scripts/fetch_trends.py`, saves `data/trends.json`, and commits that file. The publish workflow then puts the new file on the live site.
+Every two hours, and whenever someone presses "Run workflow", GitHub installs the pinned extractor from `requirements-trends.txt`, runs `scripts/fetch_trends.py`, saves `data/trends.json`, and commits that file. The publish workflow then puts the new file on the live site. A crash while reading article text does not skip that commit.
 
 ## How to follow a different site
 
