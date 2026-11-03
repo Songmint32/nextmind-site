@@ -1,0 +1,10 @@
+{
+  "id": "a422db8db388",
+  "url": "https://syscall.sh/",
+  "title": "Show HN: I've updated my Linux System Call website and API",
+  "source": "Hacker News",
+  "image": "https://syscall.sh/og.png",
+  "ok": true,
+  "text": "Linux syscall tables\nArchitectures\nEvery architecture's table, with the full history of when each syscall appeared and when it was dropped, is also a plain JSON file at /<arch>/syscalls.json, for example /x64/syscalls.json.\nCalling conventions\nNumber in NR, arguments in ARG0 to ARG5, then the instruction. The result comes back in RETURN.\nAPI\ncurl https://api.syscall.sh/v2/syscalls/x64/read\nAny kernel release, diffs between releases and more in the API docs.\nSyscall tables across kernel versions\nEntries get added and, rarely, removed between releases. Each architecture page has a kernel selector, and its JSON download records when each entry first appeared (since) and when it was dropped (removed_in).\nRemoved entries stay visible: pick \"all, with removed\" in the kernel selector and each dropped syscall is marked with the release that dropped it.\nWhere the data comes from\nEverything on this site is read from the kernel source itself. For each architecture, the generator walks the syscall table and the SYSCALL_DEFINE macros of every mainline release it scans, so these are the numbers the kernel actually dispatches on.\nIt also records each architecture's calling convention, the instruction that enters the kernel, so every syscall table shows exactly where the number and the arguments go.\nA syscall whose since equals the first release scanned for its architecture was already there back then, and may be much older.\nDescriptions and full history\nThe short descriptions come from the Linux man pages project, and the io_uring ones from liburing. Whenever the data changes, the site is rebuilt from the syscall API.",
+  "words": 252
+}

@@ -1,0 +1,10 @@
+{
+  "id": "9d8e8a11135a",
+  "url": "https://tibleiz.net/copper/",
+  "title": "Copper – A minimal low-level programming language with OOP and generics",
+  "source": "Hacker News",
+  "image": "",
+  "ok": true,
+  "text": "Copper\nCopper is a programming language that I use as a replacement to C. The main differences are:\n- Type inheritance for any type\n- Genericity\n- Multiple return values\n- Out-of-order definitions\n- Simple import system, no headers\n- Not everything in the global namespace\n- Deferred statements\n- Simple iterators\n- Ruby-style syntax\n- Option types\n- Fast compilation\n- Minimalism\nMinimalism is the most important feature, the language is intended to be simple so that someone with limited brain power such as me could fully understand it. The syntax is simple, almost everything is explicit and most constructs are common.\nExample\nA simple example beyond the pointless \"hello world\".\nclass Point\n attr x: Int\n attr y: Int\n def init(x: Int, y: Int)\n self.x = x\n self.y = y\n end\n def translate(dx: Int, dy: Int)\n self.x += dx\n self.y += dy\n end\nend\nfunc main: Int\n var pt: Point!\n pt.init(3, 5)\n pt.translate(1, 0)\n println(\"x = \\a, y = \\a\", pt.x, pt.y)\n return 0\nend\nimport \"std\"\nMore Information\n- A quick overview of the language\n- Documentation\n- Cheat sheet - if you're not interested but want to understand existing code\n- More examples\n- Browse standard library source code\n- Browse compiler source code\nLicense\nCopper is released under the BSD license.",
+  "words": 215
+}
