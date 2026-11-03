@@ -100,7 +100,7 @@
           <h2>Top stories</h2>
           <a class="text-link" href="#radar" data-view="radar">Trend Radar</a>
         </div>
-        <div id="overview-trends" class="stack" aria-live="polite" aria-busy="true">
+            <div id="overview-trends" class="stack" aria-busy="true">
           <div class="skeleton"></div>
           <div class="skeleton"></div>
           <div class="skeleton"></div>
@@ -110,7 +110,16 @@
       <section class="view" id="panel-radar" data-view-panel="radar" aria-label="Trend Radar">
         <p class="meta" id="radar-updated"></p>
         <div class="filters">
-          <div class="chips" role="group" aria-label="Topic">
+          <div class="filter-head">
+            <div class="chips" role="group" aria-label="Time range">
+              <button type="button" class="chip" data-range="6h">6h</button>
+              <button type="button" class="chip is-on" data-range="24h">24h</button>
+              <button type="button" class="chip" data-range="7d">7d</button>
+            </div>
+            <button class="chip filter-toggle" type="button" aria-expanded="false" aria-controls="filter-panel">Filters</button>
+          </div>
+          <div class="filter-panel" id="filter-panel">
+          <div class="chips topic-chips" role="group" aria-label="Topic">
             <button type="button" class="chip is-on" data-topic="">All</button>
             <button type="button" class="chip" data-topic="AI">AI</button>
             <button type="button" class="chip" data-topic="Chips">Chips</button>
@@ -119,14 +128,9 @@
             <button type="button" class="chip" data-topic="Science">Science</button>
             <button type="button" class="chip" data-topic="Apps">Apps</button>
           </div>
-          <div class="chips" role="group" aria-label="Time range">
-            <button type="button" class="chip" data-range="6h">6h</button>
-            <button type="button" class="chip is-on" data-range="24h">24h</button>
-            <button type="button" class="chip" data-range="7d">7d</button>
-          </div>
           <div class="filter-row">
             <label class="grow">
-              <span class="field-label">Search headlines</span>
+              <span class="field-label">Search</span>
               <input id="radar-search" type="search" placeholder="Title or source" autocomplete="off">
             </label>
             <label>
@@ -143,6 +147,7 @@
               </select>
             </label>
           </div>
+          </div>
         </div>
         <div class="roundup-bar" id="roundup-bar" hidden>
           <p id="roundup-count">0 of 5 selected</p>
@@ -150,9 +155,11 @@
           <button class="btn" type="button" id="roundup-clear">Clear</button>
         </div>
         <p class="hint" id="radar-feeds"></p>
-        <div id="radar-list" class="radar-grid" aria-live="polite" aria-busy="true">
-          <div class="skeleton tall"></div>
-          <div class="skeleton tall"></div>
+        <div id="radar-list" class="radar-grid" aria-busy="true">
+          <div class="skeleton"></div>
+          <div class="skeleton"></div>
+          <div class="skeleton"></div>
+          <div class="skeleton"></div>
         </div>
         <div id="radar-sentinel"></div>
         <button class="btn load-more" type="button" id="load-more" hidden>Load more</button>
