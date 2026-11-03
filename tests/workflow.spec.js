@@ -23,10 +23,11 @@ test("story to script to voiceover, saves, and filters", async ({ page }) => {
   await openRadar(page);
   const title = (await page.locator("#radar-list .story-title").first().innerText()).trim();
   await expect(page.getByRole("button", { name: "Make script" }).first()).toBeVisible();
-  await expect(page.getByRole("button", { name: "Copy as post" }).first()).toBeVisible();
+  await expect(page.getByRole("button", { name: "Read in app" }).first()).toBeVisible();
+  await expect(page.getByRole("button", { name: "Copy", exact: true }).first()).toBeVisible();
   await expect(page.getByRole("button", { name: "Save", exact: true }).first()).toBeVisible();
 
-  await page.getByRole("button", { name: "Copy as post" }).first().click();
+  await page.getByRole("button", { name: "Copy", exact: true }).first().click();
   await expect(page.getByRole("button", { name: "Copied" }).first()).toBeVisible();
 
   await page.getByRole("button", { name: "Save", exact: true }).first().click();
@@ -91,7 +92,8 @@ test("story to script to voiceover, saves, and filters", async ({ page }) => {
   await expect(page.getByRole("dialog", { name: "Keyboard shortcuts" })).toBeVisible();
   await page.getByRole("button", { name: "Close" }).click();
 
-  await page.goto("/#radar");
+  await page.reload();
+  await expect(page.locator("#radar-list .story-title").first()).toBeVisible();
   await page.locator("#radar-list .story-title").first().click();
   await expect(page.locator(".reader")).toBeVisible();
   await expect(page.locator(".reader-original a")).toBeVisible();
@@ -205,4 +207,72 @@ test("elevenlabs voiceover uses the saved key and can download", async ({ page }
   await page.getByRole("button", { name: "Play", exact: true }).click();
   await expect(page.locator("#voice-status")).toHaveText("That API key was rejected. Check Settings.");
   expect(errors).toEqual([]);
+});
+
+async function titlesInView(page, selector) {
+  return page.evaluate((sel) => {
+    const viewH = window.innerHeight;
+    return [...document.querySelectorAll(sel)].filter((el) => {
+      const rect = el.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 8 && rect.top >= 0 && rect.bottom <= viewH + 1;
+    }).length;
+  }, selector);
+}
+
+test("a phone can scan several radar headlines and keep scrolling", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/#radar");
+  await expect(page.locator("#radar-list .story-title").first()).toBeVisible();
+
+  expect(await titlesInView(page, "#radar-list .story-title")).toBeGreaterThanOrEqual(4);
+  await page.getByRole("button", { name: "Filters" }).click();
+  await expect(page.locator("#radar-search")).toBeVisible();
+  await expect(page.locator("#radar-source")).toBeVisible();
+  await page.getByRole("button", { name: "Filters" }).click();
+  await expect(page.locator("#radar-search")).toBeHidden();
+
+  await page.setViewportSize({ width: 390, height: 700 });
+  expect(await titlesInView(page, "#radar-list .story-title")).toBeGreaterThanOrEqual(4);
+  await page.setViewportSize({ width: 390, height: 844 });
+
+  const metrics = await page.evaluate(() => ({
+    overflowY: getComputedStyle(document.documentElement).overflowY,
+    scrollHeight: document.documentElement.scrollHeight,
+    innerHeight: window.innerHeight,
+    wide: document.documentElement.scrollWidth > window.innerWidth + 1
+  }));
+  expect(metrics.overflowY).toBe("visible");
+  expect(metrics.wide).toBe(false);
+  expect(metrics.scrollHeight).toBeGreaterThan(metrics.innerHeight + 200);
+
+  await page.evaluate(() => window.scrollTo(0, 480));
+  expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(300);
+
+  const before = await page.locator("#radar-list .trend").count();
+  await page.locator("#load-more").evaluate((button) => button.click());
+  await expect.poll(async () => page.locator("#radar-list .trend").count()).toBeGreaterThan(before);
+
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.getByRole("button", { name: "More", exact: true }).first().click();
+  await expect(page.getByRole("button", { name: "Save", exact: true }).first()).toBeVisible();
+  await expect(page.getByRole("button", { name: "Copy", exact: true }).first()).toBeVisible();
+  await expect(page.getByRole("checkbox", { name: "Select for roundup" }).first()).toBeVisible();
+  await expect(page.getByRole("button", { name: "Read in app" }).first()).toBeVisible();
+  await expect(page.getByRole("button", { name: "Make script" }).first()).toBeVisible();
+});
+
+test("overview and an ipad-width radar stay easy to scan", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/#overview");
+  await expect(page.locator("#overview-trends .story-title").first()).toBeVisible();
+  expect(await titlesInView(page, "#overview-trends .story-title")).toBeGreaterThanOrEqual(4);
+
+  await page.setViewportSize({ width: 820, height: 1180 });
+  await page.goto("/#radar");
+  await expect(page.locator("#radar-list .trend").first()).toBeVisible();
+  const columns = await page.evaluate(() => getComputedStyle(document.querySelector("#radar-list")).gridTemplateColumns.split(" ").filter(Boolean).length);
+  expect(columns).toBe(2);
+  expect(await titlesInView(page, "#radar-list .story-title")).toBeGreaterThanOrEqual(6);
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
+  expect(overflow).toBe(false);
 });

@@ -32,6 +32,7 @@
   ];
   var trends = null;
   var picked = [];
+  var openTrends = {};
   var studioStories = [];
   var studioRoundup = false;
   var studioNeedsDraft = false;
@@ -855,7 +856,9 @@
 
   function trendCard(item, compact) {
     var card = document.createElement("article");
-    card.className = compact ? "trend compact" : "trend";
+    card.className = "trend";
+    var scope = compact ? "overview" : "radar";
+    var openKey = scope + ":" + storyKey(item);
     var opener = document.createElement("button");
     opener.type = "button";
     opener.className = "thumb-hit";
@@ -876,7 +879,6 @@
     if (stamp.full) time.title = stamp.full;
     source.appendChild(document.createTextNode(item.source + " · "));
     source.appendChild(time);
-    if (stamp.clock) source.appendChild(document.createTextNode(" · " + stamp.clock));
     var heat = document.createElement("span");
     heat.className = "heat";
     heat.textContent = "Heat " + item.heat;
@@ -889,33 +891,36 @@
     title.textContent = item.title;
     title.title = item.title;
     title.addEventListener("click", function () { openReader(item); });
-    body.appendChild(top);
-    body.appendChild(title);
-
-    if (item.topics && item.topics.length) {
-      var tags = document.createElement("div");
-      tags.className = "topics-inline";
-      item.topics.forEach(function (topic) {
-        var tag = document.createElement("span");
-        tag.className = "tag";
-        tag.textContent = topic;
-        tags.appendChild(tag);
-      });
-      body.appendChild(tags);
-    }
 
     var actions = document.createElement("div");
     actions.className = "trend-actions";
-    var copy = document.createElement("button");
-    copy.type = "button";
-    copy.className = "mini";
-    copy.textContent = "Copy as post";
-    copy.addEventListener("click", function () { copyPost(item, copy); });
+    var read = document.createElement("button");
+    read.type = "button";
+    read.className = "mini";
+    read.textContent = "Read";
+    read.setAttribute("aria-label", "Read in app");
+    read.addEventListener("click", function () { openReader(item); });
     var make = document.createElement("button");
     make.type = "button";
     make.className = "mini";
     make.textContent = "Make script";
     make.addEventListener("click", function () { queueStudio([storySnapshot(item)], false); });
+    var more = document.createElement("button");
+    more.type = "button";
+    more.className = "mini more-toggle";
+    more.textContent = "More";
+    var extra = document.createElement("div");
+    extra.className = "trend-extra";
+    extra.id = scope + "-extra-" + storyKey(item);
+    more.setAttribute("aria-controls", extra.id);
+    function setMore(open) {
+      card.classList.toggle("is-open", open);
+      more.setAttribute("aria-expanded", open ? "true" : "false");
+      more.textContent = open ? "Less" : "More";
+      if (open) openTrends[openKey] = true;
+      else delete openTrends[openKey];
+    }
+    more.addEventListener("click", function () { setMore(!card.classList.contains("is-open")); });
     var save = document.createElement("button");
     save.type = "button";
     save.className = "mini";
@@ -923,20 +928,32 @@
     save.textContent = savedNow ? "Saved" : "Save";
     save.setAttribute("aria-pressed", savedNow ? "true" : "false");
     save.addEventListener("click", function () { toggleSaved(item); });
+    var copy = document.createElement("button");
+    copy.type = "button";
+    copy.className = "mini";
+    copy.textContent = "Copy";
+    copy.addEventListener("click", function () { copyPost(item, copy); });
     var selectLabel = document.createElement("label");
     selectLabel.className = "select-story";
     var select = document.createElement("input");
     select.type = "checkbox";
+    select.setAttribute("aria-label", "Select for roundup");
     select.checked = picked.indexOf(storyKey(item)) !== -1;
     select.addEventListener("change", function () { togglePick(item, select); });
     selectLabel.appendChild(select);
-    selectLabel.appendChild(document.createTextNode(" Select for roundup"));
-    actions.appendChild(copy);
+    selectLabel.appendChild(document.createTextNode(" Roundup"));
+    extra.appendChild(save);
+    extra.appendChild(copy);
+    extra.appendChild(selectLabel);
+    actions.appendChild(read);
     actions.appendChild(make);
-    actions.appendChild(save);
-    actions.appendChild(selectLabel);
+    actions.appendChild(more);
+    actions.appendChild(extra);
+    body.appendChild(top);
+    body.appendChild(title);
     body.appendChild(actions);
     card.appendChild(body);
+    if (openTrends[openKey]) setMore(true);
     return card;
   }
 
@@ -1002,11 +1019,41 @@
     }
   }
 
+  var revealLock = false;
+
   function revealMore() {
+    if (revealLock) return;
+    var panel = document.getElementById("panel-radar");
+    if (panel && !panel.classList.contains("is-active")) return;
     var more = document.getElementById("load-more");
-    if (!more || more.hidden) return;
-    shown += BATCH;
-    renderRadar();
+    var list = document.getElementById("radar-list");
+    if (!more || more.hidden || !list || !trends) return;
+    var items = filtered();
+    if (shown >= items.length) {
+      more.hidden = true;
+      return;
+    }
+    revealLock = true;
+    var start = shown;
+    shown = Math.min(shown + BATCH, items.length);
+    var i;
+    for (i = start; i < shown; i++) list.appendChild(trendCard(items[i], false));
+    var left = items.length - shown;
+    more.hidden = left <= 0;
+    more.textContent = left > 0 ? "Load more (" + left + " left)" : "Load more";
+    revealLock = false;
+    var sentinel = document.getElementById("radar-sentinel");
+    if (sentinel && sentinel.getBoundingClientRect().top <= window.innerHeight + 480) {
+      requestAnimationFrame(revealMore);
+    }
+  }
+
+  function maybeReveal() {
+    var panel = document.getElementById("panel-radar");
+    if (!panel || !panel.classList.contains("is-active")) return;
+    var sentinel = document.getElementById("radar-sentinel");
+    if (!sentinel) return;
+    if (sentinel.getBoundingClientRect().top <= window.innerHeight + 480) revealMore();
   }
 
   function syncTopicChips() {
@@ -1015,11 +1062,35 @@
     });
   }
 
+  function syncFilterToggle() {
+    var toggle = document.querySelector(".filter-toggle");
+    var filters = document.querySelector(".filters");
+    if (!toggle || !filters) return;
+    var open = filters.classList.contains("is-open");
+    var query = state.query ? state.query.trim() : "";
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    toggle.classList.toggle("is-on", open || !!(state.topic || state.source || query));
+    if (state.topic) toggle.textContent = state.topic;
+    else if (state.source || query) toggle.textContent = "Filtered";
+    else toggle.textContent = "Filters";
+  }
+
+  var filterToggle = document.querySelector(".filter-toggle");
+  if (filterToggle) {
+    filterToggle.addEventListener("click", function () {
+      var filters = document.querySelector(".filters");
+      if (!filters) return;
+      filters.classList.toggle("is-open");
+      syncFilterToggle();
+    });
+  }
+
   document.querySelectorAll(".chip[data-topic]").forEach(function (chip) {
     chip.addEventListener("click", function () {
       state.topic = chip.getAttribute("data-topic") || "";
       shown = BATCH;
       syncTopicChips();
+      syncFilterToggle();
       renderRadar();
     });
   });
@@ -1035,12 +1106,13 @@
   });
   var search = document.getElementById("radar-search");
   var sort = document.getElementById("radar-sort");
-  if (search) search.addEventListener("input", function () { state.query = search.value; shown = BATCH; renderRadar(); });
+  if (search) search.addEventListener("input", function () { state.query = search.value; shown = BATCH; syncFilterToggle(); renderRadar(); });
   if (sort) sort.addEventListener("change", function () { state.sort = sort.value; shown = BATCH; renderRadar(); });
   var sourceSelect = document.getElementById("radar-source");
   if (sourceSelect) sourceSelect.addEventListener("change", function () {
     state.source = sourceSelect.value;
     shown = BATCH;
+    syncFilterToggle();
     renderRadar();
   });
   var roundupGo = document.getElementById("roundup-go");
@@ -1122,13 +1194,15 @@
   if (sentinel && "IntersectionObserver" in window) {
     new IntersectionObserver(function (entries) {
       if (entries.some(function (entry) { return entry.isIntersecting; })) revealMore();
-    }, { rootMargin: "240px" }).observe(sentinel);
+    }, { root: null, rootMargin: "480px 0px", threshold: 0 }).observe(sentinel);
   }
   var toTop = document.getElementById("to-top");
+  window.addEventListener("scroll", function () {
+    if (toTop) toTop.hidden = window.scrollY < 480;
+    maybeReveal();
+  }, { passive: true });
+  window.addEventListener("resize", maybeReveal);
   if (toTop) {
-    window.addEventListener("scroll", function () {
-      toTop.hidden = window.scrollY < 480;
-    }, { passive: true });
     toTop.addEventListener("click", function () {
       var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
