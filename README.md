@@ -30,7 +30,7 @@ Builds the spoken draft. The page calls `generateScript(stories, opts)`. Today t
 
 ### `site.js`
 
-Switches sections, fills Trend Radar, saves stories and drafts in this browser, and runs the voice preview. The preview uses the browser's own speech. It cannot be saved as an MP3. Saved stories and drafts stay in `localStorage` on your machine. They are not uploaded.
+Switches sections, fills Trend Radar, and saves stories and drafts in this browser. Voiceover sends the script to ElevenLabs. The API key stays in `localStorage` on your machine. It is not uploaded and it is not in this repository.
 
 ### `data/trends.json`
 
@@ -77,15 +77,15 @@ The script also saves a picture address when the feed includes one. If a story h
 
 ## Heat
 
-A brand-new story scores 100. The score falls to 0 after 48 hours. Hacker News points and comments add more. Other sites are scored only by how new they are. The Trend Radar page says this next to the list.
+A brand-new story scores 100. The score falls to 0 after 48 hours. Hacker News points and comments add more. Other sites are scored only by how new they are.
 
 ## Script Studio
 
-On a headline, press **Make script**. Script Studio fills in a hook, three beats, a takeaway, and a call to action from that headline, its source, and its link. It is marked "Template draft · AI scripts coming soon" because it does not call an AI service. You can edit the text, copy it, download a `.txt` file, or send it to Voiceover. Select up to five stories and press **Make daily roundup** for one combined draft. **Save** keeps a story, and **Save draft** keeps a script, only in this browser.
+On a headline, press **Make script**. Script Studio fills in a hook, three beats, a takeaway, and a call to action from that headline. You can edit the text, copy it, download a `.txt` file, or press **Send to Voiceover**. Select up to five stories and press **Make daily roundup** for one combined draft. **Save** keeps a story, and **Save draft** keeps a script, only in this browser.
 
 ## Voiceover
 
-Play uses the free voice built into the browser. Studio voices and an MP3 download are marked "coming soon" because they need a server, and this site does not have one.
+Open **Settings** and paste an ElevenLabs API key. It is saved only in this browser. Pick Rachel, Adam, Bella, Josh, or Daniel, then press **Play**. **Download mp3** saves the last take. Without a key, Voiceover stays usable and tells you to add one. The key is sent only to ElevenLabs, from your browser. There is no server in this repository.
 
 ## Publishing
 
