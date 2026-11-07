@@ -261,6 +261,68 @@ test("a phone can scan several radar headlines and keep scrolling", async ({ pag
   await expect(page.getByRole("button", { name: "Make script" }).first()).toBeVisible();
 });
 
+test("a missing article offers the original, and the phone menu reaches Settings", async ({ page }) => {
+  await page.setViewportSize({ width: 400, height: 800 });
+  await page.goto("/#read/0e6629be9749");
+  await expect(page.locator(".reader-body")).toContainText("Ubuntu");
+  await expect(page.locator(".reader")).not.toContainText("Couldn't read this article");
+  const full = await page.locator(".reader-body").innerText();
+  expect(full.trim().length).toBeGreaterThan(200);
+  await expect(page.locator(".reader-original a")).toHaveText("Open original");
+
+  await page.goto("/#read/870cd1479ca6");
+  await expect(page.locator(".reader-body")).toContainText("The full text is not in the reader yet.");
+  await expect(page.locator(".reader")).not.toContainText("Couldn't read this article");
+  const original = page.locator(".reader-original a");
+  await expect(original).toBeVisible();
+  await expect(original).toHaveText("Open original");
+  await expect(original).toHaveAttribute("href", /quora\.com/);
+  const openBox = await original.boundingBox();
+  expect(openBox.height).toBeGreaterThanOrEqual(44);
+
+  await page.goto("/#radar");
+  await page.getByRole("button", { name: "Filters" }).click();
+  const science = page.getByRole("button", { name: "Science", exact: true });
+  await expect(science).toBeVisible();
+  await expect(science).toHaveText("Science");
+  const scienceBox = await science.boundingBox();
+  expect(scienceBox.height).toBeGreaterThanOrEqual(44);
+  expect(scienceBox.width).toBeGreaterThan(60);
+  const read = page.getByRole("button", { name: "Read in app" }).first();
+  const readBox = await read.boundingBox();
+  expect(readBox.height).toBeGreaterThanOrEqual(44);
+
+  await page.getByRole("button", { name: "6h" }).click();
+  await expect(page.locator("#radar-list")).toContainText("No headlines in the last 6 hours.");
+  await page.getByRole("button", { name: "Widen to 24h" }).click();
+  await expect(page.locator("#radar-list .trend").first()).toBeVisible();
+
+  await page.goto("/#saved");
+  await expect(page.locator("#saved-list")).toContainText("No saved stories yet.");
+  await page.getByRole("button", { name: "Browse Trend Radar" }).click();
+  await expect(page.locator("#view-title")).toHaveText("Trend Radar");
+
+  await page.goto("/#studio");
+  await expect(page.locator("#studio-sources")).toContainText("No story yet.");
+  await expect(page.getByRole("button", { name: "Browse Trend Radar" })).toBeVisible();
+
+  await page.getByRole("button", { name: "Menu" }).click();
+  await expect(page.locator(".menu-scrim")).toBeVisible();
+  const settings = page.locator("#sidebar .nav-settings");
+  await expect(settings).toBeVisible();
+  const settingsBox = await settings.boundingBox();
+  expect(settingsBox.y + settingsBox.height).toBeLessThanOrEqual(800);
+  expect(settingsBox.height).toBeGreaterThanOrEqual(44);
+  await page.locator(".menu-scrim").click({ position: { x: 8, y: 8 } });
+  await expect(page.locator(".menu-scrim")).toBeHidden();
+
+  await page.goto("/#voiceover");
+  const play = page.getByRole("button", { name: "Play", exact: true });
+  await expect(play).not.toHaveClass(/primary/);
+  await expect(page.getByRole("button", { name: "Add key" })).toBeVisible();
+  await expect(page.locator("#voice-status")).toHaveText("Add an ElevenLabs API key in Settings.");
+});
+
 test("overview and an ipad-width radar stay easy to scan", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/#overview");

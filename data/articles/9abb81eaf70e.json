@@ -1,0 +1,10 @@
+{
+  "id": "9abb81eaf70e",
+  "url": "https://www.theverge.com/tech/1024342/raspberry-pi-5-16gb-price-hike-ram",
+  "title": "The 16GB Raspberry Pi 5 got another ‘unavoidable’ RAM price hike",
+  "source": "The Verge",
+  "image": "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/25824338/raspberrypi5_16GB.jpg?quality=90&strip=all&crop=0,0,100,100",
+  "ok": true,
+  "text": "The Raspberry Pi 5 with 16GB of RAM now costs $385 after an $80 price hike, the latest in a string of increases driven by the ongoing RAM shortage. This configuration launched at $120 and now costs more than triple that price. The 16GB versions of the Raspberry Pi Compute Module 5 also got a $40 price hike and now cost between $375 and $415.\nThe 16GB Raspberry Pi 5 got another ‘unavoidable’ RAM price hike\nThe top configuration of the Raspberry Pi 5 now costs three times more than its launch price.\n\nAccording to Raspberry Pi CEO Eben Upton, these price hikes were driven specifically by a lack of “alternative supply” for 16GB DRAM, on top of shortages for other components. Upton says, “Though these increases are unavoidable, we know they are unwelcome news for our customers. We encourage you to make sure you’re not paying for more memory than you need.” Upton suggested using Pis with less memory or older Pi models as alternatives to the pricey 16GB model. Unfortunately, other Raspberry Pi 5 configurations have also gotten more expensive — the 2GB version got a price hike last month.\nAt $385, the 16GB Raspberry Pi 5 is nearing the price of a desktop mini PC. Upton reiterated the company’s plans to reverse the price hikes, saying, “the current memory landscape is difficult but ultimately temporary, and we look forward to rolling back our price increases when memory costs fall once again.”",
+  "words": 244
+}
