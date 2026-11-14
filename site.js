@@ -17,6 +17,7 @@
   var KEY_NAME = "nextmind-eleven-key";
   var VOICE_NAME = "nextmind-voice";
   var KEY_HINT = "Add an ElevenLabs API key in Settings.";
+  var SCRIPT_HINT = "Paste a script, or send one from Script Studio.";
 
   var state = { topic: "", source: "", range: "24h", sort: "heat", query: "" };
   var BATCH = 20;
@@ -74,11 +75,15 @@
   function setMenu(open) {
     if (!sidebar || !menuBtn) return;
     var overlay = menuIsOverlay();
-    sidebar.classList.toggle("is-open", open && overlay);
-    menuBtn.setAttribute("aria-expanded", open && overlay ? "true" : "false");
+    var shown = !!(open && overlay);
+    sidebar.classList.toggle("is-open", shown);
+    menuBtn.setAttribute("aria-expanded", shown ? "true" : "false");
+    var scrim = document.querySelector(".menu-scrim");
+    if (scrim) scrim.hidden = !shown;
+    document.body.classList.toggle("menu-open", shown);
     var main = document.getElementById("content");
-    if (main) main.setAttribute("aria-hidden", open && overlay ? "true" : "false");
-    if (open && overlay) {
+    if (main) main.setAttribute("aria-hidden", shown ? "true" : "false");
+    if (shown) {
       var items = focusableIn(sidebar);
       if (items[0]) items[0].focus();
     } else if (overlay && document.activeElement && sidebar.contains(document.activeElement)) {
@@ -155,6 +160,8 @@
       setMenu(!sidebar.classList.contains("is-open"));
     });
   }
+  var menuScrim = document.querySelector(".menu-scrim");
+  if (menuScrim) menuScrim.addEventListener("click", function () { setMenu(false); });
   document.addEventListener("click", function (event) {
     if (!sidebar || !sidebar.classList.contains("is-open")) return;
     if (sidebar.contains(event.target) || (menuBtn && menuBtn.contains(event.target))) return;
@@ -486,6 +493,25 @@
     return mins + ":" + (rest < 10 ? "0" : "") + rest;
   }
 
+  function emptyState(parent, message, actionLabel, onAction) {
+    var box = document.createElement("div");
+    box.className = "empty-state";
+    var note = document.createElement("p");
+    note.className = "empty";
+    note.textContent = message;
+    box.appendChild(note);
+    if (actionLabel && onAction) {
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "btn";
+      button.textContent = actionLabel;
+      button.addEventListener("click", onAction);
+      box.appendChild(button);
+    }
+    parent.appendChild(box);
+    return box;
+  }
+
   function renderStudio() {
     var box = document.getElementById("studio-sources");
     var output = document.getElementById("studio-output");
@@ -493,10 +519,7 @@
     if (box) {
       box.textContent = "";
       if (!studioStories.length) {
-        var empty = document.createElement("p");
-        empty.className = "empty";
-        empty.textContent = "No story yet.";
-        box.appendChild(empty);
+        emptyState(box, "No story yet.", "Browse Trend Radar", function () { go("radar"); });
       } else {
         studioStories.forEach(function (story) {
           var card = document.createElement("article");
@@ -602,10 +625,7 @@
     var rows = readStore("nextmind-saved");
     list.textContent = "";
     if (!rows.length) {
-      var empty = document.createElement("p");
-      empty.className = "empty";
-      empty.textContent = "No saved stories yet.";
-      list.appendChild(empty);
+      emptyState(list, "No saved stories yet.", "Browse Trend Radar", function () { go("radar"); });
       return;
     }
     rows.forEach(function (story) {
@@ -733,7 +753,7 @@
   var readerRequest = 0;
 
   function readerStory(item, article) {
-    var text = article && article.ok && article.text ? article.text : "";
+    var text = article && article.text ? article.text : "";
     return {
       id: item.id,
       title: (article && article.title) || item.title,
@@ -743,6 +763,19 @@
       summary: item.summary || "",
       text: text
     };
+  }
+
+  function originalLink(item, prominent) {
+    var original = document.createElement("p");
+    original.className = "reader-original";
+    var link = document.createElement("a");
+    link.href = item.url;
+    link.target = "_blank";
+    link.rel = "noreferrer";
+    link.textContent = "Open original";
+    if (prominent) link.className = "btn primary";
+    original.appendChild(link);
+    return original;
   }
 
   function paintReader(item, article) {
@@ -766,19 +799,35 @@
     var body = document.createElement("div");
     body.className = "reader-body";
     var pending = article == null;
-    var text = article && article.ok && article.text ? article.text : "";
-    if (!text) text = item.summary || (pending ? "" : "Couldn't read this article.");
-    text.split(/\n+/).forEach(function (para) {
-      var p = document.createElement("p");
-      p.textContent = para.trim();
-      if (p.textContent) body.appendChild(p);
-    });
+    var text = article && article.text ? String(article.text).trim() : "";
+    var summary = String((item && item.summary) || (article && article.summary) || "").trim();
+    if (summary.indexOf("Headline from ") === 0) summary = "";
+    if (text) {
+      text.split(/\n+/).forEach(function (para) {
+        var p = document.createElement("p");
+        p.textContent = para.trim();
+        if (p.textContent) body.appendChild(p);
+      });
+    } else if (!pending && summary) {
+      var lead = document.createElement("p");
+      lead.className = "reader-summary";
+      lead.textContent = summary;
+      body.appendChild(lead);
+    }
+    if (!pending && !text) {
+      if (!shown.image) hero.classList.add("is-fallback");
+      var note = document.createElement("p");
+      note.className = "reader-note";
+      note.textContent = "The full text is not in the reader yet.";
+      body.appendChild(note);
+    }
     shell.appendChild(body);
+    if (!pending && !text && item.url) shell.appendChild(originalLink(item, true));
     var actions = document.createElement("div");
     actions.className = "reader-actions";
     var make = document.createElement("button");
     make.type = "button";
-    make.className = "btn primary";
+    make.className = text ? "btn primary" : "btn";
     make.textContent = "Make script";
     make.addEventListener("click", function () { queueStudio([readerStory(item, article)], false); });
     var save = document.createElement("button");
@@ -793,17 +842,7 @@
     actions.appendChild(make);
     actions.appendChild(save);
     shell.appendChild(actions);
-    if (item.url) {
-      var original = document.createElement("p");
-      original.className = "reader-original";
-      var link = document.createElement("a");
-      link.href = item.url;
-      link.target = "_blank";
-      link.rel = "noreferrer";
-      link.textContent = "Original";
-      original.appendChild(link);
-      shell.appendChild(original);
-    }
+    if (!pending && text && item.url) shell.appendChild(originalLink(item, false));
   }
 
   function setReaderTitle(text) {
@@ -1002,13 +1041,17 @@
     list.setAttribute("aria-busy", "false");
     var more = document.getElementById("load-more");
     if (!items.length) {
+      if (more) more.hidden = true;
+      if (!state.query && state.range === "6h") {
+        emptyState(list, "No headlines in the last 6 hours.", "Widen to 24h", function () { applyRange("24h"); });
+        return;
+      }
       var empty = document.createElement("p");
       empty.className = "empty";
       empty.textContent = state.query
         ? "No headlines match that search. Try fewer words, or choose All."
         : "No headlines match these filters. Try All, or a longer time range.";
       list.appendChild(empty);
-      if (more) more.hidden = true;
       return;
     }
     items.slice(0, shown).forEach(function (item) { list.appendChild(trendCard(item, false)); });
@@ -1094,14 +1137,18 @@
       renderRadar();
     });
   });
+  function applyRange(range) {
+    state.range = range;
+    shown = BATCH;
+    document.querySelectorAll(".chip[data-range]").forEach(function (chip) {
+      chip.classList.toggle("is-on", chip.getAttribute("data-range") === range);
+    });
+    renderRadar();
+  }
+
   document.querySelectorAll(".chip[data-range]").forEach(function (chip) {
     chip.addEventListener("click", function () {
-      state.range = chip.getAttribute("data-range");
-      shown = BATCH;
-      document.querySelectorAll(".chip[data-range]").forEach(function (other) {
-        other.classList.toggle("is-on", other === chip);
-      });
-      renderRadar();
+      applyRange(chip.getAttribute("data-range"));
     });
   });
   var search = document.getElementById("radar-search");
@@ -1237,15 +1284,27 @@
     var words = text ? text.split(/\s+/).length : 0;
     if (counts) counts.textContent = words + " words · " + clock(Math.round(words / 150 * 60));
     if (downloadBtn) downloadBtn.disabled = !voiceCache.url || voiceCache.sig !== scriptSignature();
+    refreshKeyHint();
   }
 
   function refreshKeyHint() {
+    var key = !!readKey();
+    var text = scriptBox && scriptBox.value.trim();
+    if (playBtn) playBtn.classList.toggle("primary", !!(key && text));
+    var addKey = document.getElementById("voice-add-key");
+    if (addKey) addKey.hidden = key;
     if (!voiceStatus) return;
-    if (!readKey()) {
+    if (!key) {
       voiceStatus.textContent = KEY_HINT;
       return;
     }
-    if (voiceStatus.textContent === KEY_HINT) voiceStatus.textContent = "";
+    if (!text) {
+      if (!voiceStatus.textContent || voiceStatus.textContent === KEY_HINT || voiceStatus.textContent === SCRIPT_HINT) {
+        voiceStatus.textContent = SCRIPT_HINT;
+      }
+      return;
+    }
+    if (voiceStatus.textContent === KEY_HINT || voiceStatus.textContent === SCRIPT_HINT) voiceStatus.textContent = "";
   }
 
   function voiceMessage(error) {
