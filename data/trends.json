@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-20T03:14:07Z",
+  "updatedAt": "2026-11-20T12:52:33Z",
   "feeds": [
     {
       "source": "Hacker News",
@@ -38,30 +38,39 @@
     }
   ],
   "imageCache": {
-    "https://www.reuters.com/business/finance/anthropics-historic-debut-put-ais-promise-peril-wall-st-test-2026-11-19": "",
-    "https://git-aarvin.github.io/mei": "https://git-aarvin.github.io/mei/scatter/cost.png",
-    "https://www.newscientist.com/article/2528235-pancreatic-cancer-halted-by-virus-injection-in-three-patients": "https://www.newscientist.com/wp-content/uploads/2026/05/28111438/SEI_299218241.jpg",
-    "https://macanorak.com/uk-government-forced-to-admit-it-issued-apple-a-secret-encryption-order": "https://macanorak.com/content/images/2026/11/Apple.jpg",
-    "https://www.anthropic.com/research/claude-black-hole-physics": "https://assets.claude.com/57a443b51d13727573b7c1290130d09c5f434b2c.jpg",
-    "https://www.synology.com/en-uk/security/advisory/synology_sa_26_21": "https://fileres.synology.com/images/common/meta-tag-preview-image/img_synology.jpg",
-    "https://www.wsj.com/finance/banking/visa-mastercard-and-jpmorgan-customer-data-leaked-by-hackers-3b5a0f87": "",
-    "https://globalcommercegraph.com/writing/the-ninety-eight-percent-slot-machine": "https://globalcommercegraph.com/og-image.png",
-    "https://element.io/blog/how-the-european-commission-rolled-out-matrix-to-more-than-40-000-staff": "https://element.io/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/6adb731e199252ab9c9e4dd5_matrix-conference-opengraph.jpg",
-    "https://www.youtube.com/watch?v=lwfewyl7x0o": "",
-    "https://regexr.com": "",
-    "https://cornholenews.news": "https://cornholenews.news/opengraph-image",
+    "https://architectlabs.com/blog/frostbite": "https://main--gleeful-begonia-6bb5f3.netlify.app/_next/static/media/frostbite-cover.3n9ytugnquhlr.jpg",
+    "https://em-online.bearblog.dev/i-can-tell-you-wrote-this-yourself": "https://bearblog.dev/static/og-image.png",
+    "https://ecohustler.com/article/one-corporation-to-pollute-them-all": "https://ecohustler.com/img/asset/bWFpbi9vbmUtY29ycG9yYXRpb24tdG8tcG9sbHV0ZS10aGVtLWFsbC5wbmc/one-corporation-to-pollute-them-all.png?p=og&s=6d596b09b5a7b3028cc8993239fa3d38",
+    "https://kottke.org/17/06/if-you-cant-explain-something-in-simple-terms-you-dont-understand-it": "http://kottke.org/plus/misc/images/feynman-blackboard.jpg",
     "https://github.com/openssl/openssl/pull/33652": "https://opengraph.githubassets.com/d916370b558eb3cac8dc01b88d8ab926b071f58101c5310fdc4b4b5b880d0aa7/openssl/openssl/pull/33652",
-    "https://github.com/openjdk/jdk/pull/32781": "",
-    "https://krthr.co/paper-folds-and-whats-new-in-fanzines-app": "https://fanzines.app/images/editor-shot.webp",
-    "https://blog.platypush.tech/article/rewriting-my-voice-assistant-pipeline": "https://s3.platypush.tech/static/images/voice-assistant-pipeline.png",
-    "https://github.com/onlook-dev/onlook": "https://opengraph.githubassets.com/4337323f024be4205097e0a10e25c066797bd3f81100d46e06ba0984638fafa4/onlook-dev/onlook",
-    "https://curiousbits.nl/blog/do-not-buy-ram-compress": "",
+    "https://ethanlowman.com/posts/jj-primer": "https://ethanlowman.com/img/penrose.png",
+    "https://www.bbc.co.uk/news/articles/c6eq49zyx7p4o": "https://ichef.bbci.co.uk/ace/branded_news/1200/cpsprodpb/d3db/live/57d6aa20-d769-11f1-a956-ff083523ef77.jpg",
+    "https://jeanmicheljarre.com/aaa/the-making-of-oxygene": "https://imcayyueqknvmognvohc.supabase.co/storage/v1/object/public/media/1789648325786-1gmqsl.webp",
+    "https://ffmpeg.org/download.html": "",
+    "https://www.postgresql.org/docs/release/19.0": "",
+    "https://anihil.com/the-market-is-down": "https://i.snap.as/3sPEJdps.jpg",
+    "https://institute.deepmind.com/essays/what-comes-after-agi": "",
+    "https://startups.novumsignals.com": "",
+    "https://www.newscientist.com/article/2528235-pancreatic-cancer-halted-by-virus-injection-in-three-patients": "https://www.newscientist.com/wp-content/uploads/2026/05/28111438/SEI_299218241.jpg",
+    "https://www.anthropic.com/research/claude-black-hole-physics": "https://assets.claude.com/57a443b51d13727573b7c1290130d09c5f434b2c.jpg",
+    "https://www.snowflake.com/en/blog/engineering/postgres-19-repack-table-bloat": "",
     "https://seremot.com/p/vint-cerf-on-why-tcpip-was-never": "https://substackcdn.com/image/fetch/$s_!F4Pm!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3c9dc8fc-3b97-48bf-9594-781fe179ffe0_1920x1080.jpeg",
-    "https://www.php.net/releases/8.6/en.php": "https://www.php.net/images/php8/php_8_6_released.png",
-    "https://www.databricks.com/blog/postgresql-19-available-lakebase": "https://www.databricks.com/sites/default/files/2026-11/PG-19-cover.png",
+    "https://www.synology.com/en-uk/security/advisory/synology_sa_26_21": "https://fileres.synology.com/images/common/meta-tag-preview-image/img_synology.jpg",
+    "https://globalcommercegraph.com/writing/the-ninety-eight-percent-slot-machine": "https://globalcommercegraph.com/og-image.png",
+    "https://thedataexchange.media/pete-warden-moonshine": "https://thedataexchange.media/wp-content/uploads/2026/11/pete-warden-local-ai.001.jpeg",
+    "https://github.com/openjdk/jdk/pull/32781": "",
+    "https://www.theverge.com/ai-artificial-intelligence/1038390/signal-blocking-ai-agent-screenshots-mobile-app": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/protecting-your-privacy-1.png?quality=90&strip=all&crop=0,0,100,100",
+    "https://arstechnica.com/tech-policy/2026/11/seminole-tribe-tries-to-stop-draftkings-illegal-gambling-in-florida": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-186821059-1152x648.jpg",
+    "https://arstechnica.com/staff/2026/11/science-has-a-home-here-at-ars-please-help-keep-it-that-way": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/ars-petri-dish-1152x648.jpg",
+    "https://arstechnica.com/tech-policy/2026/11/trump-admin-still-wont-let-wi-fi-giant-tp-link-sell-its-latest-routers-in-us": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/tp-link-wi-fi-8-1152x648-1795123696.jpg",
+    "https://www.theverge.com/transportation/1037667/waymo-serve-robotics-ditch-uber-autonomous-partnerships": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/Waymo_Uber_Kristen_Radtke_e68b56.jpg?quality=90&strip=all&crop=0,0,100,100",
+    "https://techcrunch.com/2026/11/20/the-u-s-national-cyber-director-is-stepping-down": "https://techcrunch.com/wp-content/uploads/2026/06/GettyImages-2264911748.jpg?resize=1200,705",
+    "https://science.nasa.gov/image-article/apod-2026-november-20-v-g-r": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/november/IMG_4364N_Kyriazis.jpg?w=2048&h=2048&fit=clip",
+    "https://science.nasa.gov/earth/earth-observatory/the-stormy-southwest-pacific": "https://assets.science.nasa.gov/dynamicimage/assets/science/esd/eo/images/iotd/2026/the-stormy-southwest-pacific--/cyclonexavier_amo_20261116.jpg?w=1440&h=960&fit=clip",
     "https://techcrunch.com/2026/11/19/apple-may-be-developing-its-own-ai-agent-that-runs-your-mac": "https://techcrunch.com/wp-content/uploads/2026/06/iphone-usb-cable.jpg?resize=1200,800",
     "https://techcrunch.com/2026/11/19/anthropics-7-founders-cashed-out-nearly-2b-in-record-breaking-ipo": "https://techcrunch.com/wp-content/uploads/2026/11/antrhopic-openingday-getty.jpg?resize=1200,801",
     "https://techcrunch.com/2026/11/19/anthropic-rival-says-companies-can-mostly-skip-the-pricey-models": "https://techcrunch.com/wp-content/uploads/2026/11/Screenshot-2026-11-20-at-12.43.24-AM.png?resize=1200,601",
+    "https://hippomaps.ch/?q=cafes+by+the+limmat+100+m+from+the+lake+in+zurich": "https://hippomaps.ch/static/pages/img/en/search.webp?v=5496d14268",
     "https://techcrunch.com/2026/11/19/elon-musk-says-spacex-has-a-plan-to-eliminate-cell-phone-dead-zones": "https://techcrunch.com/wp-content/uploads/2026/10/starlink.jpg?resize=1200,800",
     "https://techcrunch.com/2026/11/19/want-to-see-your-live-ai-usage-on-your-macs-icons-this-clever-new-app-lets-you": "https://techcrunch.com/wp-content/uploads/2026/11/IconSwapper-Key-Art.jpg?resize=1200,630",
     "https://www.theverge.com/tech/1038227/apple-ai-agent-engineer-job-listing": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/DSC04239.jpg?quality=90&strip=all&crop=0,0,100,100",
@@ -71,7 +80,6 @@
     "https://techcrunch.com/2026/11/19/these-tech-outages-are-giving-y2k-ai-agent-style": "https://techcrunch.com/wp-content/uploads/2026/11/Muharrem-huner.jpg?resize=1200,800",
     "https://techcrunch.com/2026/11/19/uber-tests-rides-for-kids-as-young-as-10-with-extra-pay-for-drivers": "https://techcrunch.com/wp-content/uploads/2026/07/uber-getty.jpg?resize=1200,800",
     "https://arstechnica.com/health/2026/11/maha-pac-spent-more-on-steak-luxury-club-than-candidates-report-shows": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-870760928-1152x648.jpg",
-    "https://www.youtube.com/watch?v=-tlcgupod6c": "",
     "https://www.theverge.com/tech/1038157/meta-quest-vr-3d-movies-tv-app": "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/24951506/236805_Quest_3_and_Ray_Ban_meta_glasses_BFarsace_0016.jpg?quality=90&strip=all&crop=0,0,100,100",
     "https://arstechnica.com/security/2026/11/man-charged-with-spying-on-silicon-valley-tech-and-defense-company-for-russia": "https://cdn.arstechnica.net/wp-content/uploads/2023/05/getty-digital-gavel-1152x648.jpg",
     "https://www.theverge.com/tech/1038087/meta-muse-charm-ai-price": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/lcimg-3879511d-dd3d-430c-8072-616e2dfb3484.jpeg?quality=90&strip=all&crop=0,0,100,100",
@@ -83,10 +91,9 @@
     "https://www.theverge.com/gadgets/1037790/sony-wh-1000xm5-black-friday-deal-sale": "https://platform.theverge.com/wp-content/uploads/sites/2/2025/04/DSCF7932.webp?quality=90&strip=all&crop=0,0,100,100",
     "https://www.nasa.gov/directorates/stmd/prizes-challenges-crowdsourcing-program/center-of-excellence-for-collaborative-innovation-coeci/challenge-public-input-on-life-and-the-world-in-2075": "https://www.nasa.gov/wp-content/uploads/2026/11/ttt-publicinputonlife-2026.png?w=2048",
     "https://www.theverge.com/games/1038010/valve-steam-machine-waitlist-supply": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/08/268581_Steam_Machine_AKrales_0372.jpg?quality=90&strip=all&crop=0,0,100,100",
-    "https://www.theverge.com/news/1037951/instagram-amazon-affiliate-links-influencers-ads": "https://platform.theverge.com/wp-content/uploads/sites/2/2025/02/STK070_INSTAGRAM__A.jpg?quality=90&strip=all&crop=0,0,100,100",
+    "https://ocw.mit.edu/courses/res-16-002-how-to-cad-almost-anything-january-iap-2024": "https://ocw.mit.edu/courses/res-16-002-how-to-cad-almost-anything-january-iap-2024/mit_res_16_002_s24.png",
     "https://techcrunch.com/2026/11/19/anthropics-ipo-could-deliver-156-billion-to-charity": "https://techcrunch.com/wp-content/uploads/2026/01/GettyImages-2256664479.jpg?resize=1200,800",
     "https://arstechnica.com/science/2026/11/llms-will-provide-accurate-climate-info-except-when-they-wont": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-465648135-1024x648.jpg",
-    "https://www.theverge.com/gadgets/1037042/sonos-black-friday-2026-speaker-soundbar-deals-sale": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/03/268417_Sonos_Play_speaker_JHiggins_0001.jpg?quality=90&strip=all&crop=0,0,100,100",
     "https://techcrunch.com/2026/11/19/google-gives-gemini-the-ability-to-use-your-mac-for-you": "https://techcrunch.com/wp-content/uploads/2026/11/hero_header_CU_copy.width-2200.format-webp.jpeg?resize=1200,675",
     "https://arstechnica.com/gadgets/2026/11/google-will-launch-android-app-verification-requirement-globally-in-january-2027": "https://cdn.arstechnica.net/wp-content/uploads/2025/06/Android-IO-1152x648.jpg",
     "https://techcrunch.com/2026/11/19/metas-ai-agent-muse-is-mixing-up-conversations-and-exposing-private-data-report-says": "https://techcrunch.com/wp-content/uploads/2026/09/muse-ai-meta.jpg?w=1200",
@@ -98,7 +105,6 @@
     "https://science.nasa.gov/open-science/fermi-data-pulsar-discovery": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/general/images/2023/05/screenshot-2023-06-06-at-2.57.05-pm.png?w=1652&h=928&fit=clip",
     "https://www.nasa.gov/image-article/lake-pelku": "https://www.nasa.gov/wp-content/uploads/2026/11/iss075e0267074orig.jpg?w=2048",
     "https://techcrunch.com/2026/11/19/u-k-government-forced-to-disclose-secret-apple-backdoor-order": "https://techcrunch.com/wp-content/uploads/2021/08/icloud-pattern-with-key-red.jpg?resize=1200,675",
-    "https://blog.harrison.page/garage-door-spam": "https://harrison.page/harrison.jpg",
     "https://techcrunch.com/2026/11/19/anthropics-ipo-puts-ais-circular-financing-boom-to-the-test": "https://techcrunch.com/wp-content/uploads/2026/11/GettyImages-2304538389.jpg?w=1024",
     "https://www.nasa.gov/image-article/latest-rs-25-engine-test-in-support-of-future-artemis-missions": "https://www.nasa.gov/wp-content/uploads/2026/11/ssc-20261118-s01364.jpg?w=1024",
     "https://www.nasa.gov/news-release/nasas-voyager-1-makes-history-reaching-one-light-day-from-earth": "https://www.nasa.gov/wp-content/uploads/2026/11/voyager-1-light-day-horizontal.png?w=2048",
@@ -109,13 +115,15 @@
     "https://www.technologyreview.com/2026/11/19/1148979/the-download-liver-kept-alive-sila-battery-deal-ai-hype": "https://wp.technologyreview.com/wp-content/uploads/2026/05/china-bci.jpg?fit=2128,1196",
     "https://www.technologyreview.com/2026/11/19/1148934/a-human-liver-has-been-kept-alive-outside-the-body-for-seven-weeks-setting-a-record": "https://wp.technologyreview.com/wp-content/uploads/2026/11/EOPS-V1.1-.jpg?resize=1200,600",
     "https://arstechnica.com/security/2026/11/how-to-tell-a-cyberattack-from-a-plain-old-outage": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-2201630098-1152x648.jpg",
+    "https://healeycodes.com/introducing-the-worlds-strongest-sokoban-solver": "",
     "https://www.technologyreview.com/2026/11/19/1148922/sila-panasonic-battery-deal": "https://wp.technologyreview.com/wp-content/uploads/2026/11/Moses-Lake-Facility_.jpg?resize=1200,600",
-    "https://www.fastcompany.com/91597520/oregon-library-ditched-dewey-decimal-wayfinding-system": "",
-    "https://ocw.mit.edu/courses/res-16-002-how-to-cad-almost-anything-january-iap-2024": "https://ocw.mit.edu/courses/res-16-002-how-to-cad-almost-anything-january-iap-2024/mit_res_16_002_s24.png",
+    "https://trynotched.com/find": "https://trynotched.com/og-find.png",
+    "https://cpldcpu.com/2014/03/19/%c2%b5-wire-usb-on-an-attiny-10": "https://cpldcpu.com/wp-content/uploads/2014/03/u-wire-test.jpg",
+    "https://subethasoftware.com/2020/06/11/bit-shifting-in-basic": "https://i0.wp.com/subethasoftware.com/wp-content/uploads/2020/04/BASIC16BitShiftSplit.png?fit=752%2C614&ssl=1",
     "https://science.nasa.gov/image-article/apod-2026-november-19-the-horsehead-and-flame-nebulas": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/november/Horsehead_Nebula_Killion.jpg?w=6000&h=4800&fit=clip",
     "https://science.nasa.gov/earth/earth-observatory/el-nino-rains-paint-the-atacama": "https://assets.science.nasa.gov/dynamicimage/assets/science/esd/eo/images/iotd/2026/el-niño-rains-paint-the-atacama/atacamabloom_oli_20260914.jpg",
-    "https://techcrunch.com/2026/11/18/microsoft-ceo-satya-nadella-explains-why-he-asked-60k-employees-to-quit": "https://techcrunch.com/wp-content/uploads/2026/11/Microsoft-Satya-Nadella.jpg?resize=1200,800",
-    "https://www.gabrielgambetta.com/computer-graphics-from-scratch/index.html": "",
+    "https://stng.substack.com/p/automatic-checking-of-compiler-correctness": "",
+    "https://tps.neuralrad.com": "",
     "https://arstechnica.com/tech-policy/2026/11/ted-cruz-led-committee-approves-trump-fcc-nominee-15-0-as-democrats-boycott-vote": "https://cdn.arstechnica.net/wp-content/uploads/2025/01/ted-cruz-1152x648-1738093202.jpg",
     "https://arstechnica.com/gadgets/2026/11/ukraine-blew-up-putins-bridge-using-relay-drones-to-bypass-starlink-limits": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/Kerch-Strait-Bridge-smoke-generators-1152x648.jpg",
     "https://www.nasa.gov/news-release/nasa-sets-coverage-for-northrop-grumman-crs-25-launch-prelaunch": "https://www.nasa.gov/wp-content/uploads/2026/11/ksc-20260411-ph-nrg01-0009large.jpg?w=1920",
@@ -126,17 +134,9 @@
     "https://spacenews.com/all-points-logistics-announces-partnership-with-expeditors-for-space-prep-logistics-center-at-kennedy-space-center": "https://i0.wp.com/spacenews.com/wp-content/uploads/2026/11/all-points-logistics.png?fit=300%2C300&ssl=1",
     "https://arstechnica.com/gadgets/2026/11/best-buy-sells-blu-rays-again-after-quitting-the-business-in-2024": "https://cdn.arstechnica.net/wp-content/uploads/2026/07/odyssey16-1152x648.jpg",
     "https://arstechnica.com/tech-policy/2026/11/muse-privacy-invasions-are-freaking-out-meta-staffers-internal-chats-show": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-2299665210-1024x648.jpg",
-    "https://www.tisonkun.io/posts/ai-repair-program": "https://www.tisonkun.io/images/og.png",
-    "https://www.nasa.gov/centers-and-facilities/michoud/maf-eap/maf-eap-holidays-how-to-manage-the-bah-humbug-that-tries-to-sneak-in": "https://www.nasa.gov/wp-content/uploads/2026/11/mafeap-holidays.jpeg?w=2048",
-    "https://arstechnica.com/tech-policy/2026/11/trump-admin-orders-kalshi-to-halt-wagers-on-what-words-trump-will-say": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/trump-teleprompter-1152x648-1795023886.jpg",
-    "https://arstechnica.com/health/2026/11/the-shameful-measles-data-that-lost-the-us-its-elimination-status": "https://cdn.arstechnica.net/wp-content/uploads/2017/08/Medical_diagnosis_for_the_student_and_practitioner_1922_14761731976-e1708401738329-1152x648.jpg",
-    "https://www.nasa.gov/directorates/stmd/prizes-challenges-crowdsourcing-program/nasa-announces-mid-power-electric-rocket-challenge-for-us-companies": "https://www.nasa.gov/wp-content/uploads/2023/03/hall-thruster.jpg?w=1041",
-    "https://arstechnica.com/gaming/2026/11/will-wrights-next-simulation-will-use-ai-to-mine-content-from-your-memories": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/Moonlit-walk-1152x648.png",
-    "https://dfarq.homeip.net/ira-velinsky-industrial-designer-of-the-commodore-64": "",
+    "https://aperiodical.com/2026/11/i-cant-believe-its-1": "https://aperiodical.com/wp-content/uploads/2026/11/mixed-base.png",
     "https://spacenews.com/origami-and-solar-arrays": "https://i0.wp.com/spacenews.com/wp-content/uploads/2026/11/2000-1500-spacenews-space-tech-expo-europe-sinn-scaled.jpg?fit=1024%2C768&ssl=1",
-    "https://notesbylex.com/weight-space-programming-1990s": "https://notesbylex.com/_media/llm-descent/weight-space-programming-1990s-cover.jpg",
     "https://www.technologyreview.com/2026/11/18/1148650/ai-hype-index-ai-is-everywhere": "https://wp.technologyreview.com/wp-content/uploads/2026/11/11-Hype-thumb2.jpg?resize=1200,600",
-    "https://chipsandcheese.com/p/talking-venice-with-mahesh-subramony": "https://substackcdn.com/image/youtube/w_728,c_limit/-d1XliQ0BQg",
     "https://www.technologyreview.com/2026/11/18/1148845/the-download-ai-learns-to-smell-hydropower-struggles": "https://wp.technologyreview.com/wp-content/uploads/2026/05/260505_IVF_heroNEW-e1778701373952.jpg?w=840",
     "https://www.technologyreview.com/2026/11/18/1148816/smell-startup-osmo-ai-nose-good-as-humans": "https://wp.technologyreview.com/wp-content/uploads/2026/11/Copy-of-Copy-of-BH1_6183_Ben_Hider_250430.jpg?w=840",
     "https://www.technologyreview.com/2026/11/17/1148049/roundtables-inside-the-quest-for-cognitive-immortality": "https://wp.technologyreview.com/wp-content/uploads/2026/11/MITTR-Roundtables-Nov26-With-border.png?resize=1200,600",
@@ -152,31 +152,159 @@
   },
   "items": [
     {
-      "id": "f0d0f469e0bf",
-      "title": "Anthropic’s Nasdaq debut",
+      "id": "000028228240",
+      "title": "Frostbite: A new CPU architecture discovered, designed and verified by AI",
       "source": "Hacker News",
-      "url": "https://www.reuters.com/business/finance/anthropics-historic-debut-put-ais-promise-peril-wall-st-test-2026-11-19/",
-      "publishedAt": "2026-11-19T17:02:40Z",
+      "url": "https://architectlabs.com/blog/frostbite",
+      "publishedAt": "2026-11-20T10:01:41Z",
       "topics": [
-        "AI"
+        "AI",
+        "Chips"
       ],
-      "heat": 164,
-      "hnPoints": 962,
-      "hnComments": 1892
+      "heat": 156,
+      "hnPoints": 196,
+      "hnComments": 123,
+      "image": "https://main--gleeful-begonia-6bb5f3.netlify.app/_next/static/media/frostbite-cover.3n9ytugnquhlr.jpg"
     },
     {
-      "id": "ed33061e28b0",
-      "title": "Gemini 4 Neon is the new #1 on the Models Engineering Index",
+      "id": "f5c1d8753c2b",
+      "title": "\"I can tell you wrote this yourself\"",
       "source": "Hacker News",
-      "url": "https://git-aarvin.github.io/mei/",
-      "publishedAt": "2026-11-19T23:35:35Z",
-      "topics": [
-        "AI"
-      ],
+      "url": "https://em-online.bearblog.dev/i-can-tell-you-wrote-this-yourself/",
+      "publishedAt": "2026-11-20T07:13:21Z",
+      "topics": [],
+      "heat": 155,
+      "hnPoints": 252,
+      "hnComments": 251,
+      "image": "https://bearblog.dev/static/og-image.png"
+    },
+    {
+      "id": "0ddfc9e8c648",
+      "title": "Carnival Cruises emits ten times more sulphur oxide than all of Europe's cars (2019)",
+      "source": "Hacker News",
+      "url": "https://ecohustler.com/article/one-corporation-to-pollute-them-all/",
+      "publishedAt": "2026-11-20T09:13:09Z",
+      "topics": [],
       "heat": 153,
-      "hnPoints": 189,
-      "hnComments": 111,
-      "image": "https://git-aarvin.github.io/mei/scatter/cost.png"
+      "hnPoints": 203,
+      "hnComments": 98,
+      "image": "https://ecohustler.com/img/asset/bWFpbi9vbmUtY29ycG9yYXRpb24tdG8tcG9sbHV0ZS10aGVtLWFsbC5wbmc/one-corporation-to-pollute-them-all.png?p=og&s=6d596b09b5a7b3028cc8993239fa3d38"
+    },
+    {
+      "id": "601ef0d322ce",
+      "title": "If you can't explain something in simple terms, you don't understand it (2017)",
+      "source": "Hacker News",
+      "url": "https://kottke.org/17/06/if-you-cant-explain-something-in-simple-terms-you-dont-understand-it",
+      "publishedAt": "2026-11-20T09:43:19Z",
+      "topics": [],
+      "heat": 147,
+      "hnPoints": 98,
+      "hnComments": 58,
+      "image": "http://kottke.org/plus/misc/images/feynman-blackboard.jpg"
+    },
+    {
+      "id": "df98bcb7b8aa",
+      "title": "OpenSSL: Buffer overflow in EVP_EncodeBlock() (CVE-2026-121481, CVSS 9.8)",
+      "source": "Hacker News",
+      "url": "https://github.com/openssl/openssl/pull/33652",
+      "publishedAt": "2026-11-20T02:01:09Z",
+      "topics": [],
+      "heat": 145,
+      "hnPoints": 293,
+      "hnComments": 228,
+      "image": "https://opengraph.githubassets.com/d916370b558eb3cac8dc01b88d8ab926b071f58101c5310fdc4b4b5b880d0aa7/openssl/openssl/pull/33652"
+    },
+    {
+      "id": "5bf3596fda97",
+      "title": "Jujutsu Primer",
+      "source": "Hacker News",
+      "url": "https://ethanlowman.com/posts/jj-primer/",
+      "publishedAt": "2026-11-20T05:46:01Z",
+      "topics": [],
+      "heat": 144,
+      "hnPoints": 151,
+      "hnComments": 98,
+      "image": "https://ethanlowman.com/img/penrose.png"
+    },
+    {
+      "id": "7c01653370c3",
+      "title": "UK fridges secured from hackers",
+      "source": "Hacker News",
+      "url": "https://www.bbc.co.uk/news/articles/c6eq49zyx7p4o",
+      "publishedAt": "2026-11-20T09:52:20Z",
+      "topics": [],
+      "heat": 142,
+      "hnPoints": 63,
+      "hnComments": 45,
+      "image": "https://ichef.bbci.co.uk/ace/branded_news/1200/cpsprodpb/d3db/live/57d6aa20-d769-11f1-a956-ff083523ef77.jpg"
+    },
+    {
+      "id": "82d4562a8102",
+      "title": "The Making of Oxygene",
+      "source": "Hacker News",
+      "url": "https://jeanmicheljarre.com/aaa/the-making-of-oxygene",
+      "publishedAt": "2026-11-20T10:41:10Z",
+      "topics": [],
+      "heat": 138,
+      "hnPoints": 50,
+      "hnComments": 16,
+      "image": "https://imcayyueqknvmognvohc.supabase.co/storage/v1/object/public/media/1789648325786-1gmqsl.webp"
+    },
+    {
+      "id": "a686a63e57b1",
+      "title": "FFmpeg 9.1 'Gauss'",
+      "source": "Hacker News",
+      "url": "https://ffmpeg.org/download.html#release_9.1",
+      "publishedAt": "2026-11-20T04:02:39Z",
+      "topics": [],
+      "heat": 137,
+      "hnPoints": 185,
+      "hnComments": 26
+    },
+    {
+      "id": "049f29b20254",
+      "title": "PostgreSQL 19",
+      "source": "Hacker News",
+      "url": "https://www.postgresql.org/docs/release/19.0/",
+      "publishedAt": "2026-11-20T03:45:45Z",
+      "topics": [],
+      "heat": 136,
+      "hnPoints": 254,
+      "hnComments": 14
+    },
+    {
+      "id": "392067cc8571",
+      "title": "The Market Is Down",
+      "source": "Hacker News",
+      "url": "https://anihil.com/the-market-is-down",
+      "publishedAt": "2026-11-20T11:37:00Z",
+      "topics": [],
+      "heat": 135,
+      "hnPoints": 35,
+      "hnComments": 9,
+      "image": "https://i.snap.as/3sPEJdps.jpg"
+    },
+    {
+      "id": "93201ff2693e",
+      "title": "What Comes After AGI?",
+      "source": "Hacker News",
+      "url": "https://institute.deepmind.com/essays/what-comes-after-agi/",
+      "publishedAt": "2026-11-20T02:44:13Z",
+      "topics": [],
+      "heat": 135,
+      "hnPoints": 87,
+      "hnComments": 165
+    },
+    {
+      "id": "63c7afe5ce5a",
+      "title": "What people are building, discovered through new domains",
+      "source": "Hacker News",
+      "url": "https://startups.novumsignals.com/",
+      "publishedAt": "2026-11-20T09:54:33Z",
+      "topics": [],
+      "heat": 133,
+      "hnPoints": 34,
+      "hnComments": 14
     },
     {
       "id": "db6959f67901",
@@ -185,22 +313,10 @@
       "url": "https://www.newscientist.com/article/2528235-pancreatic-cancer-halted-by-virus-injection-in-three-patients/",
       "publishedAt": "2026-11-19T17:25:33Z",
       "topics": [],
-      "heat": 150,
-      "hnPoints": 626,
-      "hnComments": 99,
+      "heat": 133,
+      "hnPoints": 807,
+      "hnComments": 139,
       "image": "https://www.newscientist.com/wp-content/uploads/2026/05/28111438/SEI_299218241.jpg"
-    },
-    {
-      "id": "3580245413f2",
-      "title": "UK government forced to admit it issued Apple a secret encryption order",
-      "source": "Hacker News",
-      "url": "https://macanorak.com/uk-government-forced-to-admit-it-issued-apple-a-secret-encryption-order/",
-      "publishedAt": "2026-11-19T16:21:03Z",
-      "topics": [],
-      "heat": 150,
-      "hnPoints": 539,
-      "hnComments": 245,
-      "image": "https://macanorak.com/content/images/2026/11/Apple.jpg"
     },
     {
       "id": "122be7cf5dd9",
@@ -212,163 +328,21 @@
         "AI",
         "Science"
       ],
-      "heat": 149,
-      "hnPoints": 412,
-      "hnComments": 188,
+      "heat": 132,
+      "hnPoints": 516,
+      "hnComments": 242,
       "image": "https://assets.claude.com/57a443b51d13727573b7c1290130d09c5f434b2c.jpg"
     },
     {
-      "id": "20c9de119d5b",
-      "title": "Synology Security Advisory",
+      "id": "92ef4c17d9b3",
+      "title": "Postgres 19 Repack: Faster, Built-In Table Bloat Cleanup",
       "source": "Hacker News",
-      "url": "https://www.synology.com/en-uk/security/advisory/Synology_SA_26_21",
-      "publishedAt": "2026-11-19T22:13:40Z",
+      "url": "https://www.snowflake.com/en/blog/engineering/postgres-19-repack-table-bloat/",
+      "publishedAt": "2026-11-20T02:43:49Z",
       "topics": [],
-      "heat": 145,
-      "hnPoints": 113,
-      "hnComments": 81,
-      "image": "https://fileres.synology.com/images/common/meta-tag-preview-image/img_synology.jpg"
-    },
-    {
-      "id": "bf5ffaf13e57",
-      "title": "Visa, Mastercard and JPMorgan Customer Data Leaked by Hackers",
-      "source": "Hacker News",
-      "url": "https://www.wsj.com/finance/banking/visa-mastercard-and-jpmorgan-customer-data-leaked-by-hackers-3b5a0f87",
-      "publishedAt": "2026-11-19T23:32:11Z",
-      "topics": [],
-      "heat": 144,
-      "hnPoints": 116,
-      "hnComments": 33
-    },
-    {
-      "id": "404bc2ee895c",
-      "title": "The 98% Slot Machine: How Paid Advertising Became an Extraction Tax",
-      "source": "Hacker News",
-      "url": "https://globalcommercegraph.com/writing/the-ninety-eight-percent-slot-machine",
-      "publishedAt": "2026-11-19T18:35:17Z",
-      "topics": [],
-      "heat": 144,
-      "hnPoints": 221,
-      "hnComments": 116,
-      "image": "https://globalcommercegraph.com/og-image.png"
-    },
-    {
-      "id": "db0a328fdd9a",
-      "title": "How the European Commission rolled out Matrix to more than 40k staff",
-      "source": "Hacker News",
-      "url": "https://element.io/blog/how-the-european-commission-rolled-out-matrix-to-more-than-40-000-staff/",
-      "publishedAt": "2026-11-19T10:58:29Z",
-      "topics": [],
-      "heat": 141,
-      "hnPoints": 671,
-      "hnComments": 327,
-      "image": "https://element.io/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/6adb731e199252ab9c9e4dd5_matrix-conference-opengraph.jpg"
-    },
-    {
-      "id": "5eb33914884a",
-      "title": "Should governments slow frontier AI? Jacob Coxon and Robin Hanson debate [video]",
-      "source": "Hacker News",
-      "url": "https://www.youtube.com/watch?v=lwfewYL7X0o",
-      "publishedAt": "2026-11-19T18:47:16Z",
-      "topics": [
-        "AI"
-      ],
-      "heat": 138,
-      "hnPoints": 85,
-      "hnComments": 151
-    },
-    {
-      "id": "8c12cc0d5ee2",
-      "title": "RegExr: Temporarily Offline",
-      "source": "Hacker News",
-      "url": "https://regexr.com/",
-      "publishedAt": "2026-11-19T22:27:07Z",
-      "topics": [],
-      "heat": 136,
-      "hnPoints": 57,
-      "hnComments": 28
-    },
-    {
-      "id": "59ee1db7d44b",
-      "title": "Show HN: Cornhole News – A Hacker News inspired site for news across the Midwest",
-      "source": "Hacker News",
-      "url": "https://cornholenews.news",
-      "publishedAt": "2026-11-19T15:38:32Z",
-      "topics": [],
-      "heat": 136,
-      "hnPoints": 196,
-      "hnComments": 93,
-      "image": "https://cornholenews.news/opengraph-image"
-    },
-    {
-      "id": "df98bcb7b8aa",
-      "title": "OpenSSL: Buffer overflow in EVP_EncodeBlock() (CVE-2026-121481, CVSS 9.8)",
-      "source": "Hacker News",
-      "url": "https://github.com/openssl/openssl/pull/33652",
-      "publishedAt": "2026-11-20T02:01:09Z",
-      "topics": [],
-      "heat": 135,
-      "hnPoints": 35,
-      "hnComments": 8,
-      "image": "https://opengraph.githubassets.com/d916370b558eb3cac8dc01b88d8ab926b071f58101c5310fdc4b4b5b880d0aa7/openssl/openssl/pull/33652"
-    },
-    {
-      "id": "21575d48062c",
-      "title": "Someone reported java4shell bug in September 2026",
-      "source": "Hacker News",
-      "url": "https://github.com/openjdk/jdk/pull/32781",
-      "publishedAt": "2026-11-19T11:47:03Z",
-      "topics": [],
-      "heat": 134,
-      "hnPoints": 384,
-      "hnComments": 102
-    },
-    {
-      "id": "e7d660e84688",
-      "title": "Making 8-page foldable zines from a single A4 sheet in the browser",
-      "source": "Hacker News",
-      "url": "https://krthr.co/paper-folds-and-whats-new-in-fanzines-app/",
-      "publishedAt": "2026-11-19T13:18:11Z",
-      "topics": [],
-      "heat": 132,
-      "hnPoints": 255,
-      "hnComments": 57,
-      "image": "https://fanzines.app/images/editor-shot.webp"
-    },
-    {
-      "id": "b25940d483e1",
-      "title": "Rebuilding my local voice assistant pipeline",
-      "source": "Hacker News",
-      "url": "https://blog.platypush.tech/article/Rewriting-my-voice-assistant-pipeline",
-      "publishedAt": "2026-11-19T20:57:14Z",
-      "topics": [],
-      "heat": 131,
-      "hnPoints": 66,
-      "hnComments": 12,
-      "image": "https://s3.platypush.tech/static/images/voice-assistant-pipeline.png"
-    },
-    {
-      "id": "00ca2badf798",
-      "title": "Launch HN: Onlook (YC W25) – An open-source developer tool for designers",
-      "source": "Hacker News",
-      "url": "https://github.com/onlook-dev/onlook/",
-      "publishedAt": "2026-11-19T16:34:04Z",
-      "topics": [],
-      "heat": 131,
-      "hnPoints": 89,
-      "hnComments": 69,
-      "image": "https://opengraph.githubassets.com/4337323f024be4205097e0a10e25c066797bd3f81100d46e06ba0984638fafa4/onlook-dev/onlook"
-    },
-    {
-      "id": "2649ff18397f",
-      "title": "Do not buy RAM, compress",
-      "source": "Hacker News",
-      "url": "https://curiousbits.nl/blog/do-not-buy-ram-compress/",
-      "publishedAt": "2026-11-19T08:56:47Z",
-      "topics": [],
-      "heat": 128,
-      "hnPoints": 266,
-      "hnComments": 215
+      "heat": 130,
+      "hnPoints": 129,
+      "hnComments": 20
     },
     {
       "id": "ad94344260a0",
@@ -377,34 +351,141 @@
       "url": "https://seremot.com/p/vint-cerf-on-why-tcpip-was-never",
       "publishedAt": "2026-11-20T01:06:12Z",
       "topics": [],
-      "heat": 127,
-      "hnPoints": 23,
-      "hnComments": 4,
+      "heat": 130,
+      "hnPoints": 121,
+      "hnComments": 57,
       "image": "https://substackcdn.com/image/fetch/$s_!F4Pm!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3c9dc8fc-3b97-48bf-9594-781fe179ffe0_1920x1080.jpeg"
     },
     {
-      "id": "5174c21f9e43",
-      "title": "What's New in PHP 8.6",
+      "id": "20c9de119d5b",
+      "title": "Synology Security Advisory",
       "source": "Hacker News",
-      "url": "https://www.php.net/releases/8.6/en.php",
-      "publishedAt": "2026-11-19T09:27:15Z",
+      "url": "https://www.synology.com/en-uk/security/advisory/Synology_SA_26_21",
+      "publishedAt": "2026-11-19T22:13:40Z",
       "topics": [],
-      "heat": 127,
-      "hnPoints": 279,
-      "hnComments": 128,
-      "image": "https://www.php.net/images/php8/php_8_6_released.png"
+      "heat": 129,
+      "hnPoints": 163,
+      "hnComments": 120,
+      "image": "https://fileres.synology.com/images/common/meta-tag-preview-image/img_synology.jpg"
     },
     {
-      "id": "99658be98c83",
-      "title": "Postgres 19 is out, and it's available on Neon and Databricks Lakebase",
+      "id": "404bc2ee895c",
+      "title": "The 98% Slot Machine: How Paid Advertising Became an Extraction Tax",
       "source": "Hacker News",
-      "url": "https://www.databricks.com/blog/postgresql-19-available-lakebase",
-      "publishedAt": "2026-11-20T00:37:31Z",
+      "url": "https://globalcommercegraph.com/writing/the-ninety-eight-percent-slot-machine",
+      "publishedAt": "2026-11-19T18:35:17Z",
       "topics": [],
+      "heat": 128,
+      "hnPoints": 314,
+      "hnComments": 159,
+      "image": "https://globalcommercegraph.com/og-image.png"
+    },
+    {
+      "id": "849bf67a7068",
+      "title": "Pete Warden on local AI, open models, voice interfaces, the future of hardware",
+      "source": "Hacker News",
+      "url": "https://thedataexchange.media/pete-warden-moonshine/",
+      "publishedAt": "2026-11-19T15:38:12Z",
+      "topics": [
+        "AI"
+      ],
       "heat": 122,
-      "hnPoints": 15,
-      "hnComments": 3,
-      "image": "https://www.databricks.com/sites/default/files/2026-11/PG-19-cover.png"
+      "hnPoints": 260,
+      "hnComments": 227,
+      "image": "https://thedataexchange.media/wp-content/uploads/2026/11/pete-warden-local-ai.001.jpeg"
+    },
+    {
+      "id": "21575d48062c",
+      "title": "Someone reported java4shell bug in September 2026",
+      "source": "Hacker News",
+      "url": "https://github.com/openjdk/jdk/pull/32781",
+      "publishedAt": "2026-11-19T11:47:03Z",
+      "topics": [],
+      "heat": 116,
+      "hnPoints": 438,
+      "hnComments": 124
+    },
+    {
+      "id": "779ccf54081c",
+      "title": "Signal is blocking Gemini and Siri AI from reading your screen",
+      "source": "The Verge",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1038390/signal-blocking-ai-agent-screenshots-mobile-app",
+      "publishedAt": "2026-11-20T12:30:47Z",
+      "topics": [
+        "AI"
+      ],
+      "heat": 99,
+      "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/protecting-your-privacy-1.png?quality=90&strip=all&crop=0,0,100,100"
+    },
+    {
+      "id": "d5c467d17b3e",
+      "title": "Only the Seminole tribe can offer online gambling in Florida—and they're furious at DraftKings",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/tech-policy/2026/11/seminole-tribe-tries-to-stop-draftkings-illegal-gambling-in-florida/",
+      "publishedAt": "2026-11-20T12:30:29Z",
+      "topics": [],
+      "heat": 99,
+      "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-186821059-1152x648.jpg"
+    },
+    {
+      "id": "09fbe8a6f1e2",
+      "title": "Science has a home here at Ars—please help keep it that way",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/staff/2026/11/science-has-a-home-here-at-ars-please-help-keep-it-that-way/",
+      "publishedAt": "2026-11-20T12:15:36Z",
+      "topics": [],
+      "heat": 99,
+      "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/ars-petri-dish-1152x648.jpg"
+    },
+    {
+      "id": "5cf668c0a913",
+      "title": "Trump admin still won't let Wi-Fi giant TP-Link sell its latest routers in US",
+      "source": "Ars Technica",
+      "url": "https://arstechnica.com/tech-policy/2026/11/trump-admin-still-wont-let-wi-fi-giant-tp-link-sell-its-latest-routers-in-us/",
+      "publishedAt": "2026-11-20T12:00:43Z",
+      "topics": [],
+      "heat": 98,
+      "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/tp-link-wi-fi-8-1152x648-1795123696.jpg"
+    },
+    {
+      "id": "4d6b2f9686dc",
+      "title": "Why the robots are ditching Uber",
+      "source": "The Verge",
+      "url": "https://www.theverge.com/transportation/1037667/waymo-serve-robotics-ditch-uber-autonomous-partnerships",
+      "publishedAt": "2026-11-20T12:00:00Z",
+      "topics": [],
+      "heat": 98,
+      "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/Waymo_Uber_Kristen_Radtke_e68b56.jpg?quality=90&strip=all&crop=0,0,100,100"
+    },
+    {
+      "id": "f136b0739c94",
+      "title": "The U.S. national cyber director is stepping down",
+      "source": "TechCrunch",
+      "url": "https://techcrunch.com/2026/11/20/the-u-s-national-cyber-director-is-stepping-down/",
+      "publishedAt": "2026-11-20T09:14:19Z",
+      "topics": [],
+      "heat": 92,
+      "image": "https://techcrunch.com/wp-content/uploads/2026/06/GettyImages-2264911748.jpg?resize=1200,705"
+    },
+    {
+      "id": "ae3ac2e286ff",
+      "title": "APOD: 2026 November 20 – V-G-R",
+      "source": "NASA",
+      "url": "https://science.nasa.gov/image-article/apod-2026-november-20-v-g-r/",
+      "publishedAt": "2026-11-20T05:05:00Z",
+      "topics": [],
+      "heat": 84,
+      "image": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/november/IMG_4364N_Kyriazis.jpg?w=2048&h=2048&fit=clip"
+    },
+    {
+      "id": "d360efaa5b7a",
+      "title": "The Stormy Southwest Pacific",
+      "source": "NASA",
+      "url": "https://science.nasa.gov/earth/earth-observatory/the-stormy-southwest-pacific/",
+      "publishedAt": "2026-11-20T05:01:00Z",
+      "topics": [],
+      "heat": 84,
+      "image": "https://assets.science.nasa.gov/dynamicimage/assets/science/esd/eo/images/iotd/2026/the-stormy-southwest-pacific--/cyclonexavier_amo_20261116.jpg?w=1440&h=960&fit=clip"
     },
     {
       "id": "2ed09bbf2a0c",
@@ -415,7 +496,7 @@
       "topics": [
         "AI"
       ],
-      "heat": 95,
+      "heat": 75,
       "image": "https://techcrunch.com/wp-content/uploads/2026/06/iphone-usb-cable.jpg?resize=1200,800"
     },
     {
@@ -427,7 +508,7 @@
       "topics": [
         "AI"
       ],
-      "heat": 95,
+      "heat": 75,
       "image": "https://techcrunch.com/wp-content/uploads/2026/11/antrhopic-openingday-getty.jpg?resize=1200,801"
     },
     {
@@ -439,8 +520,20 @@
       "topics": [
         "AI"
       ],
-      "heat": 94,
+      "heat": 74,
       "image": "https://techcrunch.com/wp-content/uploads/2026/11/Screenshot-2026-11-20-at-12.43.24-AM.png?resize=1200,601"
+    },
+    {
+      "id": "c5204e8a6851",
+      "title": "Show HN: Fast deterministic natural language search for OpenStreetMap data",
+      "source": "Hacker News",
+      "url": "https://hippomaps.ch/?q=cafes+by+the+Limmat+100+m+from+the+lake+in+zurich#map=15.02/47.36708/8.54935",
+      "publishedAt": "2026-11-19T15:16:02Z",
+      "topics": [],
+      "heat": 73,
+      "hnPoints": 9,
+      "hnComments": 0,
+      "image": "https://hippomaps.ch/static/pages/img/en/search.webp?v=5496d14268"
     },
     {
       "id": "74621002819e",
@@ -451,7 +544,7 @@
       "topics": [
         "Space"
       ],
-      "heat": 92,
+      "heat": 72,
       "image": "https://techcrunch.com/wp-content/uploads/2026/10/starlink.jpg?resize=1200,800"
     },
     {
@@ -463,7 +556,7 @@
       "topics": [
         "AI"
       ],
-      "heat": 90,
+      "heat": 70,
       "image": "https://techcrunch.com/wp-content/uploads/2026/11/IconSwapper-Key-Art.jpg?resize=1200,630"
     },
     {
@@ -475,7 +568,7 @@
       "topics": [
         "AI"
       ],
-      "heat": 90,
+      "heat": 70,
       "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/DSC04239.jpg?quality=90&strip=all&crop=0,0,100,100"
     },
     {
@@ -485,7 +578,7 @@
       "url": "https://arstechnica.com/tech-policy/2026/11/amazon-takes-its-fight-against-nyc-delivery-bill-to-shoppers-with-in-app-pop-up/",
       "publishedAt": "2026-11-19T22:16:37Z",
       "topics": [],
-      "heat": 90,
+      "heat": 70,
       "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-1243765669-1024x648.jpg"
     },
     {
@@ -497,7 +590,7 @@
       "topics": [
         "Chips"
       ],
-      "heat": 89,
+      "heat": 69,
       "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/gettyimages-2305716823.jpg?quality=90&strip=all&crop=0,0,100,100"
     },
     {
@@ -507,7 +600,7 @@
       "url": "https://techcrunch.com/2026/11/19/metas-new-muse-charm-device-may-cost-300/",
       "publishedAt": "2026-11-19T21:58:06Z",
       "topics": [],
-      "heat": 89,
+      "heat": 69,
       "image": "https://techcrunch.com/wp-content/uploads/2026/09/meta-muse-charm.png?resize=1200,667"
     },
     {
@@ -519,7 +612,7 @@
       "topics": [
         "AI"
       ],
-      "heat": 88,
+      "heat": 68,
       "image": "https://techcrunch.com/wp-content/uploads/2026/11/Muharrem-huner.jpg?resize=1200,800"
     },
     {
@@ -529,7 +622,7 @@
       "url": "https://techcrunch.com/2026/11/19/uber-tests-rides-for-kids-as-young-as-10-with-extra-pay-for-drivers/",
       "publishedAt": "2026-11-19T21:33:24Z",
       "topics": [],
-      "heat": 88,
+      "heat": 68,
       "image": "https://techcrunch.com/wp-content/uploads/2026/07/uber-getty.jpg?resize=1200,800"
     },
     {
@@ -539,19 +632,8 @@
       "url": "https://arstechnica.com/health/2026/11/maha-pac-spent-more-on-steak-luxury-club-than-candidates-report-shows/",
       "publishedAt": "2026-11-19T21:19:12Z",
       "topics": [],
-      "heat": 88,
+      "heat": 68,
       "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-870760928-1152x648.jpg"
-    },
-    {
-      "id": "e2a8ceeff4c5",
-      "title": "Nintendo takes Picofly firmware down from GitHub [video]",
-      "source": "Hacker News",
-      "url": "https://www.youtube.com/watch?v=-TLCGUpoD6c",
-      "publishedAt": "2026-11-18T14:56:04Z",
-      "topics": [],
-      "heat": 88,
-      "hnPoints": 261,
-      "hnComments": 104
     },
     {
       "id": "7a3963926359",
@@ -560,7 +642,7 @@
       "url": "https://www.theverge.com/tech/1038157/meta-quest-vr-3d-movies-tv-app",
       "publishedAt": "2026-11-19T21:12:06Z",
       "topics": [],
-      "heat": 87,
+      "heat": 67,
       "image": "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/24951506/236805_Quest_3_and_Ray_Ban_meta_glasses_BFarsace_0016.jpg?quality=90&strip=all&crop=0,0,100,100"
     },
     {
@@ -570,7 +652,7 @@
       "url": "https://arstechnica.com/security/2026/11/man-charged-with-spying-on-silicon-valley-tech-and-defense-company-for-russia/",
       "publishedAt": "2026-11-19T20:29:46Z",
       "topics": [],
-      "heat": 86,
+      "heat": 66,
       "image": "https://cdn.arstechnica.net/wp-content/uploads/2023/05/getty-digital-gavel-1152x648.jpg"
     },
     {
@@ -580,7 +662,7 @@
       "url": "https://www.theverge.com/tech/1038087/meta-muse-charm-ai-price",
       "publishedAt": "2026-11-19T20:22:17Z",
       "topics": [],
-      "heat": 86,
+      "heat": 66,
       "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/lcimg-3879511d-dd3d-430c-8072-616e2dfb3484.jpeg?quality=90&strip=all&crop=0,0,100,100"
     },
     {
@@ -592,7 +674,7 @@
       "topics": [
         "AI"
       ],
-      "heat": 86,
+      "heat": 66,
       "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-458680569-1152x648-1795115965.jpg"
     },
     {
@@ -602,7 +684,7 @@
       "url": "https://techcrunch.com/2026/11/19/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/",
       "publishedAt": "2026-11-19T20:18:49Z",
       "topics": [],
-      "heat": 86,
+      "heat": 65,
       "image": "https://techcrunch.com/wp-content/uploads/2025/04/GettyImages-2205754389.jpg?w=1024"
     },
     {
@@ -614,7 +696,7 @@
       "topics": [
         "AI"
       ],
-      "heat": 85,
+      "heat": 65,
       "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/01/STK093_GOOGLE_D.jpg?quality=90&strip=all&crop=0,0,100,100"
     },
     {
@@ -626,7 +708,7 @@
       "topics": [
         "Space"
       ],
-      "heat": 85,
+      "heat": 65,
       "image": "https://cdn.arstechnica.net/wp-content/uploads/2025/11/NG2-Launch-Rollout-3-1152x648.jpg"
     },
     {
@@ -636,7 +718,7 @@
       "url": "https://www.theverge.com/policy/1037987/fcc-prison-cellphone-signal-jamming",
       "publishedAt": "2026-11-19T19:40:28Z",
       "topics": [],
-      "heat": 84,
+      "heat": 64,
       "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2025/06/STKS513_FCC_B.jpg?quality=90&strip=all&crop=0,0,100,100"
     },
     {
@@ -646,7 +728,7 @@
       "url": "https://www.theverge.com/gadgets/1037790/sony-wh-1000xm5-black-friday-deal-sale",
       "publishedAt": "2026-11-19T19:35:52Z",
       "topics": [],
-      "heat": 84,
+      "heat": 64,
       "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2025/04/DSCF7932.webp?quality=90&strip=all&crop=0,0,100,100"
     },
     {
@@ -656,7 +738,7 @@
       "url": "https://www.nasa.gov/directorates/stmd/prizes-challenges-crowdsourcing-program/center-of-excellence-for-collaborative-innovation-coeci/challenge-public-input-on-life-and-the-world-in-2075/",
       "publishedAt": "2026-11-19T19:34:20Z",
       "topics": [],
-      "heat": 84,
+      "heat": 64,
       "image": "https://www.nasa.gov/wp-content/uploads/2026/11/ttt-publicinputonlife-2026.png?w=2048"
     },
     {
@@ -666,18 +748,20 @@
       "url": "https://www.theverge.com/games/1038010/valve-steam-machine-waitlist-supply",
       "publishedAt": "2026-11-19T19:33:22Z",
       "topics": [],
-      "heat": 84,
+      "heat": 64,
       "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/08/268581_Steam_Machine_AKrales_0372.jpg?quality=90&strip=all&crop=0,0,100,100"
     },
     {
-      "id": "191f99a064df",
-      "title": "Some creators are skeptical of Instagram’s new affiliate program",
-      "source": "The Verge",
-      "url": "https://www.theverge.com/news/1037951/instagram-amazon-affiliate-links-influencers-ads",
-      "publishedAt": "2026-11-19T19:12:30Z",
+      "id": "7d0c235ab40a",
+      "title": "How to CAD Almost Anything",
+      "source": "Hacker News",
+      "url": "https://ocw.mit.edu/courses/res-16-002-how-to-cad-almost-anything-january-iap-2024/",
+      "publishedAt": "2026-11-17T06:29:57Z",
       "topics": [],
-      "heat": 83,
-      "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2025/02/STK070_INSTAGRAM__A.jpg?quality=90&strip=all&crop=0,0,100,100"
+      "heat": 64,
+      "hnPoints": 298,
+      "hnComments": 96,
+      "image": "https://ocw.mit.edu/courses/res-16-002-how-to-cad-almost-anything-january-iap-2024/mit_res_16_002_s24.png"
     },
     {
       "id": "e22812a5ccc9",
@@ -688,7 +772,7 @@
       "topics": [
         "AI"
       ],
-      "heat": 83,
+      "heat": 63,
       "image": "https://techcrunch.com/wp-content/uploads/2026/01/GettyImages-2256664479.jpg?resize=1200,800"
     },
     {
@@ -700,18 +784,8 @@
       "topics": [
         "Science"
       ],
-      "heat": 82,
+      "heat": 62,
       "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-465648135-1024x648.jpg"
-    },
-    {
-      "id": "5adc52fa3938",
-      "title": "Sonos is taking up to 30 percent off speakers and soundbars right now",
-      "source": "The Verge",
-      "url": "https://www.theverge.com/gadgets/1037042/sonos-black-friday-2026-speaker-soundbar-deals-sale",
-      "publishedAt": "2026-11-19T18:33:08Z",
-      "topics": [],
-      "heat": 82,
-      "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/03/268417_Sonos_Play_speaker_JHiggins_0001.jpg?quality=90&strip=all&crop=0,0,100,100"
     },
     {
       "id": "6d6821f501bb",
@@ -722,7 +796,7 @@
       "topics": [
         "AI"
       ],
-      "heat": 81,
+      "heat": 61,
       "image": "https://techcrunch.com/wp-content/uploads/2026/11/hero_header_CU_copy.width-2200.format-webp.jpeg?resize=1200,675"
     },
     {
@@ -734,7 +808,7 @@
       "topics": [
         "Apps"
       ],
-      "heat": 81,
+      "heat": 61,
       "image": "https://cdn.arstechnica.net/wp-content/uploads/2025/06/Android-IO-1152x648.jpg"
     },
     {
@@ -746,7 +820,7 @@
       "topics": [
         "AI"
       ],
-      "heat": 80,
+      "heat": 60,
       "image": "https://techcrunch.com/wp-content/uploads/2026/09/muse-ai-meta.jpg?w=1200"
     },
     {
@@ -756,7 +830,7 @@
       "url": "https://spacenews.com/the-sweet-spot-for-constellation-size/",
       "publishedAt": "2026-11-19T17:25:17Z",
       "topics": [],
-      "heat": 80,
+      "heat": 59,
       "image": "https://i0.wp.com/spacenews.com/wp-content/uploads/2026/11/jan-smolders-2-scaled.jpg?fit=1024%2C768&ssl=1"
     },
     {
@@ -766,7 +840,7 @@
       "url": "https://techcrunch.com/2026/11/19/former-alibaba-execs-everful-raises-48-5m-to-connect-retailers-with-chinese-factories/",
       "publishedAt": "2026-11-19T17:00:00Z",
       "topics": [],
-      "heat": 79,
+      "heat": 59,
       "image": "https://techcrunch.com/wp-content/uploads/2026/11/Everful-founders.jpg?resize=1200,800"
     },
     {
@@ -778,7 +852,7 @@
       "topics": [
         "AI"
       ],
-      "heat": 79,
+      "heat": 59,
       "image": "https://techcrunch.com/wp-content/uploads/2026/11/anthropic-opening-Getty.jpg?resize=1200,801"
     },
     {
@@ -790,7 +864,7 @@
       "topics": [
         "AI"
       ],
-      "heat": 77,
+      "heat": 57,
       "image": "https://techcrunch.com/wp-content/uploads/2026/11/GettyImages-2305298275.jpg?w=594"
     },
     {
@@ -800,7 +874,7 @@
       "url": "https://spacenews.com/making-the-case-for-optical/",
       "publishedAt": "2026-11-19T15:38:18Z",
       "topics": [],
-      "heat": 76,
+      "heat": 56,
       "image": "https://i0.wp.com/spacenews.com/wp-content/uploads/2026/11/2000-1500-spacenews-space-tech-expo-europe-morizur-scaled.jpg?fit=1024%2C768&ssl=1"
     },
     {
@@ -812,7 +886,7 @@
       "topics": [
         "Space"
       ],
-      "heat": 76,
+      "heat": 56,
       "image": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/general/images/2023/05/screenshot-2023-06-06-at-2.57.05-pm.png?w=1652&h=928&fit=clip"
     },
     {
@@ -822,7 +896,7 @@
       "url": "https://www.nasa.gov/image-article/lake-pelku/",
       "publishedAt": "2026-11-19T15:32:39Z",
       "topics": [],
-      "heat": 76,
+      "heat": 56,
       "image": "https://www.nasa.gov/wp-content/uploads/2026/11/iss075e0267074orig.jpg?w=2048"
     },
     {
@@ -832,20 +906,8 @@
       "url": "https://techcrunch.com/2026/11/19/u-k-government-forced-to-disclose-secret-apple-backdoor-order/",
       "publishedAt": "2026-11-19T15:32:20Z",
       "topics": [],
-      "heat": 76,
+      "heat": 56,
       "image": "https://techcrunch.com/wp-content/uploads/2021/08/icloud-pattern-with-key-red.jpg?resize=1200,675"
-    },
-    {
-      "id": "42adf2df611c",
-      "title": "Garage Door Spam",
-      "source": "Hacker News",
-      "url": "https://blog.harrison.page/garage-door-spam/",
-      "publishedAt": "2026-11-16T16:13:36Z",
-      "topics": [],
-      "heat": 76,
-      "hnPoints": 773,
-      "hnComments": 322,
-      "image": "https://harrison.page/harrison.jpg"
     },
     {
       "id": "824e87dcfa8e",
@@ -856,7 +918,7 @@
       "topics": [
         "AI"
       ],
-      "heat": 74,
+      "heat": 54,
       "image": "https://techcrunch.com/wp-content/uploads/2026/11/GettyImages-2304538389.jpg?w=1024"
     },
     {
@@ -868,7 +930,7 @@
       "topics": [
         "Space"
       ],
-      "heat": 74,
+      "heat": 54,
       "image": "https://www.nasa.gov/wp-content/uploads/2026/11/ssc-20261118-s01364.jpg?w=1024"
     },
     {
@@ -880,7 +942,7 @@
       "topics": [
         "Space"
       ],
-      "heat": 74,
+      "heat": 53,
       "image": "https://www.nasa.gov/wp-content/uploads/2026/11/voyager-1-light-day-horizontal.png?w=2048"
     },
     {
@@ -890,7 +952,7 @@
       "url": "https://arstechnica.com/science/2026/11/watching-mouse-fight-club-teaches-the-critters-how-to-fight/",
       "publishedAt": "2026-11-19T14:04:38Z",
       "topics": [],
-      "heat": 73,
+      "heat": 53,
       "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/mouse1-1152x648.jpg"
     },
     {
@@ -900,7 +962,7 @@
       "url": "https://techcrunch.com/2026/11/19/nimble-enters-the-item-tracking-market-with-eco-friendly-luggage-tags-and-keychains/",
       "publishedAt": "2026-11-19T14:00:00Z",
       "topics": [],
-      "heat": 72,
+      "heat": 52,
       "image": "https://techcrunch.com/wp-content/uploads/2026/11/TRACE-Keychain_.png?w=1080"
     },
     {
@@ -910,7 +972,7 @@
       "url": "https://techcrunch.com/2026/11/19/superhuman-pushes-its-go-assistant-everywhere/",
       "publishedAt": "2026-11-19T14:00:00Z",
       "topics": [],
-      "heat": 72,
+      "heat": 52,
       "image": "https://techcrunch.com/wp-content/uploads/2026/11/Static_Go-Proactive.jpeg?resize=1200,675"
     },
     {
@@ -922,7 +984,7 @@
       "topics": [
         "Space"
       ],
-      "heat": 72,
+      "heat": 52,
       "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/04/art002e012476large-1152x648.jpg"
     },
     {
@@ -934,7 +996,7 @@
       "topics": [
         "AI"
       ],
-      "heat": 71,
+      "heat": 51,
       "image": "https://wp.technologyreview.com/wp-content/uploads/2026/05/china-bci.jpg?fit=2128,1196"
     },
     {
@@ -944,7 +1006,7 @@
       "url": "https://www.technologyreview.com/2026/11/19/1148934/a-human-liver-has-been-kept-alive-outside-the-body-for-seven-weeks-setting-a-record/",
       "publishedAt": "2026-11-19T12:00:00Z",
       "topics": [],
-      "heat": 68,
+      "heat": 48,
       "image": "https://wp.technologyreview.com/wp-content/uploads/2026/11/EOPS-V1.1-.jpg?resize=1200,600"
     },
     {
@@ -954,8 +1016,19 @@
       "url": "https://arstechnica.com/security/2026/11/how-to-tell-a-cyberattack-from-a-plain-old-outage/",
       "publishedAt": "2026-11-19T11:13:01Z",
       "topics": [],
-      "heat": 67,
+      "heat": 47,
       "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-2201630098-1152x648.jpg"
+    },
+    {
+      "id": "c346db8f4c2c",
+      "title": "The Strongest Sokoban Solver",
+      "source": "Hacker News",
+      "url": "https://healeycodes.com/introducing-the-worlds-strongest-sokoban-solver",
+      "publishedAt": "2026-11-16T21:04:01Z",
+      "topics": [],
+      "heat": 47,
+      "hnPoints": 87,
+      "hnComments": 16
     },
     {
       "id": "d3eedb7cabc0",
@@ -964,31 +1037,44 @@
       "url": "https://www.technologyreview.com/2026/11/19/1148922/sila-panasonic-battery-deal/",
       "publishedAt": "2026-11-19T11:00:00Z",
       "topics": [],
-      "heat": 66,
+      "heat": 46,
       "image": "https://wp.technologyreview.com/wp-content/uploads/2026/11/Moses-Lake-Facility_.jpg?resize=1200,600"
     },
     {
-      "id": "bd9dee5c6eaa",
-      "title": "An Oregon library ditched Dewey Decimal and got people excited about books again",
+      "id": "cfcfa15bcde9",
+      "title": "Show HN: Tinnitus frequency finder and audio notch tool",
       "source": "Hacker News",
-      "url": "https://www.fastcompany.com/91597520/oregon-library-ditched-dewey-decimal-wayfinding-system",
-      "publishedAt": "2026-11-17T19:35:12Z",
+      "url": "https://trynotched.com/find",
+      "publishedAt": "2026-11-18T03:40:01Z",
       "topics": [],
-      "heat": 63,
-      "hnPoints": 208,
-      "hnComments": 144
+      "heat": 42,
+      "hnPoints": 42,
+      "hnComments": 21,
+      "image": "https://trynotched.com/og-find.png"
     },
     {
-      "id": "7d0c235ab40a",
-      "title": "How to CAD Almost Anything",
+      "id": "320e0e46538f",
+      "title": "µ-Wire – USB on an ATtiny 10",
       "source": "Hacker News",
-      "url": "https://ocw.mit.edu/courses/res-16-002-how-to-cad-almost-anything-january-iap-2024/",
-      "publishedAt": "2026-11-17T06:29:57Z",
+      "url": "https://cpldcpu.com/2014/03/19/%c2%b5-wire-usb-on-an-attiny-10/",
+      "publishedAt": "2026-11-18T13:02:08Z",
       "topics": [],
-      "heat": 55,
-      "hnPoints": 155,
-      "hnComments": 40,
-      "image": "https://ocw.mit.edu/courses/res-16-002-how-to-cad-almost-anything-january-iap-2024/mit_res_16_002_s24.png"
+      "heat": 39,
+      "hnPoints": 62,
+      "hnComments": 3,
+      "image": "https://cpldcpu.com/wp-content/uploads/2014/03/u-wire-test.jpg"
+    },
+    {
+      "id": "f12c2274d368",
+      "title": "Bit Shifting in Basic",
+      "source": "Hacker News",
+      "url": "https://subethasoftware.com/2020/06/11/bit-shifting-in-basic/",
+      "publishedAt": "2026-11-16T19:04:36Z",
+      "topics": [],
+      "heat": 38,
+      "hnPoints": 52,
+      "hnComments": 4,
+      "image": "https://i0.wp.com/subethasoftware.com/wp-content/uploads/2020/04/BASIC16BitShiftSplit.png?fit=752%2C614&ssl=1"
     },
     {
       "id": "9a733243225a",
@@ -997,7 +1083,7 @@
       "url": "https://science.nasa.gov/image-article/apod-2026-november-19-the-horsehead-and-flame-nebulas/",
       "publishedAt": "2026-11-19T05:05:00Z",
       "topics": [],
-      "heat": 54,
+      "heat": 34,
       "image": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/november/Horsehead_Nebula_Killion.jpg?w=6000&h=4800&fit=clip"
     },
     {
@@ -1007,29 +1093,30 @@
       "url": "https://science.nasa.gov/earth/earth-observatory/el-nino-rains-paint-the-atacama/",
       "publishedAt": "2026-11-19T05:00:00Z",
       "topics": [],
-      "heat": 54,
+      "heat": 34,
       "image": "https://assets.science.nasa.gov/dynamicimage/assets/science/esd/eo/images/iotd/2026/el-niño-rains-paint-the-atacama/atacamabloom_oli_20260914.jpg"
     },
     {
-      "id": "c8a4b2ac137e",
-      "title": "Microsoft CEO Satya Nadella explains why he asked 60K employees to quit",
-      "source": "TechCrunch",
-      "url": "https://techcrunch.com/2026/11/18/microsoft-ceo-satya-nadella-explains-why-he-asked-60k-employees-to-quit/",
-      "publishedAt": "2026-11-19T00:42:56Z",
+      "id": "aa0ce10af58c",
+      "title": "Automatic Checking of Compiler Correctness with E-Graphs",
+      "source": "Hacker News",
+      "url": "https://stng.substack.com/p/automatic-checking-of-compiler-correctness",
+      "publishedAt": "2026-11-17T20:12:34Z",
       "topics": [],
-      "heat": 45,
-      "image": "https://techcrunch.com/wp-content/uploads/2026/11/Microsoft-Satya-Nadella.jpg?resize=1200,800"
+      "heat": 31,
+      "hnPoints": 48,
+      "hnComments": 0
     },
     {
-      "id": "170613f0397e",
-      "title": "Computer Graphics from Scratch (2021)",
+      "id": "f4be8a8215f6",
+      "title": "Show HN: Radiotherapy Delivery Demo",
       "source": "Hacker News",
-      "url": "https://www.gabrielgambetta.com/computer-graphics-from-scratch/index.html",
-      "publishedAt": "2026-11-17T20:37:53Z",
+      "url": "https://tps.neuralrad.com",
+      "publishedAt": "2026-11-14T19:30:16Z",
       "topics": [],
-      "heat": 43,
-      "hnPoints": 61,
-      "hnComments": 12
+      "heat": 23,
+      "hnPoints": 8,
+      "hnComments": 3
     },
     {
       "id": "2fe429213137",
@@ -1038,7 +1125,7 @@
       "url": "https://arstechnica.com/tech-policy/2026/11/ted-cruz-led-committee-approves-trump-fcc-nominee-15-0-as-democrats-boycott-vote/",
       "publishedAt": "2026-11-18T23:25:04Z",
       "topics": [],
-      "heat": 42,
+      "heat": 22,
       "image": "https://cdn.arstechnica.net/wp-content/uploads/2025/01/ted-cruz-1152x648-1738093202.jpg"
     },
     {
@@ -1048,7 +1135,7 @@
       "url": "https://arstechnica.com/gadgets/2026/11/ukraine-blew-up-putins-bridge-using-relay-drones-to-bypass-starlink-limits/",
       "publishedAt": "2026-11-18T23:10:39Z",
       "topics": [],
-      "heat": 42,
+      "heat": 21,
       "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/Kerch-Strait-Bridge-smoke-generators-1152x648.jpg"
     },
     {
@@ -1060,7 +1147,7 @@
       "topics": [
         "Space"
       ],
-      "heat": 40,
+      "heat": 20,
       "image": "https://www.nasa.gov/wp-content/uploads/2026/11/ksc-20260411-ph-nrg01-0009large.jpg?w=1920"
     },
     {
@@ -1070,7 +1157,7 @@
       "url": "https://arstechnica.com/health/2026/11/trump-abandons-his-fda-nominee-and-senate-scraps-vote-on-his-nsf-pick/",
       "publishedAt": "2026-11-18T22:08:57Z",
       "topics": [],
-      "heat": 39,
+      "heat": 19,
       "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/09/GettyImages-2296270903-1024x648.jpg"
     },
     {
@@ -1082,7 +1169,7 @@
       "topics": [
         "Space"
       ],
-      "heat": 39,
+      "heat": 19,
       "image": "https://i0.wp.com/spacenews.com/wp-content/uploads/2026/10/LOGO_FLEXELLBlack.png?fit=1024%2C1024&ssl=1"
     },
     {
@@ -1092,7 +1179,7 @@
       "url": "https://arstechnica.com/gadgets/2026/11/netflix-ceo-admits-app-may-bury-stuff-you-want-to-watch-under-stuff-you-dont/",
       "publishedAt": "2026-11-18T21:29:24Z",
       "topics": [],
-      "heat": 38,
+      "heat": 18,
       "image": "https://cdn.arstechnica.net/wp-content/uploads/2025/01/squid1-1152x648.jpg"
     },
     {
@@ -1102,7 +1189,7 @@
       "url": "https://arstechnica.com/gadgets/2026/11/windows-server-2028-public-preview-bets-on-a-security-first-approach/",
       "publishedAt": "2026-11-18T20:41:12Z",
       "topics": [],
-      "heat": 36,
+      "heat": 16,
       "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/08/data-center-server-room-1152x648.jpg"
     },
     {
@@ -1114,7 +1201,7 @@
       "topics": [
         "Space"
       ],
-      "heat": 36,
+      "heat": 16,
       "image": "https://i0.wp.com/spacenews.com/wp-content/uploads/2026/11/all-points-logistics.png?fit=300%2C300&ssl=1"
     },
     {
@@ -1124,7 +1211,7 @@
       "url": "https://arstechnica.com/gadgets/2026/11/best-buy-sells-blu-rays-again-after-quitting-the-business-in-2024/",
       "publishedAt": "2026-11-18T19:31:17Z",
       "topics": [],
-      "heat": 34,
+      "heat": 14,
       "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/07/odyssey16-1152x648.jpg"
     },
     {
@@ -1134,85 +1221,20 @@
       "url": "https://arstechnica.com/tech-policy/2026/11/muse-privacy-invasions-are-freaking-out-meta-staffers-internal-chats-show/",
       "publishedAt": "2026-11-18T19:19:33Z",
       "topics": [],
-      "heat": 34,
+      "heat": 13,
       "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/GettyImages-2299665210-1024x648.jpg"
     },
     {
-      "id": "91ee562903b6",
-      "title": "Reverse-Engineering Kevin J. Lang's Lost OCaml Code in Apache DataSketches",
+      "id": "76ced3676a43",
+      "title": "I can’t believe it’s 1!",
       "source": "Hacker News",
-      "url": "https://www.tisonkun.io/posts/ai-repair-program/",
-      "publishedAt": "2026-11-16T13:58:56Z",
+      "url": "https://aperiodical.com/2026/11/i-cant-believe-its-1/",
+      "publishedAt": "2026-11-16T19:07:13Z",
       "topics": [],
-      "heat": 34,
-      "hnPoints": 38,
-      "hnComments": 2,
-      "image": "https://www.tisonkun.io/images/og.png"
-    },
-    {
-      "id": "fad74196548e",
-      "title": "MAF EAP – Holidays – How to manage the BAH HUMBUG that tries to sneak in",
-      "source": "NASA",
-      "url": "https://www.nasa.gov/centers-and-facilities/michoud/maf-eap/maf-eap-holidays-how-to-manage-the-bah-humbug-that-tries-to-sneak-in/",
-      "publishedAt": "2026-11-18T18:58:27Z",
-      "topics": [],
-      "heat": 33,
-      "image": "https://www.nasa.gov/wp-content/uploads/2026/11/mafeap-holidays.jpeg?w=2048"
-    },
-    {
-      "id": "b9ca9ac815bf",
-      "title": "Trump admin orders Kalshi to halt wagers on what words Trump will say",
-      "source": "Ars Technica",
-      "url": "https://arstechnica.com/tech-policy/2026/11/trump-admin-orders-kalshi-to-halt-wagers-on-what-words-trump-will-say/",
-      "publishedAt": "2026-11-18T18:46:08Z",
-      "topics": [],
-      "heat": 32,
-      "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/trump-teleprompter-1152x648-1795023886.jpg"
-    },
-    {
-      "id": "d4b0b3efa766",
-      "title": "The \"shameful\" measles data that lost the US its elimination status",
-      "source": "Ars Technica",
-      "url": "https://arstechnica.com/health/2026/11/the-shameful-measles-data-that-lost-the-us-its-elimination-status/",
-      "publishedAt": "2026-11-18T18:30:23Z",
-      "topics": [],
-      "heat": 32,
-      "image": "https://cdn.arstechnica.net/wp-content/uploads/2017/08/Medical_diagnosis_for_the_student_and_practitioner_1922_14761731976-e1708401738329-1152x648.jpg"
-    },
-    {
-      "id": "e4b9dab08990",
-      "title": "NASA Announces Mid-Power Electric Rocket Challenge for US Companies",
-      "source": "NASA",
-      "url": "https://www.nasa.gov/directorates/stmd/prizes-challenges-crowdsourcing-program/nasa-announces-mid-power-electric-rocket-challenge-for-us-companies/",
-      "publishedAt": "2026-11-18T18:12:32Z",
-      "topics": [
-        "Space"
-      ],
-      "heat": 31,
-      "image": "https://www.nasa.gov/wp-content/uploads/2023/03/hall-thruster.jpg?w=1041"
-    },
-    {
-      "id": "ab9779574333",
-      "title": "Will Wright's next simulation will use AI to mine content from your memories",
-      "source": "Ars Technica",
-      "url": "https://arstechnica.com/gaming/2026/11/will-wrights-next-simulation-will-use-ai-to-mine-content-from-your-memories/",
-      "publishedAt": "2026-11-18T18:10:33Z",
-      "topics": [
-        "AI"
-      ],
-      "heat": 31,
-      "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/Moonlit-walk-1152x648.png"
-    },
-    {
-      "id": "1bf94541c90e",
-      "title": "IRA Velinsky, industrial designer for Commodore and Atari",
-      "source": "Hacker News",
-      "url": "https://dfarq.homeip.net/ira-velinsky-industrial-designer-of-the-commodore-64/",
-      "publishedAt": "2026-11-18T10:39:16Z",
-      "topics": [],
-      "heat": 31,
-      "hnPoints": 6,
-      "hnComments": 0
+      "heat": 11,
+      "hnPoints": 3,
+      "hnComments": 0,
+      "image": "https://aperiodical.com/wp-content/uploads/2026/11/mixed-base.png"
     },
     {
       "id": "84a869be292d",
@@ -1221,23 +1243,8 @@
       "url": "https://spacenews.com/origami-and-solar-arrays/",
       "publishedAt": "2026-11-18T16:56:05Z",
       "topics": [],
-      "heat": 29,
+      "heat": 8,
       "image": "https://i0.wp.com/spacenews.com/wp-content/uploads/2026/11/2000-1500-spacenews-space-tech-expo-europe-sinn-scaled.jpg?fit=1024%2C768&ssl=1"
-    },
-    {
-      "id": "e40d9b875049",
-      "title": "Weight-Space Programming builds neural networks like a 1990s researcher",
-      "source": "Hacker News",
-      "url": "https://notesbylex.com/weight-space-programming-1990s",
-      "publishedAt": "2026-11-17T22:11:46Z",
-      "topics": [
-        "AI",
-        "Space"
-      ],
-      "heat": 28,
-      "hnPoints": 23,
-      "hnComments": 1,
-      "image": "https://notesbylex.com/_media/llm-descent/weight-space-programming-1990s-cover.jpg"
     },
     {
       "id": "5bc1e71da05a",
@@ -1248,22 +1255,8 @@
       "topics": [
         "AI"
       ],
-      "heat": 24,
+      "heat": 4,
       "image": "https://wp.technologyreview.com/wp-content/uploads/2026/11/11-Hype-thumb2.jpg?resize=1200,600"
-    },
-    {
-      "id": "137b79aac018",
-      "title": "Talking Venice with Mahesh Subramony at AMD In-Depth",
-      "source": "Hacker News",
-      "url": "https://chipsandcheese.com/p/talking-venice-with-mahesh-subramony",
-      "publishedAt": "2026-11-17T11:41:08Z",
-      "topics": [
-        "Chips"
-      ],
-      "heat": 22,
-      "hnPoints": 15,
-      "hnComments": 0,
-      "image": "https://substackcdn.com/image/youtube/w_728,c_limit/-d1XliQ0BQg"
     },
     {
       "id": "daaffa98f76e",
@@ -1274,7 +1267,7 @@
       "topics": [
         "AI"
       ],
-      "heat": 21,
+      "heat": 1,
       "image": "https://wp.technologyreview.com/wp-content/uploads/2026/05/260505_IVF_heroNEW-e1778701373952.jpg?w=840"
     },
     {
@@ -1286,7 +1279,7 @@
       "topics": [
         "AI"
       ],
-      "heat": 15,
+      "heat": 0,
       "image": "https://wp.technologyreview.com/wp-content/uploads/2026/11/Copy-of-Copy-of-BH1_6183_Ben_Hider_250430.jpg?w=840"
     },
     {
