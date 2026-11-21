@@ -1,0 +1,10 @@
+{
+  "id": "e3d07224cec4",
+  "url": "https://arstechnica.com/gadgets/2026/11/this-48-e-paper-display-can-be-whatever-you-want-it-to-be/",
+  "title": "This $48 e-paper display can be whatever you want it to be",
+  "source": "Ars Technica",
+  "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/10/TRMNL_Seeed_Kit_Ferengi_Rules-1152x648.jpg",
+  "ok": true,
+  "text": "One of the most useful gadgets in my kitchen is now a screen that never asks me for anything.\nI recently bought a $48 DIY display kit from Seeed Studio (yes, that’s three E’s), developed in collaboration with TRMNL, that lets me display whatever I want, using whichever software ecosystem I prefer.\nI previously built something similar by modding a Lenovo ThinkSmart View, which was selling for around $30 on eBay during a liquidation. The Lenovo device was only ever intended for business-to-business video, but it does a decent job of running a fork of LineageOS. Unfortunately, its limited RAM makes it sluggish. So when I came across the TRMNL kit and its e-paper display, I was sold.\nI’d have an always-on display that shows me the information I want, with no subscription required. And since the screen populates automatically, I would never have to wrestle with a slow interface.\n\nThe Seeed Studio kit and TRMNL ecosystem aren’t trying to compete with products like the recently announced Apple HomeView, a $299 home hub designed to get the whole family interacting with it. If anything, the TRMNL kit is the HomeView’s antithesis. It’s designed to be entirely passive: The e-paper display stays on, cycling through potentially useful information on your desk or in your kitchen, from calendars and weather to news and all sorts of ideas thought up by its community members.\nHere’s how it works.\nChoosing a path\nTRMNL, the platform company, was founded by indie hardware enthusiast Ryan Kulp in 2023. Its first e-paper device launched via crowdfunding in 2024.\nSeeed Studio provides the hardware. The established Shenzhen open hardware company is best known for its XIAO microcontroller boards.",
+  "words": 280
+}

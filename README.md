@@ -36,6 +36,10 @@ Switches sections, fills Trend Radar, and saves stories and drafts in this brows
 
 The headline list the page reads. A scheduled job rewrites this file. You can open it and look, but you do not type stories into it by hand.
 
+### `data/articles/`
+
+One JSON file per headline, named with that headline's id. The reader uses the extracted text when the file is there. If it is missing, the page shows a short summary when it has one and a link to the original.
+
 ### `scripts/fetch_trends.py`
 
 The job that downloads headlines. The list of sites is near the top, in `FEEDS`. Hacker News is just above that, because it is not an RSS feed.
@@ -47,6 +51,8 @@ python3 scripts/fetch_trends.py
 ```
 
 If one site does not answer, the script keeps the others. If every site fails and this file already exists, the script leaves the old file alone.
+
+The script writes `data/trends.json` before it reads article pages. Article text is saved under `data/articles/`. That step runs in a separate process, so a crash while reading a page does not throw away the new headline list.
 
 ### `assets/logo.png` and `assets/logo.svg`
 
@@ -62,7 +68,7 @@ Publishes the site after a change lands on `main`.
 
 ### `.github/workflows/trends.yml`
 
-Every two hours, and whenever someone presses "Run workflow", GitHub runs `scripts/fetch_trends.py`, saves `data/trends.json`, and commits that file. The publish workflow then puts the new file on the live site.
+Every two hours, and whenever someone presses "Run workflow", GitHub runs `scripts/fetch_trends.py`, then commits `data/trends.json` and `data/articles/`. The publish workflow puts those files on the live site. Headlines are saved before article text is read, so a crash in that step does not skip the commit.
 
 ## How to follow a different site
 
