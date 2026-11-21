@@ -29,9 +29,12 @@ jobs:
           python-version: "3.12"
 
       - name: Install the article extractor
-        run: pip install trafilatura
+        run: python -m pip install -r requirements-trends.txt
 
       - name: Fetch public headlines
+        env:
+          # Show feed progress even if a later child process aborts.
+          PYTHONUNBUFFERED: "1"
         run: python3 scripts/fetch_trends.py
 
       - name: Commit the data file

@@ -2,8 +2,14 @@
 """Fetch public tech headlines and write data/trends.json.
 
 Edit FEEDS to add or remove an RSS source. Hacker News is separate
-because it is a JSON API, not a feed. The script uses only the Python
-standard library. A source that fails is skipped. The others are kept.
+because it is a JSON API, not a feed. A source that fails is skipped.
+The others are kept.
+
+Headlines are written before article text is extracted. Extraction runs
+one page at a time in a child process, because trafilatura/lxml can abort
+the interpreter (SIGABRT) when several pages are parsed together. A crash
+skips that page. This process still exits successfully so the new headlines
+can be committed.
 """
 
 import hashlib
@@ -11,20 +17,40 @@ import html
 import json
 import math
 import os
+import queue
 import re
+import subprocess
 import sys
+import threading
+import time
 import urllib.request
 from urllib.parse import urljoin
 import xml.etree.ElementTree as ET
 
-import trafilatura
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, "data", "trends.json")
-ARTICLES = os.path.join(ROOT, "data", "articles")
+ARTICLE_ID = re.compile(r"[a-f0-9]{8,40}")
+READY_TIMEOUT = 45
+ARTICLE_TIMEOUT = 30
+MAX_EXTRACT_FAILURES = 3
+_TIMEOUT = object()
+
+
+def trends_path():
+    override = os.environ.get("NEXTMIND_TRENDS_OUT")
+    if override:
+        return override
+    return os.path.join(ROOT, "data", "trends.json")
+
+
+def articles_dir():
+    override = os.environ.get("NEXTMIND_ARTICLES_DIR")
+    if override:
+        return override
+    return os.path.join(ROOT, "data", "articles")
 WORD_CAP = 1500
 UA = "NextMindTrendRadar/1.0 (+https://github.com/Songmint32/nextmind-site)"
 HN_TOP = "https://hacker-news.firebaseio.com/v0/topstories.json"
@@ -237,10 +263,11 @@ def image_from_page(page_url):
 
 
 def load_image_cache():
-    if not os.path.exists(OUT):
+    path = trends_path()
+    if not os.path.exists(path):
         return {}
     try:
-        with open(OUT, encoding="utf-8") as handle:
+        with open(path, encoding="utf-8") as handle:
             payload = json.load(handle)
     except (OSError, json.JSONDecodeError):
         return {}
@@ -428,48 +455,98 @@ def main():
         elif key in cache and cache[key]:
             record["image"] = cache[key]
 
-    missing = [record for record in items_out if not record.get("image") and canonical(record["url"]) not in cache]
-    missing.sort(key=lambda row: row["heat"], reverse=True)
-    batch = missing[:PAGE_CAP]
+    if not items_out and os.path.exists(trends_path()):
+        print("No stories fetched. Leaving the existing data file in place.", flush=True)
+        return 0
 
-    def lookup(record):
-        found = image_from_page(record["url"])
-        return canonical(record["url"]), found
+    # Headlines land on disk before any picture fetch or article extract.
+    # A later native crash must not be required for this file to exist.
+    write_output(now, reports, items_out, cache)
+    report_write("Wrote", items_out)
 
-    if batch:
-        print("Looking up pictures for {} articles (cap {}).".format(len(batch), PAGE_CAP))
-        with ThreadPoolExecutor(max_workers=PAGE_WORKERS) as pool:
-            for key, found in pool.map(lookup, batch):
-                cache[key] = found or ""
-                if found:
-                    for record in items_out:
-                        if canonical(record["url"]) == key:
-                            record["image"] = found
+    try:
+        enrich_images(items_out, cache)
+    except Exception as error:
+        print("Picture lookup failed: {}".format(error), file=sys.stderr, flush=True)
 
-    kept_cache = {}
+    try:
+        save_articles(items_out, cache)
+    except Exception as error:
+        print("Article extract failed: {}".format(error), file=sys.stderr, flush=True)
+
+    try:
+        write_output(now, reports, items_out, cache)
+        report_write("Updated", items_out)
+    except Exception as error:
+        print("Could not refresh pictures in the data file: {}".format(error), file=sys.stderr, flush=True)
+    return 0
+
+
+def report_write(label, items_out):
+    with_images = sum(1 for row in items_out if row.get("image"))
+    print(
+        "{} {} stories ({} with pictures) to {}".format(
+            label, len(items_out), with_images, trends_path()
+        ),
+        flush=True,
+    )
+
+
+def kept_cache(items_out, cache):
+    kept = {}
     for record in items_out:
         key = canonical(record["url"])
         if key in cache:
-            kept_cache[key] = cache[key]
+            kept[key] = cache[key]
+    return kept
 
-    if not items_out and os.path.exists(OUT):
-        print("No stories fetched. Leaving the existing data file in place.")
-        return 0
 
-    save_articles(items_out)
+def write_output(now, reports, items_out, cache):
     payload = {
         "updatedAt": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
         "feeds": reports,
-        "imageCache": kept_cache,
+        "imageCache": kept_cache(items_out, cache),
         "items": items_out,
     }
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    with open(OUT, "w", encoding="utf-8") as handle:
-        json.dump(payload, handle, indent=2, ensure_ascii=False)
-        handle.write("\n")
-    with_images = sum(1 for row in items_out if row.get("image"))
-    print("Wrote {} stories ({} with pictures) to {}".format(len(items_out), with_images, OUT))
-    return 0
+    path = trends_path()
+    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    temporary = path + ".tmp"
+    try:
+        with open(temporary, "w", encoding="utf-8") as handle:
+            json.dump(payload, handle, indent=2, ensure_ascii=False)
+            handle.write("\n")
+        os.replace(temporary, path)
+    except Exception:
+        try:
+            os.remove(temporary)
+        except OSError:
+            pass
+        raise
+
+
+def lookup(record):
+    found = image_from_page(record["url"])
+    return canonical(record["url"]), found
+
+
+def enrich_images(items_out, cache):
+    missing = [
+        record
+        for record in items_out
+        if not record.get("image") and canonical(record["url"]) not in cache
+    ]
+    missing.sort(key=lambda row: row["heat"], reverse=True)
+    batch = missing[:PAGE_CAP]
+    if not batch:
+        return
+    print("Looking up pictures for {} articles (cap {}).".format(len(batch), PAGE_CAP), flush=True)
+    with ThreadPoolExecutor(max_workers=PAGE_WORKERS) as pool:
+        for key, found in pool.map(lookup, batch):
+            cache[key] = found or ""
+            if found:
+                for record in items_out:
+                    if canonical(record["url"]) == key:
+                        record["image"] = found
 
 
 def clean_article(text):
@@ -489,37 +566,43 @@ def cap_words(text, limit=WORD_CAP):
 
 
 def article_file(art_id):
-    return os.path.join(ARTICLES, art_id + ".json")
+    if not ARTICLE_ID.fullmatch(art_id or ""):
+        raise ValueError("bad article id")
+    return os.path.join(articles_dir(), art_id + ".json")
 
 
 def write_article(payload):
-    os.makedirs(ARTICLES, exist_ok=True)
+    os.makedirs(articles_dir(), exist_ok=True)
     with open(article_file(payload["id"]), "w", encoding="utf-8") as handle:
         json.dump(payload, handle, indent=2, ensure_ascii=False)
         handle.write("\n")
 
 
-def extract_article(record):
-    art_id = record["id"]
-    if os.path.exists(article_file(art_id)):
-        return "cached"
-    url = record.get("url") or ""
-    payload = {
-        "id": art_id,
-        "url": url,
+def article_shell(record):
+    return {
+        "id": record["id"],
+        "url": record.get("url") or "",
         "title": record.get("title") or "",
         "source": record.get("source") or "",
         "image": record.get("image") or "",
         "ok": False,
         "text": "",
     }
+
+
+def extract_article(record, trafilatura_mod):
+    art_id = record["id"]
+    if os.path.exists(article_file(art_id)):
+        return "cached", ""
+    url = record.get("url") or ""
+    payload = article_shell(record)
     if (not url.startswith("http")) or ("news.ycombinator.com/item" in url):
         write_article(payload)
-        return "skip"
+        return "skip", ""
     try:
         raw = fetch(url, timeout=12)
         html_text = raw.decode("utf-8", "replace")
-        doc = trafilatura.bare_extraction(
+        doc = trafilatura_mod.bare_extraction(
             html_text,
             url=url,
             include_comments=False,
@@ -530,33 +613,317 @@ def extract_article(record):
     except Exception as error:
         payload["error"] = str(error)[:180]
         write_article(payload)
-        return "fail"
+        return "fail", ""
     if not doc:
         write_article(payload)
-        return "fail"
+        return "fail", ""
     data = doc.as_dict() if hasattr(doc, "as_dict") else doc
     text = cap_words((data.get("text") or data.get("body") or "").strip())
     image = data.get("image") or payload["image"]
-    if image and not record.get("image"):
-        record["image"] = image
     payload["image"] = image or ""
+    found = image if image and not record.get("image") else ""
     if len(text.split()) < 80:
         write_article(payload)
-        return "short"
+        return "short", found
     payload["ok"] = True
     payload["text"] = text
     payload["words"] = len(text.split())
     write_article(payload)
-    return "ok"
+    return "ok", found
 
 
-def save_articles(items):
+def emit(payload):
+    sys.stdout.write(json.dumps(payload, ensure_ascii=False) + "\n")
+    sys.stdout.flush()
+
+
+def dry_extract(record):
+    """Test hook. Production runs do not set NEXTMIND_EXTRACT_DRY."""
+    title = record.get("title") or ""
+    if title == "__abort__":
+        os.abort()
+    payload = article_shell(record)
+    if title == "__fail__":
+        payload["error"] = "dry fail"
+        write_article(payload)
+        return "fail", ""
+    if title == "__image__":
+        payload["image"] = "https://example.com/from-article.jpg"
+        payload["ok"] = True
+        payload["text"] = " ".join(["word"] * 80)
+        payload["words"] = 80
+        write_article(payload)
+        return "ok", payload["image"]
+    payload["ok"] = True
+    payload["text"] = " ".join(["word"] * 80)
+    payload["words"] = 80
+    write_article(payload)
+    return "ok", ""
+
+
+def extract_worker_main():
+    # A native abort here kills only this child. The parent keeps the headlines.
+    if os.environ.get("NEXTMIND_EXTRACT_IMPORT_ABORT") == "1":
+        os.abort()
+    dry = os.environ.get("NEXTMIND_EXTRACT_DRY") == "1"
+    trafilatura_mod = None
+    if not dry:
+        import trafilatura
+        trafilatura_mod = trafilatura
+    emit({"ready": True})
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        record = {}
+        try:
+            record = json.loads(line)
+            if dry:
+                status, image = dry_extract(record)
+            else:
+                status, image = extract_article(record, trafilatura_mod)
+        except Exception as error:
+            status, image = "fail", ""
+            if record.get("id") and not os.path.exists(article_file(record["id"])):
+                try:
+                    payload = article_shell(record)
+                    payload["error"] = str(error)[:180]
+                    write_article(payload)
+                except (OSError, ValueError):
+                    pass
+        emit({"id": record.get("id") or "", "status": status, "image": image or ""})
+    return 0
+
+
+class LineReader:
+    def __init__(self, stream):
+        self._queue = queue.Queue()
+        thread = threading.Thread(target=self._read, args=(stream,), daemon=True)
+        thread.start()
+
+    def _read(self, stream):
+        try:
+            while True:
+                line = stream.readline()
+                if line == "":
+                    break
+                self._queue.put(line)
+        finally:
+            self._queue.put(None)
+
+    def read(self, timeout):
+        try:
+            return self._queue.get(timeout=timeout)
+        except queue.Empty:
+            return _TIMEOUT
+
+
+def read_json(reader, timeout):
+    deadline = time.monotonic() + timeout
+    while True:
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            return None
+        line = reader.read(remaining)
+        if line is _TIMEOUT or line is None:
+            return None
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            return json.loads(line)
+        except json.JSONDecodeError:
+            continue
+
+
+def worker_argv():
+    return [sys.executable, os.path.abspath(__file__), "--extract-worker"]
+
+
+def start_worker():
+    proc = subprocess.Popen(
+        worker_argv(),
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=None,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        bufsize=1,
+    )
+    return proc, LineReader(proc.stdout)
+
+
+def stop_worker(proc):
+    if proc is None or proc.poll() is not None:
+        if proc is not None:
+            try:
+                proc.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                pass
+        return
+    try:
+        proc.kill()
+    except OSError:
+        pass
+    try:
+        proc.wait(timeout=5)
+    except subprocess.TimeoutExpired:
+        pass
+
+
+def worker_ready(proc, reader):
+    message = read_json(reader, READY_TIMEOUT)
+    if not message or proc.poll() not in (None, 0):
+        return False
+    return message.get("ready") is True
+
+
+def send_record(proc, record):
+    payload = json.dumps(
+        {
+            "id": record["id"],
+            "url": record.get("url") or "",
+            "title": record.get("title") or "",
+            "source": record.get("source") or "",
+            "image": record.get("image") or "",
+        },
+        ensure_ascii=False,
+    )
+    proc.stdin.write(payload + "\n")
+    proc.stdin.flush()
+
+
+def remember_image(record, cache, image):
+    if not image or record.get("image"):
+        return False
+    record["image"] = image
+    key = canonical(record["url"])
+    if key:
+        cache[key] = image
+    return True
+
+
+def note_crash(record, counts):
+    try:
+        path = article_file(record["id"])
+    except ValueError:
+        counts["crash"] = counts.get("crash", 0) + 1
+        return
+    if not os.path.exists(path):
+        payload = article_shell(record)
+        payload["error"] = "extractor crashed"
+        try:
+            write_article(payload)
+        except (OSError, ValueError):
+            pass
+    counts["crash"] = counts.get("crash", 0) + 1
+
+
+def save_articles(items, cache=None):
+    """Extract article text one page at a time, outside this process.
+
+    cache is the headline image cache. Newly found pictures are written onto
+    the matching headline. Returns True when a picture was filled in.
+    """
+    if cache is None:
+        cache = {}
     counts = {}
-    with ThreadPoolExecutor(max_workers=6) as pool:
-        for status in pool.map(extract_article, items):
-            counts[status] = counts.get(status, 0) + 1
-    print("Articles:", counts)
+    pending = []
+    images_changed = False
+
+    def bump(status):
+        counts[status] = counts.get(status, 0) + 1
+
+    for record in items:
+        try:
+            path = article_file(record["id"])
+        except ValueError:
+            bump("skip")
+            continue
+        if os.path.exists(path):
+            bump("cached")
+            continue
+        url = record.get("url") or ""
+        if (not url.startswith("http")) or ("news.ycombinator.com/item" in url):
+            write_article(article_shell(record))
+            bump("skip")
+            continue
+        pending.append(record)
+
+    proc = None
+    if pending:
+        proc, reader = start_worker()
+        if not worker_ready(proc, reader):
+            stop_worker(proc)
+            proc, reader = start_worker()
+            if not worker_ready(proc, reader):
+                stop_worker(proc)
+                proc = None
+                print(
+                    "Article extractor unavailable. Headlines were kept.",
+                    file=sys.stderr,
+                    flush=True,
+                )
+
+    consecutive = 0
+    for record in pending:
+        if proc is None:
+            break
+        try:
+            send_record(proc, record)
+            message = read_json(reader, ARTICLE_TIMEOUT)
+        except (BrokenPipeError, OSError):
+            message = None
+        if (
+            message
+            and message.get("id") == record["id"]
+            and message.get("status")
+            and proc.poll() is None
+        ):
+            bump(message["status"])
+            if remember_image(record, cache, message.get("image") or ""):
+                images_changed = True
+            consecutive = 0
+            continue
+
+        stop_worker(proc)
+        note_crash(record, counts)
+        consecutive += 1
+        proc = None
+        if consecutive >= MAX_EXTRACT_FAILURES:
+            print(
+                "Article extractor keeps failing. Leaving the rest for the next run.",
+                file=sys.stderr,
+                flush=True,
+            )
+            break
+        proc, reader = start_worker()
+        if not worker_ready(proc, reader):
+            stop_worker(proc)
+            proc = None
+            print(
+                "Article extractor unavailable. Headlines were kept.",
+                file=sys.stderr,
+                flush=True,
+            )
+            break
+
+    if proc is not None and proc.poll() is None:
+        try:
+            proc.stdin.close()
+        except OSError:
+            pass
+        try:
+            proc.wait(timeout=5)
+        except subprocess.TimeoutExpired:
+            stop_worker(proc)
+
+    print("Articles:", counts, flush=True)
+    return images_changed
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] == "--extract-worker":
+        sys.exit(extract_worker_main())
     sys.exit(main())
