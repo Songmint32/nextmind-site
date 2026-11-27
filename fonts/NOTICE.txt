@@ -6,5 +6,8 @@ Copyright 2016 The Inter Project Authors (https://github.com/rsms/inter)
 IBM Plex Mono (latin, weight 400)
 Copyright 2017 IBM Corp. (https://github.com/IBM/plex)
 
-Both are licensed under the SIL Open Font License, Version 1.1.
+Newsreader (latin, weight 400, roman and italic; display files at optical size 64/48, text files at 16)
+Copyright 2020 The Newsreader Project Authors (https://github.com/productiontype/Newsreader)
+
+All three are licensed under the SIL Open Font License, Version 1.1.
 The license text is in OFL.txt in this folder.

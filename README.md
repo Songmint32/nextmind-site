@@ -1,24 +1,20 @@
 # NextMind
 
-NextMind is a small website for people who make short posts about tech. It has two tools:
-
-- **Trend Radar** shows real headlines from public tech sites.
-- **Script Studio** turns a headline into a spoken draft you can edit. The draft is a template. It does not call an AI service.
-- **Voiceover** reads a script out loud with the voice already on your computer or phone.
-
-There is nothing to install and nothing to build. The pages are plain files. GitHub hosts them for free.
+NextMind is a YouTube series of long-form deep dives on companies. This repository is its website: a home page, an index of every episode, and one page per episode with the video, a summary, chapters, key numbers, sources, and an optional transcript.
 
 The live address is:
 
 https://songmint32.github.io/nextmind-site/
 
+Episodes come from one file, `data/episodes.json`. Adding an episode never means touching the layout. See **Adding an episode** at the end of this file.
+
+The earlier creator tools (Trend Radar, Script Studio, Voiceover) are still online at `tools.html`, linked as **Tools** in the footer. Their files are described below.
+
 ## What each file is
 
-### `index.html`
+### `tools.html`
 
-The app. The sentences a visitor reads are in this file. To change wording, edit the words and leave the `<tags>` around them as they are.
-
-Search for `TODO`. Those notes are links that are not ready yet (the real X address, and a contact link). They use `#` on purpose.
+The creator tools app. It used to be the home page. Old links such as `/#radar` are sent here. The sentences a visitor reads are in this file. To change wording, edit the words and leave the `<tags>` around them as they are.
 
 ### `styles.css`
 
@@ -58,7 +54,7 @@ The lettering (Inter, and IBM Plex Mono for the small labels). `fonts/OFL.txt` i
 
 ### `.github/workflows/pages.yml`
 
-Publishes the site after a change lands on `main`.
+Publishes the site after a change lands on `main`. It runs `node scripts/build_site.mjs`, which writes the pages into `_site/`, and uploads that folder.
 
 ### `.github/workflows/trends.yml`
 
@@ -96,3 +92,71 @@ Open **Settings** and paste an ElevenLabs API key. It is saved only in this brow
 If that switch is off, the fetch can run but it cannot commit `data/trends.json`, so the live list will not refresh.
 
 The site itself is published from **Settings → Pages → Build and deployment → Source: GitHub Actions**. That is already how this repository publishes. A commit made by the headline job does not start the publish workflow by itself, so `pages.yml` also listens for the "Update trends" job to finish.
+
+## The episode site
+
+### `data/show.json`
+
+The show itself: the headline on the home page (`*stars*` set a phrase in italics), the short intro, the about text, and the YouTube channel address. While `youtube` starts with `PLACEHOLDER`, the subscribe buttons stay hidden. Paste the channel address (for example `https://www.youtube.com/@yourhandle`) and they appear everywhere.
+
+### `data/episodes.json`
+
+One entry per episode. The list order is the order upcoming episodes appear in. Published episodes sort by `releaseDate`, newest first.
+
+| Field | What it is |
+| --- | --- |
+| `slug` | The address: `eli-lilly` becomes `/episodes/eli-lilly/`. Lowercase words and hyphens. Do not change it after release, or old links break. |
+| `status` | `coming-soon` or `published`. |
+| `number` | Episode number, or `null`. |
+| `title`, `company`, `ticker` | `ticker` looks like `NYSE: LLY`. It is drawn on the cover when there is no artwork. |
+| `sector`, `category` | `sector` drives the filters on the episodes page. Keep the names consistent (`Healthcare`, not `Health care`). |
+| `releaseDate` | `2027-03-14`. Required when published. |
+| `duration` | `1:24:10`. |
+| `youtubeId` | The 11 characters after `v=` in the video address. Required when published. |
+| `logline` | One sentence under the title. |
+| `summary` | A list of short paragraphs. |
+| `chapters` | `{ "time": "12:04", "title": "…" }`. Times match the YouTube chapters. On the page they seek the video. |
+| `keyNumbers` | `{ "value": "…", "label": "…", "source": "…", "sourceUrl": "…" }`. Only figures that are said in the episode and that you can source. |
+| `sources` | `{ "group": "Company filings", "title": "…", "publisher": "…", "url": "https://…" }`. Items with the same `group` are listed together. |
+| `cover.color` | Background of the drawn cover, as a hex color. |
+| `artwork` | Optional 16:9 image: a file such as `assets/episodes/eli-lilly.jpg`, or a full address. Without it the page uses the YouTube thumbnail, and before release a drawn cover. |
+
+Any text that starts with `PLACEHOLDER` is treated as empty: the public site hides it, and a list item that still holds one is left out. The three seeded episodes (Eli Lilly, Estée Lauder, Palantir) are mostly placeholders on purpose. Nothing in them is a real date, video, number or quote yet.
+
+### `data/transcripts/`
+
+Optional. Save a transcript as `data/transcripts/<slug>.md` and it appears at the bottom of that episode page, folded. Separate paragraphs with a blank line. A paragraph may start with a timestamp and a speaker:
+
+```
+[12:04] Host: The paragraph text.
+```
+
+### `scripts/build_site.mjs`
+
+Turns the two data files into pages. It needs Node, nothing else.
+
+```bash
+node scripts/build_site.mjs             # the public site, in _site/
+node scripts/build_site.mjs --preview   # placeholders shown as marked boxes, in _preview/
+node scripts/serve.mjs                  # look at _site/ on http://127.0.0.1:8000/
+node scripts/serve.mjs --dir _preview --port 8001
+```
+
+The build stops with a plain message if the data is wrong (a repeated slug, a published episode with no video, a date in the wrong shape). It also lists every placeholder that is left. The templates are in `scripts/site/render.mjs`. The look is `assets/show.css`. `assets/show.js` adds the in-page player, chapter seeking, link copying, and the filters on the episodes page. Every page still reads fine without it.
+
+## Adding an episode
+
+1. Copy an entry in `data/episodes.json` and change the `slug`.
+2. Fill in what you have. Leave the rest as `PLACEHOLDER` or delete the field.
+3. On release day, set `status` to `published` and add `releaseDate` and `youtubeId`.
+4. Optional: run `node scripts/build_site.mjs` to check the data, then commit to `main`. The publish workflow builds and deploys.
+
+## Tests
+
+```bash
+npm ci
+npx playwright install chromium
+npx playwright test
+```
+
+`tests/workflow.spec.js` covers the tools. `tests/show.spec.js` covers the episode site. It also builds `tests/fixtures/site/`, a made-up published episode, because the real data has none yet.

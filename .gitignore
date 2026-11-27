@@ -4,3 +4,7 @@ playwright-report/
 scripts/__pycache__/
 .agents/
 skills-lock.json
+_site/
+_preview/
+_test-site/
+_test-fixture/

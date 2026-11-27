@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "example-holdings",
+    "status": "published",
+    "number": 1,
+    "title": "Example Holdings",
+    "company": "Example Holdings (fictional)",
+    "sector": "Industrials",
+    "category": "Test fixture",
+    "releaseDate": "2027-01-15",
+    "duration": "1:12:30",
+    "youtubeId": "AAAAAAAAAAA",
+    "logline": "A made-up company used to check the published episode layout.",
+    "summary": [
+      "Fixture summary paragraph. It is long enough to wrap across several lines so the measure and leading can be checked at every width.",
+      "A second fixture paragraph, shorter than the first."
+    ],
+    "chapters": [
+      { "time": "0:00", "title": "Cold open" },
+      { "time": "4:12", "title": "Fixture chapter two" },
+      { "time": "31:05", "title": "Fixture chapter three, with a longer title that wraps on a phone" },
+      { "time": "1:02:40", "title": "Fixture chapter four" }
+    ],
+    "keyNumbers": [
+      { "value": "00.0", "label": "Fixture number one", "source": "Fixture source, 2026" },
+      { "value": "0,000", "label": "Fixture number two", "source": "Fixture source, 2026" },
+      { "value": "0%", "label": "Fixture number three", "source": "Fixture source, 2026" }
+    ],
+    "sources": [
+      { "group": "Company filings", "title": "Fixture annual report", "publisher": "Example Holdings", "url": "https://example.test/report" },
+      { "group": "Company filings", "title": "Fixture quarterly report", "publisher": "Example Holdings", "url": "https://example.test/quarter" },
+      { "group": "Articles", "title": "Fixture article with a long title that should wrap neatly on small screens", "publisher": "Fixture Times", "url": "https://example.test/article" }
+    ],
+    "cover": { "color": "#3a3f2c" },
+    "artwork": null
+  },
+  {
+    "slug": "sample-labs",
+    "status": "coming-soon",
+    "title": "Sample Labs",
+    "sector": "Healthcare",
+    "category": "Test fixture",
+    "cover": { "color": "#6b2a22" }
+  },
+  {
+    "slug": "demo-retail",
+    "status": "coming-soon",
+    "title": "Demo Retail",
+    "sector": "Consumer",
+    "cover": { "color": "#1f2a44" }
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "name": "NextMind",
+  "headline": "Test fixture, *not real content.*",
+  "intro": "This data only exists for the automated tests. Every company, number and source in it is made up.",
+  "about": ["Fixture paragraph one.", "Fixture paragraph two."],
+  "siteUrl": "https://example.test/nextmind-site/",
+  "youtube": "https://www.youtube.com/@fixture-channel"
+}

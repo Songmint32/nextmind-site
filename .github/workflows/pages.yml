@@ -1,6 +1,6 @@
-# Publishes the homepage to GitHub Pages after a change lands on main.
-# The page files are copied into _site so the README and this workflow
-# are not part of the public site.
+# Publishes the site to GitHub Pages after a change lands on main.
+# scripts/build_site.mjs writes the pages into _site so the README and
+# this workflow are not part of the public site.
 
 name: Publish site
 
@@ -46,14 +46,15 @@ jobs:
           # Settings → Pages → Build and deployment → Source: GitHub Actions.
           enablement: true
 
-      - name: Gather the files the site needs
-        run: |
-          mkdir -p _site/fonts _site/assets _site/data/articles
-          cp index.html styles.css site.js script-studio.js _site/
-          cp assets/logo.svg assets/logo.png _site/assets/
-          cp fonts/*.woff2 _site/fonts/
-          cp data/trends.json _site/data/
-          cp data/articles/*.json _site/data/articles/
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # Writes the episode pages from data/episodes.json into _site, and
+      # copies the fonts, the tools page and the trend data next to them.
+      - name: Build the site
+        run: node scripts/build_site.mjs
 
       - name: Upload the site
         uses: actions/upload-pages-artifact@v3

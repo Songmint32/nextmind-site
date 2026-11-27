@@ -1,0 +1,107 @@
+[
+  {
+    "slug": "eli-lilly",
+    "status": "coming-soon",
+    "number": null,
+    "title": "Eli Lilly",
+    "company": "Eli Lilly and Company",
+    "ticker": "NYSE: LLY",
+    "sector": "Healthcare",
+    "category": "Pharmaceuticals",
+    "releaseDate": "PLACEHOLDER: YYYY-MM-DD",
+    "duration": "PLACEHOLDER: e.g. 1:24:10",
+    "youtubeId": "PLACEHOLDER: the 11-character id from the video URL",
+    "logline": "PLACEHOLDER: one-line hook shown under the title",
+    "summary": [
+      "PLACEHOLDER: two or three short paragraphs on what the episode covers."
+    ],
+    "chapters": [
+      { "time": "PLACEHOLDER", "title": "PLACEHOLDER: chapter title, with its YouTube timestamp in time (0:00)" },
+      { "time": "PLACEHOLDER", "title": "PLACEHOLDER: chapter title" },
+      { "time": "PLACEHOLDER", "title": "PLACEHOLDER: chapter title" },
+      { "time": "PLACEHOLDER", "title": "PLACEHOLDER: chapter title" }
+    ],
+    "keyNumbers": [
+      { "value": "PLACEHOLDER", "label": "PLACEHOLDER: what the number measures", "source": "PLACEHOLDER: where it comes from, with year" },
+      { "value": "PLACEHOLDER", "label": "PLACEHOLDER: what the number measures", "source": "PLACEHOLDER: where it comes from, with year" },
+      { "value": "PLACEHOLDER", "label": "PLACEHOLDER: what the number measures", "source": "PLACEHOLDER: where it comes from, with year" }
+    ],
+    "sources": [
+      { "group": "PLACEHOLDER: e.g. Company filings", "title": "PLACEHOLDER: source title", "publisher": "PLACEHOLDER: publisher", "url": "PLACEHOLDER: https://…" },
+      { "group": "PLACEHOLDER: e.g. Company filings", "title": "PLACEHOLDER: source title", "publisher": "PLACEHOLDER: publisher", "url": "PLACEHOLDER: https://…" },
+      { "group": "PLACEHOLDER: e.g. Books", "title": "PLACEHOLDER: source title", "publisher": "PLACEHOLDER: publisher", "url": "PLACEHOLDER: https://…" }
+    ],
+    "cover": { "color": "#6b2a22" },
+    "artwork": null
+  },
+  {
+    "slug": "estee-lauder",
+    "status": "coming-soon",
+    "number": null,
+    "title": "Estée Lauder",
+    "company": "The Estée Lauder Companies Inc.",
+    "ticker": "NYSE: EL",
+    "sector": "Consumer",
+    "category": "Beauty",
+    "releaseDate": "PLACEHOLDER: YYYY-MM-DD",
+    "duration": "PLACEHOLDER: e.g. 1:24:10",
+    "youtubeId": "PLACEHOLDER: the 11-character id from the video URL",
+    "logline": "PLACEHOLDER: one-line hook shown under the title",
+    "summary": [
+      "PLACEHOLDER: two or three short paragraphs on what the episode covers."
+    ],
+    "chapters": [
+      { "time": "PLACEHOLDER", "title": "PLACEHOLDER: chapter title, with its YouTube timestamp in time (0:00)" },
+      { "time": "PLACEHOLDER", "title": "PLACEHOLDER: chapter title" },
+      { "time": "PLACEHOLDER", "title": "PLACEHOLDER: chapter title" },
+      { "time": "PLACEHOLDER", "title": "PLACEHOLDER: chapter title" }
+    ],
+    "keyNumbers": [
+      { "value": "PLACEHOLDER", "label": "PLACEHOLDER: what the number measures", "source": "PLACEHOLDER: where it comes from, with year" },
+      { "value": "PLACEHOLDER", "label": "PLACEHOLDER: what the number measures", "source": "PLACEHOLDER: where it comes from, with year" },
+      { "value": "PLACEHOLDER", "label": "PLACEHOLDER: what the number measures", "source": "PLACEHOLDER: where it comes from, with year" }
+    ],
+    "sources": [
+      { "group": "PLACEHOLDER: e.g. Company filings", "title": "PLACEHOLDER: source title", "publisher": "PLACEHOLDER: publisher", "url": "PLACEHOLDER: https://…" },
+      { "group": "PLACEHOLDER: e.g. Company filings", "title": "PLACEHOLDER: source title", "publisher": "PLACEHOLDER: publisher", "url": "PLACEHOLDER: https://…" },
+      { "group": "PLACEHOLDER: e.g. Books", "title": "PLACEHOLDER: source title", "publisher": "PLACEHOLDER: publisher", "url": "PLACEHOLDER: https://…" }
+    ],
+    "cover": { "color": "#1f2a44" },
+    "artwork": null
+  },
+  {
+    "slug": "palantir",
+    "status": "coming-soon",
+    "number": null,
+    "title": "Palantir",
+    "company": "Palantir Technologies Inc.",
+    "ticker": "NASDAQ: PLTR",
+    "sector": "Technology",
+    "category": "Software",
+    "releaseDate": "PLACEHOLDER: YYYY-MM-DD",
+    "duration": "PLACEHOLDER: e.g. 1:24:10",
+    "youtubeId": "PLACEHOLDER: the 11-character id from the video URL",
+    "logline": "PLACEHOLDER: one-line hook shown under the title",
+    "summary": [
+      "PLACEHOLDER: two or three short paragraphs on what the episode covers."
+    ],
+    "chapters": [
+      { "time": "PLACEHOLDER", "title": "PLACEHOLDER: chapter title, with its YouTube timestamp in time (0:00)" },
+      { "time": "PLACEHOLDER", "title": "PLACEHOLDER: chapter title" },
+      { "time": "PLACEHOLDER", "title": "PLACEHOLDER: chapter title" },
+      { "time": "PLACEHOLDER", "title": "PLACEHOLDER: chapter title" }
+    ],
+    "keyNumbers": [
+      { "value": "PLACEHOLDER", "label": "PLACEHOLDER: what the number measures", "source": "PLACEHOLDER: where it comes from, with year" },
+      { "value": "PLACEHOLDER", "label": "PLACEHOLDER: what the number measures", "source": "PLACEHOLDER: where it comes from, with year" },
+      { "value": "PLACEHOLDER", "label": "PLACEHOLDER: what the number measures", "source": "PLACEHOLDER: where it comes from, with year" }
+    ],
+    "sources": [
+      { "group": "PLACEHOLDER: e.g. Company filings", "title": "PLACEHOLDER: source title", "publisher": "PLACEHOLDER: publisher", "url": "PLACEHOLDER: https://…" },
+      { "group": "PLACEHOLDER: e.g. Company filings", "title": "PLACEHOLDER: source title", "publisher": "PLACEHOLDER: publisher", "url": "PLACEHOLDER: https://…" },
+      { "group": "PLACEHOLDER: e.g. Books", "title": "PLACEHOLDER: source title", "publisher": "PLACEHOLDER: publisher", "url": "PLACEHOLDER: https://…" }
+    ],
+    "cover": { "color": "#262a2e" },
+    "artwork": null
+  }
+]
