@@ -12,12 +12,12 @@ import json
 import math
 import os
 import re
+import subprocess
 import sys
 import urllib.request
 from urllib.parse import urljoin
 import xml.etree.ElementTree as ET
 
-import trafilatura
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
@@ -25,6 +25,7 @@ from email.utils import parsedate_to_datetime
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "data", "trends.json")
 ARTICLES = os.path.join(ROOT, "data", "articles")
+trafilatura = None
 WORD_CAP = 1500
 UA = "NextMindTrendRadar/1.0 (+https://github.com/Songmint32/nextmind-site)"
 HN_TOP = "https://hacker-news.firebaseio.com/v0/topstories.json"
@@ -255,7 +256,15 @@ def load_image_cache():
     return cache
 
 
-def make_item(title, source, url, published, points=None, comments=None, image=""):
+def short_summary(value, limit=240):
+    value = clean(value)
+    if len(value) <= limit:
+        return value
+    cut = value[:limit].rsplit(" ", 1)[0].rstrip(".,;:")
+    return (cut or value[:limit]).strip() + "..."
+
+
+def make_item(title, source, url, published, points=None, comments=None, image="", summary=""):
     title = clean(title)
     url = (url or "").strip()
     if not title or not url or published is None:
@@ -270,6 +279,7 @@ def make_item(title, source, url, published, points=None, comments=None, image="
         "points": points,
         "comments": comments,
         "image": image or "",
+        "summary": short_summary(summary),
     }
 
 
@@ -289,6 +299,7 @@ def parse_feed(source, raw):
             page,
             time_of(node),
             image=image_from_feed(node, page),
+            summary=text_of(node, "description") or text_of(node, "summary"),
         )
         if item:
             items.append(item)
@@ -315,6 +326,7 @@ def load_hn():
             published,
             points=payload.get("score"),
             comments=payload.get("descendants"),
+            summary=payload.get("text") or "",
         )
 
     items = []
@@ -373,11 +385,15 @@ def main():
         if previous and previous[0] >= score:
             if not previous[1].get("image") and item.get("image"):
                 previous[1]["image"] = item["image"]
+            if not previous[1].get("summary") and item.get("summary"):
+                previous[1]["summary"] = item["summary"]
             return
         if previous:
             old = previous[1]
             if not item.get("image") and old.get("image"):
                 item["image"] = old["image"]
+            if not item.get("summary") and old.get("summary"):
+                item["summary"] = old["summary"]
             by_url.pop(canonical(old["url"]), None)
             by_title.pop(re.sub(r"[^a-z0-9]+", "", old["title"].lower()), None)
         pair = (score, item)
@@ -416,6 +432,8 @@ def main():
             record["hnComments"] = item["comments"]
         if item.get("image"):
             record["image"] = item["image"]
+        if item.get("summary"):
+            record["summary"] = item["summary"]
         items_out.append(record)
 
     items_out.sort(key=lambda row: (row["heat"], row["publishedAt"]), reverse=True)
@@ -456,20 +474,103 @@ def main():
         print("No stories fetched. Leaving the existing data file in place.")
         return 0
 
-    save_articles(items_out)
+    # Headlines land before article extract. A native crash in trafilatura
+    # must not throw away the list. PR #10 isolates each page in its own
+    # child; this run keeps that crash in one child for the whole batch.
+    write_trends(now, reports, items_out, kept_cache)
+    with_images = sum(1 for row in items_out if row.get("image"))
+    print("Wrote {} stories ({} with pictures) to {}".format(len(items_out), with_images, OUT))
+    code = subprocess.call([sys.executable, os.path.abspath(__file__), "--articles-only"])
+    if code != 0:
+        print(
+            "Article extract stopped ({}). Headlines were kept.".format(code),
+            file=sys.stderr,
+        )
+    else:
+        prune_articles([row["id"] for row in items_out])
+    return 0
+
+
+def write_trends(now, reports, items_out, cache):
     payload = {
         "updatedAt": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
         "feeds": reports,
-        "imageCache": kept_cache,
+        "imageCache": cache,
         "items": items_out,
     }
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    with open(OUT, "w", encoding="utf-8") as handle:
-        json.dump(payload, handle, indent=2, ensure_ascii=False)
-        handle.write("\n")
-    with_images = sum(1 for row in items_out if row.get("image"))
-    print("Wrote {} stories ({} with pictures) to {}".format(len(items_out), with_images, OUT))
+    atomic_write(OUT, payload)
+
+
+def atomic_write(path, payload):
+    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    temporary = path + ".tmp"
+    try:
+        with open(temporary, "w", encoding="utf-8") as handle:
+            json.dump(payload, handle, indent=2, ensure_ascii=False)
+            handle.write("\n")
+        os.replace(temporary, path)
+    except Exception:
+        try:
+            os.remove(temporary)
+        except OSError:
+            pass
+        raise
+
+
+def articles_only():
+    """Extract article text for the headlines already saved in trends.json.
+
+    Runs in a child process so a trafilatura/lxml abort does not skip the
+    headline commit. One abort still stops the rest of this batch; those
+    pages are tried again on the next run.
+    """
+    if not os.path.exists(OUT):
+        print("No trends file. Skipping articles.")
+        return 0
+    try:
+        with open(OUT, encoding="utf-8") as handle:
+            payload = json.load(handle)
+    except (OSError, json.JSONDecodeError) as error:
+        print("Could not read trends file: {}".format(error), file=sys.stderr)
+        return 0
+    items = payload.get("items") or []
+    before = [row.get("image") or "" for row in items]
+    try:
+        save_articles(items)
+    except Exception as error:
+        print("Article extract failed: {}".format(error), file=sys.stderr)
+        return 1
+    if [row.get("image") or "" for row in items] != before:
+        cache = payload.get("imageCache") or {}
+        for row in items:
+            image = row.get("image") or ""
+            key = canonical(row.get("url"))
+            if key and image:
+                cache[key] = image
+        payload["items"] = items
+        payload["imageCache"] = cache
+        atomic_write(OUT, payload)
     return 0
+
+
+def prune_articles(keep_ids):
+    if not os.path.isdir(ARTICLES):
+        return
+    keep = set(keep_ids)
+    removed = 0
+    for name in os.listdir(ARTICLES):
+        if not name.endswith(".json"):
+            continue
+        art_id = name[:-5]
+        if art_id in keep or not re.fullmatch(r"[a-f0-9]{12}", art_id):
+            continue
+        try:
+            os.remove(os.path.join(ARTICLES, name))
+            removed += 1
+        except OSError:
+            pass
+    if removed:
+        print("Removed {} article files that are no longer on the list.".format(removed))
 
 
 def clean_article(text):
@@ -540,17 +641,24 @@ def extract_article(record):
     if image and not record.get("image"):
         record["image"] = image
     payload["image"] = image or ""
+    if text:
+        payload["text"] = text
+        payload["words"] = len(text.split())
     if len(text.split()) < 80:
         write_article(payload)
         return "short"
     payload["ok"] = True
-    payload["text"] = text
-    payload["words"] = len(text.split())
     write_article(payload)
     return "ok"
 
 
 def save_articles(items):
+    # Import here so the parent process, which only writes headlines,
+    # never loads trafilatura. A crash on import stays in the child.
+    import trafilatura as extractor
+
+    global trafilatura
+    trafilatura = extractor
     counts = {}
     with ThreadPoolExecutor(max_workers=6) as pool:
         for status in pool.map(extract_article, items):
@@ -559,4 +667,6 @@ def save_articles(items):
 
 
 if __name__ == "__main__":
+    if "--articles-only" in sys.argv:
+        sys.exit(articles_only())
     sys.exit(main())

@@ -1,0 +1,10 @@
+{
+  "id": "89a203976283",
+  "url": "https://techcrunch.com/2026/11/02/a-fresh-wave-of-cyberattacks-has-hit-europes-supermarket-refrigerators-destroying-food-across-countries/",
+  "title": "A fresh wave of cyberattacks has hit Europe’s supermarket refrigerators, destroying food across countries",
+  "source": "TechCrunch",
+  "image": "https://techcrunch.com/wp-content/uploads/2026/11/supermarket-freezer-hack-2299514106.jpg?resize=1200,800",
+  "ok": true,
+  "text": "A second wave of cyberattacks is suspected to have hit supermarket refrigerators across Europe, causing fridges to increase temperatures and spoil food at dozens of stores across Belgium, Ireland, Luxembourg, and Sweden.\nSupermarket giants Ahold Delhaize and Colruyt confirmed the hacks overnight, with one Belgian company that operates Delhaize’s systems saying that the hackers had changed the settings to defrost, per Reuters. Stores have experienced heavy food losses from the cyberattacks, forcing supermarkets to throw out goods that had defrosted or were otherwise no longer consumable.\nThe cyberattacks follow earlier refrigerator hacks in France last month that caused food spoilage at hundreds of supermarkets by deliberately raising the temperature on the units. Security researchers said that the cause of the hacks was internet-connected refrigerators made by Danish company Danfoss, which was no longer providing security updates. Security company Claroty warned back in August that those refrigerator units were at risk of remote hacks and outages.\nThe freezer hacks underscore how cyberattacks can have real-world effects, including on the food supply chain, often as a result of weak or overlooked cybersecurity practices. In 2025, a cyberattack on food distributor giant UNFI resulted in food shortages and empty shelves at grocery stores and supermarkets across the United States.\nU.S. Department of Defense officials are reportedly investigating whether freezer units on military bases were hacked by Iran-backed hackers. Iranian hackers were also blamed for cyberattacks targeting U.S. water providers earlier this year.",
+  "words": 239
+}
